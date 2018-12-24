@@ -1,4 +1,5 @@
 // Configuration for your app
+const webpack = require('webpack')
 
 module.exports = function (ctx) {
   return {
@@ -26,6 +27,11 @@ module.exports = function (ctx) {
       // analyze: true,
       // extractCSS: false,
       extendWebpack (cfg) {
+        cfg.plugins.push(
+          new webpack.ProvidePlugin({
+            mapboxgl: 'mapbox-gl'
+          })
+        )
       }
     },
     devServer: {
