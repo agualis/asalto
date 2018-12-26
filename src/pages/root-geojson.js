@@ -1,11 +1,12 @@
-import { artworkGeojson } from './artwork-geojson'
-
-export const rootGeoJson = {
+export const rootGeoJson = (artworkFeatures) => ({
   'id': 'points',
   'type': 'symbol',
   'source': {
     'type': 'geojson',
-    'data': artworkGeojson
+    'data': {
+      type: 'FeatureCollection',
+      features: artworkFeatures
+    }
   },
   'layout': {
     'icon-image': '{icon}-15',
@@ -14,4 +15,4 @@ export const rootGeoJson = {
     'text-offset': [0, 0.6],
     'text-anchor': 'top'
   }
-}
+})
