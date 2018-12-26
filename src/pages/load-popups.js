@@ -10,12 +10,7 @@ export function addPopUps(map, features) {
 
     new Vue({
       render: h => h(
-        ArtPopup,
-        {
-          props: {
-            feature: feature
-          }
-        })
+        ArtPopup, { props: { feature, map } })
     }).$mount(`#${feature.id}`)
   })
 }

@@ -1,17 +1,19 @@
 <template>
-  <div>
-      <img :src="feature.imageUrl" width="50" height="50" @click="popupClicked(feature)">
-  </div>
+  <img :src="feature.imageUrl" width="50" height="50"
+       :title="feature.title"
+       @click="popupClicked(feature)">
 </template>
 
 <script>
   export default {
     props: {
-      feature: { required: true }
+      feature: {type: Object, required: true},
+      map: {type: Object, required: true}
     },
     methods: {
       popupClicked(feature) {
-        alert(`${feature.title} clicked!`);
+        this.map.flyTo({ center: feature.geometry.coordinates, zoom: 16  })
+        // alert(`${feature.title} clicked!`);
       }
     }
   }
@@ -20,5 +22,6 @@
 <style scoped>
   img {
     border-radius: 50%;
+    cursor: pointer;
   }
 </style>

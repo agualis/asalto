@@ -3,6 +3,7 @@ export let artworkFeatures = [
     type: 'Feature',
     title: 'Maddona del Cierzo',
     id: 'id1',
+    imageUrl: 'https://2.bp.blogspot.com/-C-70DmADVls/U09uaDN0zyI/AAAAAAAAgus/T75OrMgArJs/s1600/La+madonna+del+viento+ZGZ.jpg',
     geometry: {
       type: 'Point',
       coordinates: [-0.8856515, 41.6551381]
