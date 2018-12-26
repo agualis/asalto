@@ -18,7 +18,7 @@
 
         <q-toolbar-title>
           Asalto
-          <div slot="subtitle">Running on Quasar v{{ $q.version }}</div>
+          <div slot="subtitle">Festival Internacional de Arte Urbano</div>
         </q-toolbar-title>
       </q-toolbar>
     </q-layout-header>
@@ -39,7 +39,7 @@
         </q-item>
         <q-item @click.native="openURL('https://github.com/agualis/asalto/')">
           <q-item-side icon="code" />
-          <q-item-main label="GitHub" sublabel="github.com/quasarframework" />
+          <q-item-main label="GitHub" sublabel="github.com/agualis/asalto" />
         </q-item>
       </q-list>
     </q-layout-drawer>
