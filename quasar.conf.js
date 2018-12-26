@@ -1,5 +1,7 @@
 // Configuration for your app
 const webpack = require('webpack')
+const path = require('path')
+const envparsers = require('./config/envparser')
 
 module.exports = function (ctx) {
   return {
@@ -20,6 +22,7 @@ module.exports = function (ctx) {
     ],
     supportIE: false,
     build: {
+      env: envparsers(),
       scopeHoisting: true,
       // vueRouterMode: 'history',
       vueCompiler: true,
@@ -32,6 +35,10 @@ module.exports = function (ctx) {
             mapboxgl: 'mapbox-gl'
           })
         )
+        cfg.resolve.alias = {
+          ...cfg.resolve.alias, // This adds the existing alias
+          'env': path.resolve(__dirname, 'config/helpers/env.js')
+        }
       }
     },
     devServer: {

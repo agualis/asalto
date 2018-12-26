@@ -25,7 +25,7 @@
     components: {Mapbox},
     data() {
       return {
-        token: 'pk.eyJ1IjoiYWd1YWxpcyIsImEiOiJjaWlwenVkcHEwMjBudG1rbmVsazJlMWd0In0.6flDDkOGrCrx_0Tpe1k8Ww',
+        token: process.env.MAPBOX_TOKEN,
         mapOptions: mapOptions,
         geolocateControl: {
           show: true,
