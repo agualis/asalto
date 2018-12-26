@@ -26,12 +26,16 @@ module.exports = function (ctx) {
       // gzip: true,
       // analyze: true,
       // extractCSS: false,
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         cfg.plugins.push(
           new webpack.ProvidePlugin({
             mapboxgl: 'mapbox-gl'
           })
         )
+        cfg.resolve.alias = {
+          ...cfg.resolve.alias, // This adds the existing alias
+          'vue$': 'vue/dist/vue.js'
+        }
       }
     },
     devServer: {
