@@ -1,4 +1,4 @@
-export let geojson = {
+export let artworkGeojson = {
   type: 'FeatureCollection',
   features: [
     {

@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
       <mapbox :access-token="token"
               :mapOptions="options"
-              :geolocate-control="geolocate"
+              :geolocate-control="geolocateControl"
               :fullscreen-control="fullscreen"
               @map-load="mapLoaded"
       >
@@ -15,7 +15,7 @@
 
 <script>
 import Mapbox from 'mapbox-gl-vue';
-import { geojson } from './geojson'
+import { rootGeoJson } from './root-geojson'
 
 export default {
   name: 'PageIndex',
@@ -27,7 +27,7 @@ export default {
         { container: 'map',
           style: 'mapbox://styles/mapbox/streets-v9',
         },
-      geolocate: {
+      geolocateControl: {
         show: true,
           position: 'top-left'
       },
@@ -39,20 +39,7 @@ export default {
   },
   methods: {
     mapLoaded(map) {
-       map.addLayer( {
-           'id': 'points',
-        'type': 'symbol',
-        'source': {
-          'type': 'geojson',
-          'data': geojson},
-          'layout': {
-          'icon-image': '{icon}-15',
-          'text-field': '{title}',
-          'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-          'text-offset': [0, 0.6],
-          'text-anchor': 'top'
-        }
-       })
+       map.addLayer(rootGeoJson)
     }
   }
 }
