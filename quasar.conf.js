@@ -24,6 +24,7 @@ module.exports = function (ctx) {
     build: {
       env: envparsers(),
       scopeHoisting: true,
+      distDir: 'docs',
       // vueRouterMode: 'history',
       vueCompiler: true,
       // gzip: true,
