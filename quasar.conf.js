@@ -22,7 +22,7 @@ module.exports = function (ctx) {
     build: {
       scopeHoisting: true,
       // vueRouterMode: 'history',
-      // vueCompiler: true,
+      vueCompiler: true,
       // gzip: true,
       // analyze: true,
       // extractCSS: false,
@@ -32,10 +32,6 @@ module.exports = function (ctx) {
             mapboxgl: 'mapbox-gl'
           })
         )
-        cfg.resolve.alias = {
-          ...cfg.resolve.alias, // This adds the existing alias
-          'vue$': 'vue/dist/vue.js'
-        }
       }
     },
     devServer: {
