@@ -1,25 +1,26 @@
-let geojson = {
+export let geojson = {
   type: 'FeatureCollection',
-  features: [{
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates: [-77.032, 38.913]
+  features: [
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [-0.8856515, 41.6551381]
+      },
+      properties: {
+        title: 'Madonna del Viento',
+        description: 'Homenaje al cierzo de Isaac Mahow.'
+      }
     },
-    properties: {
-      title: 'Mapbox',
-      description: 'Washington, D.C.'
-    }
-  },
-  {
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates: [-122.414, 37.776]
-    },
-    properties: {
-      title: 'Mapbox',
-      description: 'San Francisco, California'
-    }
-  }]
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [-0.8849784, 41.6552364]
+      },
+      properties: {
+        title: 'Obra Matemática',
+        description: 'by Zepha'
+      }
+    }]
 };
