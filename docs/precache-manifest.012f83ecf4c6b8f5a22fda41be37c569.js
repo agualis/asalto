@@ -4,32 +4,36 @@ self.__precacheManifest = [
     "url": "fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.8a9a261c.woff2"
   },
   {
-    "revision": "8e14d93d93eac4ee817e89a47d0f12ac",
+    "revision": "95a7e389a23353f7b043080359646389",
     "url": "index.html"
-  },
-  {
-    "revision": "6ace500fa7327c17930d4bf3b0c09391",
-    "url": "statics/icons/safari-pinned-tab.svg"
-  },
-  {
-    "revision": "756daeb5939b220a1f01",
-    "url": "js/4102bf14.3fc8cb6f.js"
-  },
-  {
-    "revision": "a9ff913a3c17b881b663",
-    "url": "js/4b47640d.21cfc388.js"
   },
   {
     "revision": "b9aa277fcfc34c31db6c7a7ea3469b8c",
     "url": "statics/icons/site.webmanifest"
   },
   {
-    "revision": "abf45675f5fee782fe14",
-    "url": "js/app.85cbfa52.js"
+    "revision": "081cbdbbbaa4f557295f",
+    "url": "js/4847ca39.ba08b2a4.js"
   },
   {
-    "revision": "95ad9ad6bd05a1d606ec",
-    "url": "js/vendor.9b24da3d.js"
+    "revision": "a9ff913a3c17b881b663",
+    "url": "js/4b47640d.21cfc388.js"
+  },
+  {
+    "revision": "6ace500fa7327c17930d4bf3b0c09391",
+    "url": "statics/icons/safari-pinned-tab.svg"
+  },
+  {
+    "revision": "ae752b52182e7cd3d16c",
+    "url": "js/app.34601f9f.js"
+  },
+  {
+    "revision": "f127bade682084aac8d4",
+    "url": "js/vendor.6be82b34.js"
+  },
+  {
+    "revision": "588b4dec368e3ed4c1d756244afb103b",
+    "url": "statics/icons/icon-512x512.png"
   },
   {
     "revision": "c54576b2e283db0fa8192e3272431508",
@@ -37,7 +41,7 @@ self.__precacheManifest = [
   },
   {
     "revision": "588b4dec368e3ed4c1d756244afb103b",
-    "url": "statics/icons/icon-512x512.png"
+    "url": "statics/asalto-logo.png"
   },
   {
     "revision": "1c0a0f232321e46c2e6bda98fe5d749e",
@@ -48,24 +52,16 @@ self.__precacheManifest = [
     "url": "statics/icons/favicon.ico"
   },
   {
-    "revision": "6be0f7bf6979e44837a903bdc0eec151",
-    "url": "statics/icons/favicon-32x32.png"
-  },
-  {
-    "revision": "d2cb1ba1337c0fb3e01308e3a6a33818",
-    "url": "statics/icons/favicon-16x16.png"
-  },
-  {
-    "revision": "738e524a1efa6a853269",
-    "url": "js/14065ee6.ac146e33.js"
-  },
-  {
     "revision": "a493ba0aa0b8ec8068d786d7248bb92c",
     "url": "statics/icons/browserconfig.xml"
   },
   {
-    "revision": "588b4dec368e3ed4c1d756244afb103b",
-    "url": "statics/asalto-logo.png"
+    "revision": "756daeb5939b220a1f01",
+    "url": "js/4102bf14.3fc8cb6f.js"
+  },
+  {
+    "revision": "6be0f7bf6979e44837a903bdc0eec151",
+    "url": "statics/icons/favicon-32x32.png"
   },
   {
     "revision": "e715b1b1a7e487349203d93f7d15316a",
@@ -74,6 +70,10 @@ self.__precacheManifest = [
   {
     "revision": "a2508c521ccc7109b86eac441a990dfc",
     "url": "statics/icons/android-chrome-512x512.png"
+  },
+  {
+    "revision": "d2cb1ba1337c0fb3e01308e3a6a33818",
+    "url": "statics/icons/favicon-16x16.png"
   },
   {
     "revision": "c38ebd3cd38c98fbd16bf31d1d24ce64",
@@ -104,15 +104,15 @@ self.__precacheManifest = [
     "url": "fonts/KFOkCnqEu92Fr1MmgVxIIzQ.e9dbbe8a.woff"
   },
   {
-    "revision": "abf45675f5fee782fe14",
-    "url": "css/app.247188ea.css"
+    "revision": "ae752b52182e7cd3d16c",
+    "url": "css/app.0620826e.css"
+  },
+  {
+    "revision": "081cbdbbbaa4f557295f",
+    "url": "css/4847ca39.9cd63ec2.css"
   },
   {
     "revision": "756daeb5939b220a1f01",
     "url": "css/4102bf14.bb8cb33f.css"
-  },
-  {
-    "revision": "738e524a1efa6a853269",
-    "url": "css/14065ee6.2019f3e3.css"
   }
 ];
