@@ -10,9 +10,6 @@
   </q-page>
 </template>
 
-<style>
-</style>
-
 <script>
   import Mapbox from 'mapbox-gl-vue'
   import { artworkFeatures } from './artwork-features'
@@ -40,8 +37,7 @@
     methods: {
       mapLoaded(map) {
         map.addLayer(rootGeoJson(artworkFeatures))
-
-        addPopUps(map, artworkFeatures)
+        const popups = addPopUps(map, artworkFeatures)
         // loadClusters(map, null)
       }
     }
@@ -53,4 +49,4 @@
     width: 100%;
     height: 600px;
   }
-</style scoped>
+</style>

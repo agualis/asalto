@@ -10,15 +10,25 @@
   .mapboxgl-popup {
   }
 
- .mapboxgl-popup-content {
+ .mapboxgl-popup-content-wrapper {
+    padding: 0px;
+  }
+
+  .mapboxgl-popup-content {
     //border-radius: 50%;
     padding: 0px;
-
-  }
- .mapboxgl-popup-content-wrapper {
-    padding: 1px;
+    max-width: 400px;
   }
 
   .mapboxgl-popup-close-button {
     display: none;
+  }
+
+  .q-card  {
+    z-index: 100
+  }
+  .q-card-media  {
+    max-height: 150px;
+    max-width: 300px;
+    object-fit: cover;
   }
