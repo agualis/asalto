@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.012f83ecf4c6b8f5a22fda41be37c569.js"
+  "precache-manifest.2c1afe47609ae57dc0a70dbe07eceac9.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "asalto"});

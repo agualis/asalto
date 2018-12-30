@@ -20,8 +20,8 @@ self.__precacheManifest = [
     "url": "js/4b47640d.21cfc388.js"
   },
   {
-    "revision": "6ace500fa7327c17930d4bf3b0c09391",
-    "url": "statics/icons/safari-pinned-tab.svg"
+    "revision": "c54576b2e283db0fa8192e3272431508",
+    "url": "statics/icons/mstile-150x150.png"
   },
   {
     "revision": "ae752b52182e7cd3d16c",
@@ -32,48 +32,48 @@ self.__precacheManifest = [
     "url": "js/vendor.6be82b34.js"
   },
   {
-    "revision": "588b4dec368e3ed4c1d756244afb103b",
-    "url": "statics/icons/icon-512x512.png"
-  },
-  {
-    "revision": "c54576b2e283db0fa8192e3272431508",
-    "url": "statics/icons/mstile-150x150.png"
-  },
-  {
-    "revision": "588b4dec368e3ed4c1d756244afb103b",
-    "url": "statics/asalto-logo.png"
+    "revision": "6ace500fa7327c17930d4bf3b0c09391",
+    "url": "statics/icons/safari-pinned-tab.svg"
   },
   {
     "revision": "1c0a0f232321e46c2e6bda98fe5d749e",
     "url": "statics/icons/icon-192x192.png"
   },
   {
+    "revision": "588b4dec368e3ed4c1d756244afb103b",
+    "url": "statics/icons/icon-512x512.png"
+  },
+  {
     "revision": "8bbb629a425a659046bb0cbbdba073ce",
     "url": "statics/icons/favicon.ico"
-  },
-  {
-    "revision": "a493ba0aa0b8ec8068d786d7248bb92c",
-    "url": "statics/icons/browserconfig.xml"
-  },
-  {
-    "revision": "756daeb5939b220a1f01",
-    "url": "js/4102bf14.3fc8cb6f.js"
   },
   {
     "revision": "6be0f7bf6979e44837a903bdc0eec151",
     "url": "statics/icons/favicon-32x32.png"
   },
   {
+    "revision": "d2cb1ba1337c0fb3e01308e3a6a33818",
+    "url": "statics/icons/favicon-16x16.png"
+  },
+  {
+    "revision": "756daeb5939b220a1f01",
+    "url": "js/4102bf14.3fc8cb6f.js"
+  },
+  {
+    "revision": "588b4dec368e3ed4c1d756244afb103b",
+    "url": "statics/asalto-logo.png"
+  },
+  {
     "revision": "e715b1b1a7e487349203d93f7d15316a",
     "url": "statics/icons/apple-icon-152x152.png"
   },
   {
-    "revision": "a2508c521ccc7109b86eac441a990dfc",
-    "url": "statics/icons/android-chrome-512x512.png"
+    "revision": "a493ba0aa0b8ec8068d786d7248bb92c",
+    "url": "statics/icons/browserconfig.xml"
   },
   {
-    "revision": "d2cb1ba1337c0fb3e01308e3a6a33818",
-    "url": "statics/icons/favicon-16x16.png"
+    "revision": "a2508c521ccc7109b86eac441a990dfc",
+    "url": "statics/icons/android-chrome-512x512.png"
   },
   {
     "revision": "c38ebd3cd38c98fbd16bf31d1d24ce64",
