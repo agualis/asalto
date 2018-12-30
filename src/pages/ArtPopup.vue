@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import { bus } from '../../.quasar/app'
+  import { bus } from './main'
 
   export default {
     props: {
