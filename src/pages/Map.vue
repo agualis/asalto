@@ -23,7 +23,7 @@
     data() {
       return {
         token: process.env.MAPBOX_TOKEN,
-        mapOptions: mapOptions(this.center),
+        mapOptions: mapOptions(),
         geolocateControl: {
           show: true,
           position: 'top-left'
@@ -31,13 +31,12 @@
         fullscreen: {
           show: true,
           position: 'top-left'
-        },
-        center: null
+        }
       }
     },
     created() {
       if (!this.$route.params.coordinates) return
-      this.center = this.$route.params.coordinates.split(',')
+      this.mapOptions = mapOptions(this.$route.params.coordinates.split(','))
     },
     methods: {
       mapLoaded(map) {
