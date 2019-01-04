@@ -1,52 +1,26 @@
-  @import '~variables'
-// app global css
- .marker {
-    //background-image: url('../icons/marker-15.svg');
-    background-size: cover;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-  }
+@import '~variables'
+@import './maps'
+@import './cards'
 
-  .mapboxgl-popup {
-  }
+.q-list {
+  color: white;
+  background-color: $primary;
+}
 
- .mapboxgl-popup-content-wrapper {
-    padding: 0px;
-  }
+.q-list-header {
+  color: white
+}
 
-  .mapboxgl-popup-content {
-    //border-radius: 50%;
-    padding: 0px;
-    max-width: 400px;
-  }
+.q-item-sublabel {
+  color: white
+}
 
-  .mapboxgl-popup-close-button {
-    display: none;
-  }
+.q-item-side {
+  color: white
+}
 
-  .q-card  {
-    z-index: 100
-  }
-  .q-card-media  {
-    max-height: 150px;
-    max-width: 300px;
-    object-fit: cover;
-  }
-
-  .q-list {
-    color: white;
-    background-color: $primary;
-  }
-
-  .q-list-header {
-    color: white
-  }
-
-  .q-item-sublabel {
-    color: white
-  }
-
-  .q-item-side {
-    color: white
-  }
+.street {
+  font-family: streetFont;
+  font-size: 20px;
+  cursor: pointer;
+}
