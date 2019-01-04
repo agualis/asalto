@@ -1,14 +1,16 @@
 <template>
-  <q-list class="street">
-    <q-list-header>Nearest</q-list-header>
-    <q-item v-for="feature in features"
-            :key="feature.id"
-            @click.native="openDetail(feature.id)">
-      <q-item-side :image="feature.imageUrl"/>
-      <q-item-main :label="feature.title"/>
-      <q-item-side right icon="more_horiz"/>
-    </q-item>
-  </q-list>
+  <div class="street">
+    <q-list >
+      <q-list-header>Nearest</q-list-header>
+      <q-item v-for="feature in features"
+              :key="feature.id"
+              @click.native="openDetail(feature.id)">
+        <q-item-side :image="feature.imageUrl"/>
+        <q-item-main :label="feature.title"/>
+        <q-item-side right icon="more_horiz"/>
+      </q-item>
+    </q-list>
+  </div>
 </template>
 
 <script>
@@ -29,10 +31,5 @@
 </script>
 
 <style>
-  .street {
-    font-family: streetFont;
-    font-size: 20px;
-    cursor: pointer;
-  }
 </style>
 

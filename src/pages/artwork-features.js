@@ -1,5 +1,5 @@
 export let artworkFeatures = {
-  1: {
+  'id1': {
     type: 'Feature',
     title: 'Maddona del Cierzo',
     author: 'Mahow',
@@ -13,7 +13,7 @@ export let artworkFeatures = {
       description: `En muchas ocasiones, cruzar los puentes de Zaragoza me trae un recuerdo de infancia: creía que entre puente y puente había cientos de zonas diferentes para jugar y que en alguno de sus posibles rincones  podían habitar todo tipo de personajes. En mi imaginación, cabía un gigante. Ella-que es como lo imaginaba- me resolvía la incógnita sobre la procedencia del cierzo que llenaba mi portal de hojas,  exasperaba a los mayores  y me permitía disfrutar de un viento a veces casi huracanado. Quiero que la gente vea la gigante que yo veía, que lleva toda la vida en la misma ciudad, con nosotros, los que estaban antes, y los que vendrán.`
     }
   },
-  2: {
+  'id2': {
     type: 'Feature',
     id: 'id2',
     title: 'Maths',
