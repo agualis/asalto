@@ -1,20 +1,20 @@
-import { artworkFeatures } from './artwork-features'
+import { data } from './clusters'
+
+const ARTWORKS_SOURCE = 'artworks'
+export const CLUSTER_MAX_ZOOM = 14
 
 export function loadClusters(map, features) {
-  map.addSource("artworks", {
+  map.addSource(ARTWORKS_SOURCE, {
     type: "geojson",
-    data: {
-      type: 'FeatureCollection',
-      features: artworkFeatures
-    },
+    data,
     cluster: true,
-    clusterMaxZoom: 14, // Max zoom to cluster points on
+    clusterMaxZoom: CLUSTER_MAX_ZOOM, // Max zoom to cluster points on
     clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
   })
   map.addLayer({
     id: "clusters",
     type: "circle",
-    source: "artworks",
+    source: ARTWORKS_SOURCE,
     filter: ["has", "point_count"],
     paint: {
       // Use step expressions (https://www.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
@@ -41,5 +41,17 @@ export function loadClusters(map, features) {
         40
       ]
     }
-  });
+  })
+
+  map.addLayer({
+    id: "cluster-count",
+    type: "symbol",
+    source: ARTWORKS_SOURCE,
+    filter: ["has", "point_count"],
+    layout: {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 14
+    }
+  })
 }

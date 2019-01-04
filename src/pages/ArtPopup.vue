@@ -1,5 +1,5 @@
 <template>
-  <div @click="popupClicked(feature)" class="preview">
+  <div v-if="enoughZoom" @click="popupClicked(feature)" class="preview">
     <img v-if="!opened"
          :src="feature.imageUrl" width="50" height="50"
          :title="feature.title">
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+  import { CLUSTER_MAX_ZOOM } from './load-clusters'
   import { bus } from './main'
   import CardButton from '../components/CardButton'
   import By from './By'
@@ -38,10 +39,15 @@
       bus.$on('featureZoomed', (zoomedId) => {
         this.opened = this.feature.id === zoomedId ? true : false
       })
+      bus.$on('mapZoomed', (zoomLevel) => {
+        console.log('YEAH', this.feature.id)
+        this.zoomLevel = zoomLevel
+      })
     },
     data() {
       return {
-        opened: false
+        opened: false,
+        zoomLevel: this.map.getZoom()
       }
     },
     methods: {
@@ -59,6 +65,11 @@
       },
       openDetail() {
         this.$router.push(`/detail/${this.feature.id}`)
+      }
+    },
+    computed: {
+      enoughZoom() {
+        return this.zoomLevel >= CLUSTER_MAX_ZOOM
       }
     }
   }

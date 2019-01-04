@@ -13,7 +13,9 @@
 <script>
   import Mapbox from 'mapbox-gl-vue'
   import { artworkFeatures } from './artwork-features'
+  import { loadClusters } from './load-clusters'
   import { addPopUps } from './load-popups'
+  import { bus } from './main'
   import { mapOptions } from './map-options'
   import { rootGeoJson } from './root-geojson'
 
@@ -40,9 +42,13 @@
     },
     methods: {
       mapLoaded(map) {
+        map.on('zoom', () => {
+          console.log(map.getZoom())
+          bus.$emit('mapZoomed', map.getZoom())
+        })
         map.addLayer(rootGeoJson(artworkFeatures))
-        const popups = addPopUps(map, artworkFeatures, this.$router)
-        // loadClusters(map, null)
+        addPopUps(map, artworkFeatures, this.$router)
+        loadClusters(map, null)
       }
     }
   }
