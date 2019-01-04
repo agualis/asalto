@@ -1,21 +1,21 @@
 <template>
-  <div @click="popupClicked(feature)">
+  <div @click="popupClicked(feature)" class="preview">
     <img v-if="!opened"
-         class="preview"
          :src="feature.imageUrl" width="50" height="50"
          :title="feature.title">
-    <q-card v-if="opened" color="primary" >
+    <q-card v-if="opened" color="primary">
       <q-card-media>
         <img :src="feature.imageUrl">
       </q-card-media>
-      <q-card-title>
+      <q-card-title class="relative-position">
+         <CardButton :onClick="openDetail" icon="more_horiz"></CardButton>
         {{feature.title}}
-        <div slot="right" class="row items-center">
-          by {{ feature.author }}
+        <div class="row items-center">
+          <By/> &nbsp; {{feature.author}}
         </div>
       </q-card-title>
       <q-card-main>
-        {{ feature.properties.description }}
+         <!--<q-btn icon="more_horiz" left @click.native="openDetail">more</q-btn>-->
       </q-card-main>
     </q-card>
   </div>
@@ -23,8 +23,13 @@
 
 <script>
   import { bus } from './main'
+  import CardButton from '../components/CardButton'
+  import By from './By'
 
   export default {
+    components: {
+      By, CardButton
+    },
     props: {
       feature: {type: Object, required: true },
       map: {type: Object, required: true }
@@ -51,12 +56,17 @@
           zoom: 16,
           offset: [0, 0]
         })
+      },
+      openDetail() {
+        this.$router.push(`/detail/${this.feature.id}`)
       }
     }
   }
 </script>
 
 <style lang="stylus" type="text/stylus" scoped>
+  @import '~variables'
+
   .preview {
     border-radius: 50%;
     cursor: pointer;

@@ -5,12 +5,12 @@
         <img :src="feature.imageUrl"/>
       </q-card-media>
       <q-card-title class="relative-position">
-        <q-btn fab color="secondary" icon="place"
+        <q-btn fab color="primary" icon="place"
                class="absolute"
                @click.native="goToGeoLocation"
                style="top: 0; right: 8px; transform: translateY(-50%);" />
 
-        {{ feature.title }} <span class="street">by</span> {{ feature.author }}
+        {{ feature.title }} <By/> {{ feature.author }}
 
       </q-card-title>
       <q-card-main>
@@ -22,8 +22,10 @@
 
 <script>
   import { artworkFeatures } from './artwork-features'
+  import By from './By'
 
   export default {
+    components: { By },
     data() {
       return {
         feature: null
@@ -37,7 +39,7 @@
         this.$router.replace('/list')
       },
       goToGeoLocation() {
-        this.$router.push('/')
+        this.$router.push('/map/' + this.feature.geometry.coordinates.join(','))
       }
     }
   }

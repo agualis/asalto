@@ -2,6 +2,10 @@
 @import './maps'
 @import './cards'
 
+.q-layout {
+  background-color: $primary;
+}
+
 .q-list {
   color: white;
   background-color: $primary;
@@ -11,8 +15,13 @@
   color: white
 }
 
+.q-item-label {
+  color: white
+}
+
 .q-item-sublabel {
   color: white
+  font-style: italic;
 }
 
 .q-item-side {
@@ -23,4 +32,11 @@
   font-family: streetFont;
   font-size: 20px;
   cursor: pointer;
+}
+
+.q-toolbar-title {
+  font-style: oblique;
+}
+.q-toolbar-subtitle {
+  font-family: streetFont;
 }

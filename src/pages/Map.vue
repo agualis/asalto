@@ -23,7 +23,7 @@
     data() {
       return {
         token: process.env.MAPBOX_TOKEN,
-        mapOptions: mapOptions,
+        mapOptions: mapOptions(this.center),
         geolocateControl: {
           show: true,
           position: 'top-left'
@@ -31,13 +31,18 @@
         fullscreen: {
           show: true,
           position: 'top-left'
-        }
+        },
+        center: null
       }
+    },
+    created() {
+      if (!this.$route.params.coordinates) return
+      this.center = this.$route.params.coordinates.split(',')
     },
     methods: {
       mapLoaded(map) {
         map.addLayer(rootGeoJson(artworkFeatures))
-        const popups = addPopUps(map, artworkFeatures)
+        const popups = addPopUps(map, artworkFeatures, this.$router)
         // loadClusters(map, null)
       }
     }
@@ -47,6 +52,6 @@
 <style scoped>
   #map {
     width: 100%;
-    height: 800px;
+    height: 50rem;
   }
 </style>

@@ -5,6 +5,7 @@ const routes = [
     component: () => import('layouts/MyLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Map.vue') },
+      { path: 'map/:coordinates', component: () => import('pages/Map.vue') },
       { path: 'list', component: () => import('pages/List.vue') },
       { path: 'detail/:workId', component: () => import('pages/Detail.vue') }
     ]
