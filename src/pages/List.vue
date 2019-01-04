@@ -1,6 +1,5 @@
 <template>
-  <div class="street">URBAN
-  <q-list dark>
+  <q-list class="street">
     <q-list-header>Nearest</q-list-header>
     <q-item v-for="feature in features"
             :key="feature.id"
@@ -10,7 +9,6 @@
       <q-item-side right icon="more_horiz"/>
     </q-item>
   </q-list>
-    </div>
 </template>
 
 <script>
@@ -34,9 +32,6 @@
   .street {
     font-family: streetFont;
     font-size: 20px;
-    cursor: pointer;
-  }
-  .q-item {
     cursor: pointer;
   }
 </style>
