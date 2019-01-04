@@ -2,7 +2,7 @@ import Vue from 'vue'
 import ArtPopup from './ArtPopup'
 
 export function addPopUps(map, features) {
-  features.forEach(feature => {
+  Object.values(features).forEach(feature => {
     new mapboxgl.Popup({closeOnClick: false})
     .setLngLat(feature.geometry.coordinates)
     .setHTML(`<div id="${feature.id}"></div>`)
