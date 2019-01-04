@@ -4,17 +4,17 @@
       <q-card-media overlay-position="top">
         <img :src="feature.imageUrl"/>
       </q-card-media>
-      <q-card-title>
-        <h5>{{ feature.title }} <span class="street">by</span> {{ feature.author }}</h5>
-        <q-btn slot="right" flat round color="secondary" size="2rem">
-          <q-icon name="my_location" @click.native="goToGeoLocation"/>
-        </q-btn>
-        <q-btn slot="right" flat round color="secondary" size="2rem">
-          <q-icon name="arrow_back" @click.native="goBack"/>
-        </q-btn>
+      <q-card-title class="relative-position">
+        <q-btn fab color="secondary" icon="place"
+               class="absolute"
+               @click.native="goToGeoLocation"
+               style="top: 0; right: 8px; transform: translateY(-50%);" />
+
+        {{ feature.title }} <span class="street">by</span> {{ feature.author }}
+
       </q-card-title>
       <q-card-main>
-        <span>{{feature.properties.description}}</span>
+        <span class="text-weight-light">{{feature.properties.description}}</span>
       </q-card-main>
     </q-card>
   </div>
@@ -37,7 +37,7 @@
         this.$router.replace('/list')
       },
       goToGeoLocation() {
-        this.$router.replace('/')
+        this.$router.push('/')
       }
     }
   }
@@ -45,11 +45,6 @@
 
 <style lang="stylus" type="text/stylus" scoped>
   @import '~variables'
-
-  img {
-    max-width: 40%;
-    max-height: 40%;
-  }
 
   .block {
     margin: 0.5rem;
@@ -61,15 +56,12 @@
     padding-right: 2rem;
   }
 
-  .q-card {
-    min-width : 320px
-    margin-top: -8px
-    margin-left: -8px
-    margin-right: -8px
+  .q-card-main {
+    font-size: 1.1rem;
   }
 
-  .q-card-main {
-    font-size: 1.2rem;
+  .q-card-media {
+    max-height: 22rem;
   }
 </style>
 

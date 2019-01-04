@@ -56,12 +56,16 @@
   }
 </script>
 
-<style scoped>
+<style lang="stylus" type="text/stylus" scoped>
   .preview {
     border-radius: 50%;
     cursor: pointer;
   }
   img {
     object-fit: cover;
+  }
+
+ .q-card-media {
+    max-height: 12rem;
   }
 </style>
