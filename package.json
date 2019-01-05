@@ -7,19 +7,20 @@
   "author": "Alberto Gualis <agualis@gmail.com>",
   "private": true,
   "scripts": {
-    "test": "jest -c jest.config.js"
+    "test": "NODE_ENV=test jest -c jest.config.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "dotenv": "^6.2.0",
+    "geolib": "^2.0.24",
     "mapbox-gl": "^0.52.0",
     "mapbox-gl-vue": "^1.9.0",
     "vue-i18n": "^7.3.3"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.4.2",
     "jest": "^23.6.0",
+    "babel-jest": "^23.4.2",
     "jest-serializer-vue": "^2.0.2",
     "jest-transform-stub": "^1.0.0",
     "quasar-cli": "^0.17.0",

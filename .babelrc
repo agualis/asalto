@@ -1,40 +1,52 @@
 {
-  "env": {
-    "dev": {
-      "presets": [    [
-        "@babel/preset-env", {
-          "modules": "commonjs",
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-      ]
-    }
-  },
   "presets": [
     [
       "@babel/preset-env", {
         "modules": false,
         "loose": false,
-        "useBuiltIns": "usage",
-        "exclude": [ "transform-classes" ]
+        "useBuiltIns": "usage"
+      }
+    ],
+    [
+      "@babel/preset-stage-2", {
+        "modules": false,
+        "loose": false,
+        "useBuiltIns": true,
+        "decoratorsLegacy": true
       }
     ]
   ],
   "plugins": [
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    "@babel/plugin-proposal-function-sent",
-    "@babel/plugin-proposal-export-namespace-from",
-    "@babel/plugin-proposal-numeric-separator",
-    "@babel/plugin-proposal-throw-expressions",
-    "@babel/plugin-syntax-dynamic-import",
-    "@babel/plugin-proposal-object-rest-spread",
     [
-      "@babel/plugin-transform-runtime", {
-      "regenerator": false
-    }
+      "@babel/transform-runtime", {
+        "polyfill": false,
+        "regenerator": false
+      }
     ]
   ],
-  "comments": false
+  "comments": false,
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env", {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ],
+      "plugins": [
+        [
+          "transform-imports",
+          {
+            "quasar": {
+              "transform": "quasar-framework/dist/babel-transforms/imports.mat.js",
+              "preventFullImport": false
+            }
+          }
+        ]
+      ]
+    }
+  }
 }
