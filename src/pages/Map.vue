@@ -42,13 +42,17 @@
     },
     methods: {
       mapLoaded(map) {
-        map.on('zoom', () => {
-          console.log(map.getZoom())
-          bus.$emit('mapZoomed', map.getZoom())
-        })
-        map.addLayer(rootGeoJson(artworkFeatures))
         addPopUps(map, artworkFeatures, this.$router)
+        // map.addLayer(rootGeoJson(artworkFeatures))
         loadClusters(map, null)
+
+        map.on('moveend', ()=> {
+          let unclusteredIds = map.queryRenderedFeatures({layers: ['unclustered-point']})
+            .map((feature) => feature.properties.id)
+          console.error('ZOOM', map.getZoom())
+          const event = { unclusteredIds: unclusteredIds, zoom: map.getZoom() }
+          bus.$emit('mapZoomed', event)
+        })
       }
     }
   }

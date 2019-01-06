@@ -1,5 +1,5 @@
 <template>
-  <div v-if="enoughZoom" @click="popupClicked(feature)" class="preview">
+  <div v-if="show" @click="popupClicked(feature)" class="preview">
     <img v-if="!opened"
          :src="feature.imageUrl" width="50" height="50"
          :title="feature.title">
@@ -32,22 +32,24 @@
       By, CardButton
     },
     props: {
-      feature: {type: Object, required: true },
-      map: {type: Object, required: true }
+      feature: { type: Object, required: true },
+      map: { type: Object, required: true },
+      popup: { type: Object, required: true }
     },
     created() {
       bus.$on('featureZoomed', (zoomedId) => {
         this.opened = this.feature.id === zoomedId ? true : false
       })
-      bus.$on('mapZoomed', (zoomLevel) => {
-        console.log('YEAH', this.feature.id)
-        this.zoomLevel = zoomLevel
+      bus.$on('mapZoomed', (event) => {
+        this.unclusteredIds = event.unclusteredIds
+        this.zoomLevel = event.zoom
       })
     },
     data() {
       return {
         opened: false,
-        zoomLevel: this.map.getZoom()
+        zoomLevel: this.map.getZoom(),
+        unclusteredIds: []
       }
     },
     methods: {
@@ -68,8 +70,11 @@
       }
     },
     computed: {
-      enoughZoom() {
-        return this.zoomLevel >= CLUSTER_MAX_ZOOM
+      show() {
+        const show = this.unclusteredIds.includes(this.feature.id) || this.zoomLevel >= CLUSTER_MAX_ZOOM +1
+        if (!show) this.popup.remove()
+        else this.popup.addTo(this.map)
+        return show
       }
     }
   }

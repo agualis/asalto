@@ -1,7 +1,8 @@
 import { data } from './clusters'
+import { addPopUps } from './load-popups'
 
 const ARTWORKS_SOURCE = 'artworks'
-export const CLUSTER_MAX_ZOOM = 14
+export const CLUSTER_MAX_ZOOM = 15
 
 export function loadClusters(map, features) {
   map.addSource(ARTWORKS_SOURCE, {
@@ -53,5 +54,32 @@ export function loadClusters(map, features) {
       "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
       "text-size": 14
     }
+  })
+
+   map.addLayer({
+        id: "unclustered-point",
+        type: "circle",
+        source: ARTWORKS_SOURCE,
+        filter: ["!", ["has", "point_count"]],
+        paint: {
+            "circle-color": "#11b4da",
+            "circle-radius": 4,
+            "circle-stroke-width": 1,
+            "circle-stroke-color": "#fff"
+        }
+    })
+
+  // inspect a cluster on click
+  map.on('click', 'clusters', function (e) {
+    let features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] })
+    let clusterId = features[0].properties.cluster_id;
+    map.getSource(ARTWORKS_SOURCE).getClusterExpansionZoom(clusterId, function (err, zoom) {
+      if (err)
+        return
+      map.easeTo({
+        center: features[0].geometry.coordinates,
+        zoom: zoom
+      })
+    })
   })
 }

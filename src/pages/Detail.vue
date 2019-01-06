@@ -14,7 +14,7 @@
 
       </q-card-title>
       <q-card-main>
-        <span class="text-weight-light">{{feature.properties.description}}</span>
+        <span class="text-weight-light">{{feature.description}}</span>
       </q-card-main>
     </q-card>
   </div>
