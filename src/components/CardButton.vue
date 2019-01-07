@@ -9,7 +9,7 @@
   export default {
     props: {
       onClick: { type: Function, required: true },
-      icon: { type: Function, default: 'place' }
+      icon: { type: String, default: 'place' }
     }
   }
 </script>

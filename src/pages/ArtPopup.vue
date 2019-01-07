@@ -1,10 +1,11 @@
 <template>
-  <div v-if="show" @click="popupClicked(feature)" class="preview">
+  <div v-if="show" @click="popupClicked" class="preview" :class="zIndexClass">
     <img v-if="!opened"
          :src="feature.imageUrl" width="50" height="50"
          :title="feature.title">
-    <q-card v-if="opened" color="primary">
+    <q-card v-if="opened">
       <q-card-media>
+        <CloseButton :onClick="popupClose"></CloseButton>
         <img :src="feature.imageUrl">
       </q-card-media>
       <q-card-title class="relative-position">
@@ -25,11 +26,13 @@
   import { CLUSTER_MAX_ZOOM } from './load-clusters'
   import { bus } from './main'
   import CardButton from '../components/CardButton'
+  import CloseButton from '../components/CloseButton'
   import By from './By'
+  const POPUP_OPENED = 'popupOpened'
 
   export default {
     components: {
-      By, CardButton
+      By, CardButton, CloseButton
     },
     props: {
       feature: { type: Object, required: true },
@@ -37,7 +40,7 @@
       popup: { type: Object, required: true }
     },
     created() {
-      bus.$on('featureZoomed', (zoomedId) => {
+      bus.$on(POPUP_OPENED, (zoomedId) => {
         this.opened = this.feature.id === zoomedId ? true : false
       })
       bus.$on('mapZoomed', (event) => {
@@ -53,10 +56,14 @@
       }
     },
     methods: {
-      popupClicked(feature) {
+      popupClicked() {
         if (this.opened) return this.opened = false
-        this.flyTo(feature)
-        bus.$emit('featureZoomed', this.feature.id);
+        this.flyTo(this.feature)
+        bus.$emit(POPUP_OPENED, this.feature.id)
+      },
+      popupClose() {
+        console.log('COCCO')
+        this.opened = false
       },
       flyTo(feature) {
          this.map.flyTo({
@@ -75,6 +82,9 @@
         if (!show) this.popup.remove()
         else this.popup.addTo(this.map)
         return show
+      },
+      zIndexClass() {
+        return this.opened ? 'front' : 'back'
       }
     }
   }
@@ -87,11 +97,28 @@
     border-radius: 50%;
     cursor: pointer;
   }
+
+  .front {
+    z-index: 1
+  }
+
+  .back {
+    z-index: -1
+  }
+
   img {
+    z-index: -1;
     object-fit: cover;
   }
 
  .q-card-media {
-    max-height: 12rem;
+    max-height: 8rem;
   }
+
+ .q-card {
+    max-width: 15rem;
+   border-color: $primary;
+   border-bottom: 2px solid $primary;
+  }
+
 </style>
