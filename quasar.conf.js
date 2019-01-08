@@ -8,7 +8,9 @@ module.exports = function (ctx) {
     // app plugins (/src/plugins)
     plugins: [
       'i18n',
-      'axios'
+      'axios',
+      'firebase',
+      'progressive-images'
     ],
     css: [
       'app.styl'
@@ -72,14 +74,16 @@ module.exports = function (ctx) {
         'QCardActions',
         'QTable',
         'QSearch',
-        'QCheckbox'
+        'QCheckbox',
+        'QInfiniteScroll'
       ],
       directives: [
         'Ripple'
       ],
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'SessionStorage'
       ]
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       // i18n: 'de' // Quasar language
