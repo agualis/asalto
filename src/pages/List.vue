@@ -1,22 +1,26 @@
 <template>
-  <div class="street">
-    <q-list >
-      <q-list-header>Nearest</q-list-header>
-      <q-item v-for="feature in features"
+  <div class="row justify-left">
+      <q-card inline class="menu-card"
+              v-for="feature in features"
               :key="feature.id"
-              @click.native="openDetail(feature.id)">
-        <q-item-side :image="feature.imageUrl"/>
-        <q-item-main :label="feature.title"/>
-        <q-item-side right icon="more_horiz"/>
-      </q-item>
-    </q-list>
+              @click.once.native="openDetail(feature.id)">
+      <q-card-media overlay-position="top">
+        <img :src="feature.imageUrl"/>
+      </q-card-media>
+        <q-card-main>
+          <div class="text-weight-bolder ellipsis">{{ feature.title }}</div>
+          <div class="ellipsis author"><By/> {{ feature.author }}</div>
+        </q-card-main>
+      </q-card>
   </div>
 </template>
 
 <script>
   import { artworkFeatures } from './artwork-features'
+  import By from './By'
 
   export default {
+    components: { By },
     data() {
       return {
         features: artworkFeatures
@@ -30,6 +34,35 @@
   }
 </script>
 
-<style>
+<style lang="stylus" scoped>
+  @import '~variables'
+
+  .menu-card:hover {
+    background: alpha(black, 30%);
+    opacity: 0.5;
+    cursor: pointer;
+  }
+
+  .q-card-media {
+    max-height: 8rem;
+  }
+
+  .q-card-title
+    color black
+    font-weight bold
+    font-size 150%
+
+  .q-card
+    margin: 1%;
+    max-width: 48%;
+
+  .author
+    padding-top: 0.2rem;
+    padding-bottom: 0.5rem;
+
+  .street
+    vertical-align: middle;
+
 </style>
+
 
