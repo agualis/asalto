@@ -9,8 +9,7 @@ module.exports = function (ctx) {
     plugins: [
       'i18n',
       'axios',
-      'firebase',
-      'progressive-images'
+      'firebase'
     ],
     css: [
       'app.styl'
