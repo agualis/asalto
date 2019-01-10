@@ -83,10 +83,12 @@ module.exports = function (ctx) {
         'QItemTile',
         'QProgress',
         'QSpinner',
-        'QSpinnerBars'
+        'QSpinnerBars',
+        'QModal'
       ],
       directives: [
-        'Ripple'
+        'Ripple',
+        'CloseOverlay'
       ],
       // Quasar plugins
       plugins: [

@@ -26,22 +26,25 @@
         error-label="error"
         orientation="vertical"
        >
-       <!--<q-input v-model="imageUrl" @input="updateImage"/>-->
-       <FirebaseUploader :firebase-storage="storageRef" @uploaded="imageUploaded"></FirebaseUploader>
-
+         <FirebaseUploader :firebase-storage="storageRef" :multiple="false" @uploaded="imageUploaded"
+         ></FirebaseUploader>
       </q-field>
 
-      <!--<vue-croppie-->
-        <!--ref="croppieRef"-->
-        <!--:enableOrientation="true"-->
-        <!--@result="result"-->
-        <!--@update="update">-->
-      <!--</vue-croppie>-->
-
-      <img :src="imageUrl">
-
-      <button @click="crop()">Crop Via Callback</button>
-
+      <q-modal v-model="cropModalOpened" maximized>
+        <h2>Select a representative preview image</h2>
+        <q-btn @click.native="crop()"
+               color="primary">
+          Crop Via Callback
+        </q-btn>
+          <vue-croppie
+            ref="croppieRef2"
+            :enableOrientation="false"
+            @result="result"
+            :viewport="{ width: 200, height: 200, type: 'circle' }"
+            :enableResize="false"
+            @update="update">
+          </vue-croppie>
+      </q-modal>
     </div>
   </q-page>
 </template>
@@ -55,6 +58,13 @@
     components: {
       FirebaseUploader
     },
+    mounted() {
+        // Upon mounting of the component, we accessed the .bind({...})
+        // function to put an initial image on the canvas.
+        this.$refs.croppieRef2.bind({
+            url: 'http://i.imgur.com/Fq2DMeH.jpg',
+        })
+    },
     data() {
       return {
         name: null,
@@ -62,8 +72,12 @@
         imageUrl: null,
         cropped: null,
         url: '',
-        storageRef: storageRef
+        storageRef: storageRef,
+        cropModalOpened: false
       }
+    },
+    created() {
+      // console.log('HELLO', storageRef.child('banksy_800x669.jpg'))
     },
     methods: {
       updateImage() {
@@ -78,8 +92,12 @@
       update(val) {
         console.log(val)
       },
-      imageUploaded() {
-        console.log('Image uploaded')
+      imageUploaded(file, uploadTask, result) {
+        console.log('Image uploaded', result)
+        console.log('Image uploaded', file)
+        this.$refs.croppieRef2.bind({ url: result })
+        this.cropModalOpened = true
+
       }
     },
     computed: {
@@ -89,3 +107,12 @@
     }
   }
 </script>
+
+<style lang="stylus" scoped>
+  @import '~variables'
+  .croppie-container {
+    max-width: 500px;
+    max-height: 500px;
+    padding: 5%
+  }
+</style>

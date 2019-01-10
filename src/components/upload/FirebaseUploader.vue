@@ -1,5 +1,5 @@
 <template>
-  <div class="q-uploader">
+  <div>
     <q-input-frame
       ref="input"
       class="no-margin"
@@ -82,8 +82,6 @@
           {{ file.__progress }}%
         </div>
 
-
-        {{file.__size}}
         <q-item-side v-if="file.__img" :image="file.__img.src"></q-item-side>
         <q-item-side v-else icon="insert_drive_file" :color="color"></q-item-side>
 
@@ -130,14 +128,6 @@ export default {
       type: Function,
       required: false
     },
-    url: {
-      type: String,
-      required: false
-    },
-    urlFactory: {
-      type: Function,
-      required: false
-    },
     additionalFields: {
       type: Array,
       default: () => []
@@ -166,7 +156,8 @@ export default {
       totalSize: 0,
       xhrs: [],
       firebaseStorageUploadTasks: [],
-      focused: false
+      focused: false,
+      lastFileResult: null
     }
   },
   computed: {
@@ -175,10 +166,10 @@ export default {
     },
     label () {
       const total = humanStorageSize(this.totalSize)
+      if (!this.uploading && this.files[0] && this.files[0].__doneUploading) return ''
       return this.uploading
         ? `${(this.progress).toFixed(2)}% (${humanStorageSize(this.uploadedSize)} / ${total})`
-        : ''
-        // : `${this.length} (${total})`
+        : `${this.length} (${total})`
     },
     progress () {
       return this.totalSize ? Math.min(99.99, this.uploadedSize / this.totalSize * 100) : 0
@@ -215,20 +206,19 @@ export default {
             this.queue.push(file)
           }
           else {
-            console.log('YEEEEEPA')
             const reader = new FileReader()
             reader.onload = (e) => {
               let img = new Image()
               img.src = e.target.result
+              this.lastFileResult = reader.result
               file.__img = img
               this.queue.push(file)
               this.__computeTotalSize()
+              //AUTOMATICALLY UPLOADING IF THE FILE FORMAT IS CORRECT
+              this.upload()
             }
             reader.readAsDataURL(file)
           }
-
-          console.log('Return file', file)
-
           return file
         })
 
@@ -272,74 +262,6 @@ export default {
         this.$refs.file.click()
       }
     },
-    __getUploadPromise (file) {
-      const
-        form = new FormData(),
-        xhr = new XMLHttpRequest()
-
-      try {
-        form.append('Content-Type', file.type || 'application/octet-stream')
-        form.append(this.name, file)
-        this.additionalFields.forEach(field => {
-          form.append(field.name, field.value)
-        })
-      }
-      catch (e) {
-        return
-      }
-
-      initFile(file)
-      file.xhr = xhr
-      return new Promise((resolve, reject) => {
-        xhr.upload.addEventListener('progress', e => {
-          if (file.__removed) { return }
-          e.percent = e.total ? e.loaded / e.total : 0
-          let uploaded = e.percent * file.size
-          this.uploadedSize += uploaded - file.__uploaded
-          file.__uploaded = uploaded
-          file.__progress = Math.min(99, parseInt(e.percent * 100, 10))
-        }, false)
-
-        xhr.onreadystatechange = () => {
-          if (xhr.readyState < 4) {
-            return
-          }
-          if (xhr.status && xhr.status < 400) {
-            file.__doneUploading = true
-            file.__progress = 100
-            this.$emit('uploaded', file, xhr)
-            resolve(file)
-          }
-          else {
-            file.__failed = true
-            this.$emit('fail', file, xhr)
-            reject(xhr)
-          }
-        }
-
-        xhr.onerror = () => {
-          file.__failed = true
-          this.$emit('fail', file, xhr)
-          reject(xhr)
-        }
-
-        const resolver = this.urlFactory
-          ? this.urlFactory(file)
-          : Promise.resolve(this.url)
-
-        resolver.then(url => {
-          xhr.open(this.method, url, true)
-          if (this.headers) {
-            Object.keys(this.headers).forEach(key => {
-              xhr.setRequestHeader(key, this.headers[key])
-            })
-          }
-
-          this.xhrs.push(xhr)
-          xhr.send(form)
-        })
-      })
-    },
     __getFirebaseUploadPromise (file) {
       initFile(file)
       let uploadTask
@@ -381,7 +303,7 @@ export default {
           // upload successful
           file.__doneUploading = true
           file.__progress = 100
-          this.$emit('uploaded', file, uploadTask)
+          this.$emit('uploaded', file, uploadTask, this.lastFileResult)
           resolve(file)
         })
         this.firebaseStorageUploadTasks.push(uploadTask)
@@ -412,15 +334,7 @@ export default {
         }
       }
 
-      // we need to figure out if we're using 'url' or 'Firebase' method
-      const { url, firebaseStorage } = this
-      if (url) {
-        this.queue.map(file => this.__getUploadPromise(file))
-          .forEach(promise => {
-            promise.then(solved).catch(solved)
-          })
-      }
-      else if (firebaseStorage) {
+      if (this.firebaseStorage) {
         this.queue.map(file => this.__getFirebaseUploadPromise(file))
           .forEach(promise => {
             promise.then(solved).catch(solved)

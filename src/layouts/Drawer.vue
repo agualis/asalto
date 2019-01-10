@@ -4,7 +4,7 @@
     :content-class="$q.theme === 'mat' ? 'bg-primary' : null"
     @on-layout="checkLogin"
   >
-    <div class="row justify-center spinner">
+    <div class="row justify-center">
       <q-spinner-bars v-if="loading" color="white" class="spinner" />
     </div>
     <div v-if="logged">
