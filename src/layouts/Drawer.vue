@@ -4,13 +4,15 @@
     :content-class="$q.theme === 'mat' ? 'bg-primary' : null"
     @on-layout="checkLogin"
   >
-    <div>
+    <div class="row justify-center spinner">
+      <q-spinner-bars v-if="loading" color="white" class="spinner" />
+    </div>
+    <div v-if="logged">
       <q-item>
         <img src="~assets/avatar.png" style='height: 80px' class="inline-block">
       </q-item>
       <div>
-        <span class="text-white">USERNAME</span>
-        <span class="text-white">USER EMAIL</span>
+        <span class="text-white">{{user.email}}</span>
         <hr>
       </div>
     </div>
@@ -19,14 +21,21 @@
       link
       inset-delimiter
     >
-      <q-item @click.native="$router.replace('/login')">
+      <q-item v-if="notLogged" @click.native="$router.replace('/login')">
         <q-item-side icon="lock"/>
         <q-item-main label="Login" sublabel="Report artwork yourself"/>
       </q-item>
+
       <q-item @click.native="$router.replace('/')">
         <q-item-side icon="my_location"/>
         <q-item-main label="Map" sublabel="Near your location"/>
       </q-item>
+
+      <q-item @click.native="$router.replace('/create-artwork')">
+        <q-item-side icon="add_photo_alternate"/>
+        <q-item-main label="Report" sublabel="Report artwork yourself"/>
+      </q-item>
+
       <q-item @click.native="$router.replace('/list')">
         <q-item-side icon="brush"/>
         <q-item-main label="Works" sublabel="Ordered by proximity"/>
@@ -54,18 +63,39 @@
     props: {
       leftDrawerOpen: { default: false }
     },
+    data() {
+      return {
+        user: null,
+        loading: true
+      }
+    },
     created() {
-      firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        console.log('observed user', user)
-      } else {
-        console.log('LOGGED OF USER')
-      }})
+      firebase.auth().onAuthStateChanged(this.setUser)
     },
     methods: {
       checkLogin(opened) {
         if (opened) console.log(this.$q.sessionStorage.get.item('user'))
+      },
+      setUser(user) {
+        this.user = user
+        this.loading = false
+      }
+    },
+    computed: {
+      logged() {
+        return !this.loading && this.user
+      },
+      notLogged() {
+        return !this.loading && !this.user
       }
     }
   }
 </script>
+
+<style lang="stylus" scoped>
+  @import '~variables'
+  .spinner {
+    width: 100 px;
+    height: 100px;
+  }
+</style>
