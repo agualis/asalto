@@ -9,7 +9,8 @@ const routes = [
       { path: 'signup', component: () => import('pages/Signup.vue') },
       { path: 'map/:coordinates', component: () => import('pages/Map.vue') },
       { path: 'list', component: () => import('pages/List.vue') },
-      { path: 'detail/:workId', component: () => import('pages/Detail.vue') }
+      { path: 'detail/:workId', component: () => import('pages/Detail.vue') },
+      { path: 'create-artwork/', component: () => import('pages/CreateArtwork.vue') }
     ]
   }
 ]

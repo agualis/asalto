@@ -39,7 +39,6 @@
       signUp () {
         firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then((user) => {
           console.log('Logging in')
-          this.$q.sessionStorage.set('user', user)
           this.$router.replace('/login')
         }).catch((err) => {
           alert(err.message)

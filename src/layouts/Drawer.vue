@@ -2,13 +2,23 @@
   <q-layout-drawer
     :value="leftDrawerOpen"
     :content-class="$q.theme === 'mat' ? 'bg-primary' : null"
+    @on-layout="checkLogin"
   >
+    <div>
+      <q-item>
+        <img src="~assets/avatar.png" style='height: 80px' class="inline-block">
+      </q-item>
+      <div>
+        <span class="text-white">USERNAME</span>
+        <span class="text-white">USER EMAIL</span>
+        <hr>
+      </div>
+    </div>
     <q-list
       no-border
       link
       inset-delimiter
     >
-      <q-list-header>Art</q-list-header>
       <q-item @click.native="$router.replace('/login')">
         <q-item-side icon="lock"/>
         <q-item-main label="Login" sublabel="Report artwork yourself"/>
@@ -38,9 +48,24 @@
 </template>
 
 <script>
+  import firebase from 'firebase'
+
   export default {
     props: {
       leftDrawerOpen: { default: false }
+    },
+    created() {
+      firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        console.log('observed user', user)
+      } else {
+        console.log('LOGGED OF USER')
+      }})
+    },
+    methods: {
+      checkLogin(opened) {
+        if (opened) console.log(this.$q.sessionStorage.get.item('user'))
+      }
     }
   }
 </script>
