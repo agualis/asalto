@@ -9,7 +9,8 @@ module.exports = function (ctx) {
     plugins: [
       'i18n',
       'axios',
-      'firebase'
+      'firebase',
+      'vue-croppie'
     ],
     css: [
       'app.styl'
@@ -39,7 +40,8 @@ module.exports = function (ctx) {
         )
         cfg.resolve.alias = {
           ...cfg.resolve.alias, // This adds the existing alias
-          'env': path.resolve(__dirname, 'config/helpers/env.js')
+          'env': path.resolve(__dirname, 'config/helpers/env.js'),
+          '@components': path.resolve(__dirname, './src/components')
         }
       }
     },
@@ -74,7 +76,14 @@ module.exports = function (ctx) {
         'QTable',
         'QSearch',
         'QCheckbox',
-        'QInfiniteScroll'
+        'QField',
+        'QInput',
+        'QUploader',
+        'QInputFrame',
+        'QItemTile',
+        'QProgress',
+        'QSpinner',
+        'QSpinnerBars'
       ],
       directives: [
         'Ripple'
@@ -82,7 +91,8 @@ module.exports = function (ctx) {
       // Quasar plugins
       plugins: [
         'Notify',
-        'SessionStorage'
+        'SessionStorage',
+        'AddressbarColor'
       ]
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       // i18n: 'de' // Quasar language
