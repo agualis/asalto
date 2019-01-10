@@ -30,21 +30,32 @@
          ></FirebaseUploader>
       </q-field>
 
-      <q-modal v-model="cropModalOpened" maximized>
-        <h2>Select a representative preview image</h2>
-        <q-btn @click.native="crop()"
-               color="primary">
-          Crop Via Callback
-        </q-btn>
-          <vue-croppie
-            ref="croppieRef2"
-            :enableOrientation="false"
-            @result="result"
-            :viewport="{ width: 200, height: 200, type: 'circle' }"
-            :enableResize="false"
-            @update="update">
-          </vue-croppie>
-      </q-modal>
+      <CropModal ref="cropModal"
+                 :opened="cropModalOpened"
+                 :onCropFinished="onCropFinished">
+      </CropModal>
+
+      <!--<q-modal v-model="cropModalOpened" maximized>-->
+        <!--<h2>Select a representative preview image</h2>-->
+        <!--<q-btn @click.native="cropViaEvent()"-->
+               <!--color="primary">-->
+          <!--Crop Via Callback-->
+        <!--</q-btn>-->
+          <!--<vue-croppie-->
+            <!--ref="croppieRef"-->
+            <!--:enableOrientation="false"-->
+            <!--@result="onCropFinished"-->
+            <!--:viewport="{ width: 200, height: 200, type: 'circle' }"-->
+            <!--:enableResize="false"-->
+            <!--@update="update">-->
+          <!--</vue-croppie>-->
+      <!--</q-modal>-->
+
+
+
+
+      THE RESULT:
+      <img v-bind:src="cropped">
     </div>
   </q-page>
 </template>
@@ -54,16 +65,11 @@
   const storage = firebase.storage()
   const storageRef = storage.ref('asalto')
   import FirebaseUploader from '@components/upload/FirebaseUploader'
+  import CropModal from '@components/upload/CropModal'
   export default {
     components: {
-      FirebaseUploader
-    },
-    mounted() {
-        // Upon mounting of the component, we accessed the .bind({...})
-        // function to put an initial image on the canvas.
-        this.$refs.croppieRef2.bind({
-            url: 'http://i.imgur.com/Fq2DMeH.jpg',
-        })
+      FirebaseUploader,
+      CropModal
     },
     data() {
       return {
@@ -76,28 +82,25 @@
         cropModalOpened: false
       }
     },
-    created() {
-      // console.log('HELLO', storageRef.child('banksy_800x669.jpg'))
+    async created() {
+      const url = await storageRef.child('banksy_800x669.jpg').getDownloadURL()
+      console.log('HEHEEH', url)
     },
     methods: {
-      updateImage() {
-        if (!this.validImageUrl) return
-        this.$refs.croppieRef.bind({
-          url: this.imageUrl
-        })
+      cropViaEvent() {
+        let options = {
+          format: 'jpeg',
+        }
+        this.$refs.croppieRef.result(options)
       },
-      result(output) {
+      async onCropFinished(output) {
+        const uploadResult = await storageRef.child('preview').put(output)
         this.cropped = output
+        this.cropModalOpened = false
       },
-      update(val) {
-        console.log(val)
-      },
-      imageUploaded(file, uploadTask, result) {
-        console.log('Image uploaded', result)
-        console.log('Image uploaded', file)
-        this.$refs.croppieRef2.bind({ url: result })
+      imageUploaded(file, uploadTask, imageAsUrl) {
+        this.$refs.cropModal.bind(imageAsUrl)
         this.cropModalOpened = true
-
       }
     },
     computed: {
@@ -107,12 +110,3 @@
     }
   }
 </script>
-
-<style lang="stylus" scoped>
-  @import '~variables'
-  .croppie-container {
-    max-width: 500px;
-    max-height: 500px;
-    padding: 5%
-  }
-</style>
