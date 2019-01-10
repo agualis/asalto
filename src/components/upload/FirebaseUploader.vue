@@ -103,6 +103,7 @@
 <script>
 import FrameMixin from 'quasar/src/mixins/input-frame'
 import { humanStorageSize } from 'quasar/src/utils/format'
+import { readFileAsDataUrl } from './async-files'
 
 function initFile (file) {
   file.__doneUploading = false
@@ -179,7 +180,7 @@ export default {
     }
   },
   methods: {
-    __add (e) {
+    async __add (e) {
       if (this.addDisabled) {
         return
       }

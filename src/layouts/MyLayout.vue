@@ -16,10 +16,8 @@
           <q-icon name="menu" />
         </q-btn>
 
-        <q-toolbar-title>
-          Asalto
-          <div slot="subtitle">Festival Internacional de Arte Urbano</div>
-        </q-toolbar-title>
+        <ToolbarTitle/>
+
       </q-toolbar>
     </q-layout-header>
 
@@ -34,10 +32,11 @@
 <script>
 import { openURL } from 'quasar'
 import Drawer from './Drawer'
+import ToolbarTitle from './ToolbarTitle'
 
 export default {
   name: 'MyLayout',
-  components: {Drawer},
+  components: {Drawer, ToolbarTitle},
   data () {
     return {
       leftDrawerOpen: this.$q.platform.is.desktop

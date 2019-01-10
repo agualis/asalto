@@ -76,9 +76,7 @@
         this.$refs.croppieRef.result(options)
       },
       async onCropFinished(output) {
-        // const dataUrl = await readFileAsDataUrl(output)
-        console.log(output)
-        const uploadResult = await storageRef.child('preview').putString(output, 'data_url')
+        await storageRef.child('preview').putString(output, 'data_url')
         this.cropped = output
         this.cropModalOpened = false
       },
