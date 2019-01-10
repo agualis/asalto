@@ -35,25 +35,6 @@
                  :onCropFinished="onCropFinished">
       </CropModal>
 
-      <!--<q-modal v-model="cropModalOpened" maximized>-->
-        <!--<h2>Select a representative preview image</h2>-->
-        <!--<q-btn @click.native="cropViaEvent()"-->
-               <!--color="primary">-->
-          <!--Crop Via Callback-->
-        <!--</q-btn>-->
-          <!--<vue-croppie-->
-            <!--ref="croppieRef"-->
-            <!--:enableOrientation="false"-->
-            <!--@result="onCropFinished"-->
-            <!--:viewport="{ width: 200, height: 200, type: 'circle' }"-->
-            <!--:enableResize="false"-->
-            <!--@update="update">-->
-          <!--</vue-croppie>-->
-      <!--</q-modal>-->
-
-
-
-
       THE RESULT:
       <img v-bind:src="cropped">
     </div>
@@ -66,6 +47,7 @@
   const storageRef = storage.ref('asalto')
   import FirebaseUploader from '@components/upload/FirebaseUploader'
   import CropModal from '@components/upload/CropModal'
+  import { readFileAsDataUrl } from '../components/upload/async-files'
   export default {
     components: {
       FirebaseUploader,
@@ -94,7 +76,9 @@
         this.$refs.croppieRef.result(options)
       },
       async onCropFinished(output) {
-        const uploadResult = await storageRef.child('preview').put(output)
+        // const dataUrl = await readFileAsDataUrl(output)
+        console.log(output)
+        const uploadResult = await storageRef.child('preview').putString(output, 'data_url')
         this.cropped = output
         this.cropModalOpened = false
       },
