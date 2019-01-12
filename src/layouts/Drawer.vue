@@ -9,12 +9,11 @@
     </div>
 
     <div v-if="logged">
-
        <q-item>
           <q-item-side>
             <q-item-tile avatar>
-              <img v-if='userAvatar' src="~assets/avatar.png">
-              <img v-else :src="user.photoURL">
+              <img v-if='userAvatar' :src="userAvatar">
+              <img v-else src="~assets/obey-face.jpg">
             </q-item-tile>
           </q-item-side>
           <q-item-main :label="user.email" />
@@ -22,7 +21,6 @@
             <q-btn @click="logout" outline>Logout</q-btn>
           </q-item-side>
         </q-item>
-
       <div>
 
       </div>
@@ -35,7 +33,7 @@
     >
       <q-item v-if="notLogged" @click.native="$router.push('/login')">
         <q-item-side icon="lock"/>
-        <q-item-main label="Cutre Login" sublabel="Report artwork yourself"/>
+        <q-item-main label="Cutre Login" sublabel="Login to Private Area"/>
       </q-item>
 
       <q-item v-if='notLogged' @click.native="$router.push('/login-ui')">
@@ -110,7 +108,7 @@
         return !this.loading && !this.user
       },
       userAvatar() {
-        if (this.user && this.user.photoURL) return this.user.photoUrl
+        if (this.user && this.user.photoURL) return this.user.photoURL
       }
     }
   }
