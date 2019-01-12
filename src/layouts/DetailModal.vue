@@ -22,13 +22,25 @@
       opened: {type: Boolean, required: true},
       detailId: {type: String, required: false}
     },
+    created () {
+      document.addEventListener("backbutton", this.backPressed, false);
+    },
+    beforeDestroy () {
+      document.removeEventListener("backbutton", this.backPressed);
+    },
     methods: {
       hideModal() {
         this.onClose()
         this.$q.notify({
-        color: 'secondary',
-        message: 'Done closing'
-      })
+          color: 'secondary',
+          message: 'Done closing'
+        })
+      },
+      backPressed() {
+        this.$q.notify({
+          color: 'secondary',
+          message: 'BACK PRESSED'
+        })
       }
     }
   }

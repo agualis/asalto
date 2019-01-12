@@ -78,6 +78,8 @@
       },
       openModal(id) {
         console.log('openening modal')
+        // history.pushState({}, null, '/' + id)
+        this.$router.push(`/${id}`)
         this.modalOpened = true
         this.artWorkOpenedId = id
       }

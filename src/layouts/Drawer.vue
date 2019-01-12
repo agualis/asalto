@@ -21,7 +21,7 @@
       link
       inset-delimiter
     >
-      <q-item v-if="notLogged" @click.native="$router.replace('/login')">
+      <q-item v-if="notLogged" @click.native="$router.push('/login')">
         <q-item-side icon="lock"/>
         <q-item-main label="Login" sublabel="Report artwork yourself"/>
       </q-item>
@@ -31,12 +31,12 @@
         <q-item-main label="Map" sublabel="Near your location"/>
       </q-item>
 
-      <q-item @click.native="$router.replace('/create-artwork')">
+      <q-item @click.native="$router.push('/create-artwork')">
         <q-item-side icon="add_photo_alternate"/>
         <q-item-main label="Report" sublabel="Report artwork yourself"/>
       </q-item>
 
-      <q-item @click.native="$router.replace('/list')">
+      <q-item @click.native="$router.push('/list')">
         <q-item-side icon="brush"/>
         <q-item-main label="Works" sublabel="Ordered by proximity"/>
       </q-item>

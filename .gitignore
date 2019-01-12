@@ -20,4 +20,4 @@ yarn-error.log*
 .env
 .env.build
 /docs
-.firebase
+/.firebase
