@@ -78,15 +78,20 @@
           {{ file.__progress }}%
         </div>
 
-        <q-item-side v-if="file.__img" :image="file.__img.src"></q-item-side>
+        <q-item-side v-if="file.__img" :image="file.__img.src">
+           <q-item-tile :color="color" :label="true">Original</q-item-tile>
+        </q-item-side>
         <q-item-side v-else icon="insert_drive_file" :color="color"></q-item-side>
 
-        <q-item-side v-if="croppedDataUrls[index]" :image="croppedDataUrls[index]" text-color="blue"></q-item-side>
+        <q-item-side v-if="croppedDataUrls[index]" :image="croppedDataUrls[index]">
+          <q-item-tile :color="color" :label="true">Preview</q-item-tile>
+        </q-item-side>
 
         <q-item-main :label="file.name" :sublabel="file.__size"></q-item-main>
 
+        file {{file}}
         <q-item-side right>
-          <q-item-tile
+          <q-item-tile v-if="file.__doneUploading"
             :icon="file.__doneUploading ? 'clear' : 'clear'"
             :color="color"
             class="cursor-pointer"
@@ -101,7 +106,6 @@
 <script>
   import FrameMixin from 'quasar/src/mixins/input-frame'
   import { humanStorageSize } from 'quasar/src/utils/format'
-  import { readFileAsDataUrl } from './async-files'
   import CropModal from '@components/upload/CropModal'
 
 
@@ -130,10 +134,6 @@
         type: Function,
         required: false
       },
-      additionalFields: {
-        type: Array,
-        default: () => []
-      },
       method: {
         type: String,
         default: 'POST'
@@ -147,7 +147,9 @@
       color: {
         type: String,
         default: 'primary'
-      }
+      },
+
+
     },
     data() {
       return {
@@ -161,7 +163,8 @@
         focused: false,
         lastFileResult: null,
         cropModalOpened: false,
-        croppedDataUrls: []
+        croppedDataUrls: [],
+        firebaseFileName: null
       }
     },
     computed: {
@@ -266,7 +269,10 @@
       },
       __getFirebaseUploadPromise(file) {
         initFile(file)
-        const uploadTask = this.firebaseStorage.child(file.name).put(file)
+        const extension = file.type.split('/')[1]
+        this.firebaseFileName = this.name + this.files.length.toString() + '.' + extension
+        this.firebaseFileName = 'patata' + '.' + extension
+        const uploadTask = this.firebaseStorage.child(this.firebaseFileName).put(file)
         return new Promise((resolve, reject) => {
           uploadTask.on('state_changed', snapshot => {
             // upload in progresss
@@ -286,7 +292,7 @@
             // upload successful
             file.__doneUploading = true
             file.__progress = 100
-            this.$emit('uploaded', file, uploadTask, this.lastFileResult)
+            this.$emit('uploaded', this.firebaseFileName)
             this.cropModalOpened = true
             this.$refs.cropModal.bind(this.lastFileResult)
             resolve(file)
@@ -342,7 +348,7 @@
         this.$emit('reset')
       },
       async onCropFinished(output) {
-        await this.firebaseStorage.child('preview').putString(output, 'data_url')
+        await this.firebaseStorage.child('preview-' + this.firebaseFileName).putString(output, 'data_url')
         this.croppedDataUrls.push(output)
         this.cropModalOpened = false
       },

@@ -26,9 +26,11 @@
         error-label="error"
         orientation="vertical"
        >
-         <FirebaseUploader :firebase-storage="storageRef"
+         <FirebaseUploader :disabled="!name"
+                           :firebase-storage="storageRef"
                            :multiple="false"
                            @uploaded="imageUploaded"
+                           :name="fileNamePrefix"
          ></FirebaseUploader>
       </q-field>
 
@@ -68,13 +70,20 @@
       async onCropFinished(output) {
         await storageRef.child('preview').putString(output, 'data_url')
       },
-      imageUploaded(file, uploadTask, imageAsUrl) {
+      imageUploaded(firebaseFileName) {
+        this.$q.notify(firebaseFileName)
       }
     },
     computed: {
       validImageUrl() {
         return this.imageUrl && this.imageUrl.startsWith('http')
       },
+      fileNamePrefix() {
+        return `${this.name}-${this.author}-${Date.now().toString()}`
+      },
+      uploaderDisabled() {
+        return this.name.length > 5
+      }
     }
   }
 </script>
