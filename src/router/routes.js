@@ -4,7 +4,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Map.vue') },
+      { path: 'login-ui', component: () => import('pages/LoginUI.vue') },
       { path: 'login', component: () => import('pages/Login.vue') },
       { path: 'signup', component: () => import('pages/Signup.vue') },
       { path: 'map/:coordinates', component: () => import('pages/Map.vue') },
@@ -12,6 +12,7 @@ const routes = [
       { path: 'detail/:workId', component: () => import('pages/Detail.vue') },
       { path: 'create-artwork', component: () => import('pages/CreateArtwork.vue') },
       { path: 'modals', component: () => import('pages/PlayModals.vue') },
+      { path: '', component: () => import('pages/Map.vue') },
       { path: '/:workId', component: () => import('pages/Map.vue') },
     ]
   }
