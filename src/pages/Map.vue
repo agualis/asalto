@@ -4,15 +4,6 @@
                :onClose="onModalClose"
                :detailId="artWorkOpenedId"
     ></DetailModal>
-
-     <!--<q-modal v-model="modalOpened" :content-css="{minWidth: '50vw'}">-->
-      <!--<div style="padding: 50px">-->
-        <!--<div class="q-display-1 q-mb-md">Basic Modal</div>-->
-        <!--<p v-for="n in 25" :key="`a-${n}`">Scroll down to close</p>-->
-        <!--<q-btn color="primary" @click="basicModal = false" label="Close" />-->
-      <!--</div>-->
-    <!--</q-modal>-->
-
     <mapbox :access-token="token"
             :mapOptions="mapOptions"
             :geolocate-control="geolocateControl"
@@ -27,6 +18,7 @@
 <script>
   import Mapbox from 'mapbox-gl-vue'
   import BackFabButton from '@components/BackFabButton'
+  import { ARTWORK_POPUP_OPENED, MAP_ZOOMED } from '../bus/events'
   import { artworkFeatures } from './artwork-features'
   import { loadClusters } from './load-clusters'
   import { addPopUps } from './load-popups'
@@ -54,31 +46,26 @@
       }
     },
     created() {
-      bus.$on('popupOpened', this.openModal)
+      bus.$on(ARTWORK_POPUP_OPENED, this.openModal)
       if (!this.$route.params.coordinates) return
       this.mapOptions = mapOptions(this.$route.params.coordinates.split(','))
     },
     methods: {
       mapLoaded(map) {
         addPopUps(map, artworkFeatures, this.$router)
-        // map.addLayer(rootGeoJson(artworkFeatures))
         loadClusters(map, null)
 
         map.on('moveend', ()=> {
           let unclusteredIds = map.queryRenderedFeatures({layers: ['unclustered-point']})
             .map((feature) => feature.properties.id)
-          console.error('ZOOM', map.getZoom())
           const event = { unclusteredIds: unclusteredIds, zoom: map.getZoom() }
-          bus.$emit('mapZoomed', event)
+          bus.$emit(MAP_ZOOMED, event)
         })
       },
       onModalClose() {
-        console.log('closing modal')
         this.modalOpened = false
       },
       openModal(id) {
-        console.log('openening modal')
-        // history.pushState({}, null, '/' + id)
         this.$router.push(`/${id}`)
         this.modalOpened = true
         this.artWorkOpenedId = id

@@ -4,7 +4,7 @@
     color="primary"
     @click="click"
     class="fixed"
-    icon="mail"
+    icon="mouse"
     style="right: 18px; bottom: 18px"
   />
 </template>

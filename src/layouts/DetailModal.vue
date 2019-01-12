@@ -2,10 +2,6 @@
   <q-modal :value="opened" minimized @hide="hideModal" @escape-key="hideModal"
            :no-esc-dismiss="false"
   >
-    <q-btn @click.native="onClose()"
-           color="primary">
-      CLOSE
-    </q-btn>
     <DetailPopup :workId="detailId" :onClose="onClose"></DetailPopup>
   </q-modal>
 </template>
@@ -22,25 +18,9 @@
       opened: {type: Boolean, required: true},
       detailId: {type: String, required: false}
     },
-    created () {
-      document.addEventListener("backbutton", this.backPressed, false);
-    },
-    beforeDestroy () {
-      document.removeEventListener("backbutton", this.backPressed);
-    },
     methods: {
       hideModal() {
         this.onClose()
-        this.$q.notify({
-          color: 'secondary',
-          message: 'Done closing'
-        })
-      },
-      backPressed() {
-        this.$q.notify({
-          color: 'secondary',
-          message: 'BACK PRESSED'
-        })
       }
     }
   }
