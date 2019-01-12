@@ -8,13 +8,13 @@
       <q-spinner-bars v-if="loading" color="white" class="spinner left" />
     </div>
 
-
     <div v-if="logged">
 
        <q-item>
           <q-item-side>
             <q-item-tile avatar>
-              <img src="~assets/avatar.png">
+              <img v-if='userAvatar' src="~assets/avatar.png">
+              <img v-else :src="user.photoURL">
             </q-item-tile>
           </q-item-side>
           <q-item-main :label="user.email" />
@@ -35,7 +35,12 @@
     >
       <q-item v-if="notLogged" @click.native="$router.push('/login')">
         <q-item-side icon="lock"/>
-        <q-item-main label="Login" sublabel="Report artwork yourself"/>
+        <q-item-main label="Cutre Login" sublabel="Report artwork yourself"/>
+      </q-item>
+
+      <q-item v-if='notLogged' @click.native="$router.push('/login-ui')">
+        <q-item-side icon="fa fa-lock"/>
+        <q-item-main label="Google Login" sublabel="Login with your Google account"/>
       </q-item>
 
       <q-item @click.native="$router.replace('/')">
@@ -43,7 +48,7 @@
         <q-item-main label="Map" sublabel="Near your location"/>
       </q-item>
 
-      <q-item @click.native="$router.push('/create-artwork')">
+      <q-item v-if='logged' @click.native="$router.push('/create-artwork')">
         <q-item-side icon="add_photo_alternate"/>
         <q-item-main label="Report" sublabel="Report artwork yourself"/>
       </q-item>
@@ -103,6 +108,9 @@
       },
       notLogged() {
         return !this.loading && !this.user
+      },
+      userAvatar() {
+        if (this.user && this.user.photoURL) return this.user.photoUrl
       }
     }
   }
