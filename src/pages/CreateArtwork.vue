@@ -21,22 +21,17 @@
 
        <q-field
         icon="add_a_photo"
-        label="Add an Image"
+        label="Add one or more images"
         :error="false"
         error-label="error"
         orientation="vertical"
        >
-         <FirebaseUploader :firebase-storage="storageRef" :multiple="false" @uploaded="imageUploaded"
+         <FirebaseUploader :firebase-storage="storageRef"
+                           :multiple="false"
+                           @uploaded="imageUploaded"
          ></FirebaseUploader>
       </q-field>
 
-      <CropModal ref="cropModal"
-                 :opened="cropModalOpened"
-                 :onCropFinished="onCropFinished">
-      </CropModal>
-
-      THE RESULT:
-      <img v-bind:src="cropped">
     </div>
   </q-page>
 </template>
@@ -46,27 +41,22 @@
   const storage = firebase.storage()
   const storageRef = storage.ref('asalto')
   import FirebaseUploader from '@components/upload/FirebaseUploader'
-  import CropModal from '@components/upload/CropModal'
   import { readFileAsDataUrl } from '../components/upload/async-files'
   export default {
     components: {
       FirebaseUploader,
-      CropModal
     },
     data() {
       return {
         name: null,
         author: null,
         imageUrl: null,
-        cropped: null,
         url: '',
         storageRef: storageRef,
-        cropModalOpened: false
       }
     },
     async created() {
       const url = await storageRef.child('banksy_800x669.jpg').getDownloadURL()
-      console.log('HEHEEH', url)
     },
     methods: {
       cropViaEvent() {
@@ -77,12 +67,8 @@
       },
       async onCropFinished(output) {
         await storageRef.child('preview').putString(output, 'data_url')
-        this.cropped = output
-        this.cropModalOpened = false
       },
       imageUploaded(file, uploadTask, imageAsUrl) {
-        this.$refs.cropModal.bind(imageAsUrl)
-        this.cropModalOpened = true
       }
     },
     computed: {

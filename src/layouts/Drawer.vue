@@ -31,14 +31,9 @@
       link
       inset-delimiter
     >
-      <q-item v-if="notLogged" @click.native="$router.push('/login')">
-        <q-item-side icon="lock"/>
-        <q-item-main label="Cutre Login" sublabel="Login to Private Area"/>
-      </q-item>
-
       <q-item v-if='notLogged' @click.native="$router.push('/login-ui')">
         <q-item-side icon="fa fa-lock"/>
-        <q-item-main label="Google Login" sublabel="Login with your Google account"/>
+        <q-item-main label="Login" sublabel="Login with your Google account"/>
       </q-item>
 
       <q-item @click.native="$router.replace('/')">
@@ -55,14 +50,25 @@
         <q-item-side icon="brush"/>
         <q-item-main label="Works" sublabel="Ordered by proximity"/>
       </q-item>
+
       <q-list-header>About</q-list-header>
+
       <q-item @click.native="openURL('http://www.festivalasalto.com/')">
         <q-item-side icon="bookmark"/>
         <q-item-main label="Official Website" sublabel="www.festivalasalto.com"/>
       </q-item>
+
       <q-item @click.native="openURL('https://github.com/agualis/asalto/')">
         <q-item-side icon="code"/>
         <q-item-main label="GitHub" sublabel="github.com/agualis/asalto"/>
+      </q-item>
+
+      <q-list-header>Admin</q-list-header>
+
+
+       <q-item v-if="notLogged" @click.native="$router.push('/login')">
+        <q-item-side icon="lock"/>
+        <q-item-main label="Cutre Login admin" sublabel="Login to Private Area"/>
       </q-item>
       <!--<q-list-header>-->
         <!--<img src="/statics/asalto.gif"/>-->

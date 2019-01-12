@@ -1,5 +1,9 @@
 <template>
   <div>
+    <CropModal ref="cropModal"
+               :opened="cropModalOpened"
+               :onCropFinished="onCropFinished">
+    </CropModal>
     <q-input-frame
       ref="input"
       class="no-margin"
@@ -56,27 +60,18 @@
           @change="__add"
         >
       </q-icon>
-
-      <q-icon
-        v-if="!hideUploadButton && !uploading"
-        slot="after"
-        name="cloud_upload"
-        class="q-if-control"
-        :disabled="length === 0"
-        @click.native="upload"
-      ></q-icon>
     </q-input-frame>
 
-    <div class="q-uploader-files scroll">
+    <div class="q-uploader-files scroll" v-if="croppedDataUrls">
       <q-item
-        v-for="file in files"
+        v-for="(file, index) in files"
         :key="file.name"
         class="q-uploader-file"
       >
         <q-progress v-if="!hideUploadProgress"
-          class="q-uploader-progress-bg absolute-full"
-          :color="file.__failed ? 'negative' : 'grey'"
-          :percentage="file.__progress"
+                    class="q-uploader-progress-bg absolute-full"
+                    :color="file.__failed ? 'negative' : 'grey'"
+                    :percentage="file.__progress"
         ></q-progress>
         <div class="q-uploader-progress-text absolute" v-if="!hideUploadProgress">
           {{ file.__progress }}%
@@ -85,8 +80,9 @@
         <q-item-side v-if="file.__img" :image="file.__img.src"></q-item-side>
         <q-item-side v-else icon="insert_drive_file" :color="color"></q-item-side>
 
-        <q-item-main :label="file.name" :sublabel="file.__size"></q-item-main>
+        <q-item-side v-if="croppedDataUrls[index]" :image="croppedDataUrls[index]" text-color="blue"></q-item-side>
 
+        <q-item-main :label="file.name" :sublabel="file.__size"></q-item-main>
         <q-item-side right>
           <q-item-tile
             :icon="file.__doneUploading ? 'done' : 'clear'"
@@ -101,258 +97,253 @@
 </template>
 
 <script>
-import FrameMixin from 'quasar/src/mixins/input-frame'
-import { humanStorageSize } from 'quasar/src/utils/format'
-import { readFileAsDataUrl } from './async-files'
+  import FrameMixin from 'quasar/src/mixins/input-frame'
+  import { humanStorageSize } from 'quasar/src/utils/format'
+  import { readFileAsDataUrl } from './async-files'
+  import CropModal from '@components/upload/CropModal'
 
-function initFile (file) {
-  file.__doneUploading = false
-  file.__failed = false
-  file.__uploaded = 0
-  file.__progress = 0
-}
 
-export default {
-  name: 'q-uploader',
-  mixins: [FrameMixin],
-  props: {
-    name: {
-      type: String,
-      default: 'file'
-    },
-    headers: Object,
-    firebaseStorage: {
-      type: [Object, Function],
-      required: false
-    },
-    fileFilter: {
-      type: Function,
-      required: false
-    },
-    additionalFields: {
-      type: Array,
-      default: () => []
-    },
-    method: {
-      type: String,
-      default: 'POST'
-    },
-    extensions: String,
-    multiple: Boolean,
-    hideUploadButton: Boolean,
-    hideUploadProgress: Boolean,
-    noThumbnails: Boolean,
+  function initFile(file) {
+    file.__doneUploading = false
+    file.__failed = false
+    file.__uploaded = 0
+    file.__progress = 0
+  }
 
-    color: {
-      type: String,
-      default: 'primary'
-    }
-  },
-  data () {
-    return {
-      queue: [],
-      files: [],
-      uploading: false,
-      uploadedSize: 0,
-      totalSize: 0,
-      xhrs: [],
-      firebaseStorageUploadTasks: [],
-      focused: false,
-      lastFileResult: null
-    }
-  },
-  computed: {
-    length () {
-      return this.queue.length
-    },
-    label () {
-      const total = humanStorageSize(this.totalSize)
-      if (!this.uploading && this.files[0] && this.files[0].__doneUploading) return ''
-      return this.uploading
-        ? `${(this.progress).toFixed(2)}% (${humanStorageSize(this.uploadedSize)} / ${total})`
-        : `${this.length} (${total})`
-    },
-    progress () {
-      return this.totalSize ? Math.min(99.99, this.uploadedSize / this.totalSize * 100) : 0
-    },
-    addDisabled () {
-      return !this.multiple && this.length >= 1
-    }
-  },
-  methods: {
-    async __add (e) {
-      if (this.addDisabled) {
-        return
+  export default {
+    name: 'q-uploader',
+    mixins: [FrameMixin],
+    components: {CropModal},
+    props: {
+      name: {
+        type: String,
+        default: 'file'
+      },
+      headers: Object,
+      firebaseStorage: {
+        type: [Object, Function],
+        required: false
+      },
+      fileFilter: {
+        type: Function,
+        required: false
+      },
+      additionalFields: {
+        type: Array,
+        default: () => []
+      },
+      method: {
+        type: String,
+        default: 'POST'
+      },
+      extensions: String,
+      multiple: Boolean,
+      hideUploadButton: Boolean,
+      hideUploadProgress: Boolean,
+      noThumbnails: Boolean,
+
+      color: {
+        type: String,
+        default: 'primary'
       }
-
-      let files = Array.prototype.slice.call(e.target.files)
-
-      // allow filtering the files
-      if (typeof this.fileFilter === 'function') {
-        const filteredFiles = files.filter(this.fileFilter)
-        const amountOfDiscardedFiles = files.length - filteredFiles.length
-        if (amountOfDiscardedFiles > 0) {
-          this.$emit('filtered', files.filter(file => !~filteredFiles.indexOf(file)))
-          files = filteredFiles
+    },
+    data() {
+      return {
+        queue: [],
+        files: [],
+        uploading: false,
+        uploadedSize: 0,
+        totalSize: 0,
+        xhrs: [],
+        firebaseStorageUploadTasks: [],
+        focused: false,
+        lastFileResult: null,
+        cropModalOpened: false,
+        croppedDataUrls: []
+      }
+    },
+    computed: {
+      length() {
+        return this.queue.length
+      },
+      label() {
+        const total = humanStorageSize(this.totalSize)
+        if (!this.uploading && this.files[0] && this.files[0].__doneUploading) return ''
+        return this.uploading
+          ? `${(this.progress).toFixed(2)}% (${humanStorageSize(this.uploadedSize)} / ${total})`
+          : `${this.length} (${total})`
+      },
+      progress() {
+        return this.totalSize ? Math.min(99.99, this.uploadedSize / this.totalSize * 100) : 0
+      },
+      addDisabled() {
+        return !this.multiple && this.length >= 1
+      }
+    },
+    methods: {
+      async __add(e) {
+        if (this.addDisabled) {
+          return
         }
-      }
 
-      this.$refs.file.value = ''
-      files = files.filter(file => !this.queue.some(f => file.name === f.name))
-        .map(file => {
-          initFile(file)
-          file.__size = humanStorageSize(file.size)
+        let files = Array.prototype.slice.call(e.target.files)
 
-          if (this.noThumbnails || !file.type.startsWith('image')) {
-            this.queue.push(file)
+        // allow filtering the files
+        if (typeof this.fileFilter === 'function') {
+          const filteredFiles = files.filter(this.fileFilter)
+          const amountOfDiscardedFiles = files.length - filteredFiles.length
+          if (amountOfDiscardedFiles > 0) {
+            this.$emit('filtered', files.filter(file => !~filteredFiles.indexOf(file)))
+            files = filteredFiles
           }
-          else {
-            const reader = new FileReader()
-            reader.onload = (e) => {
-              let img = new Image()
-              img.src = e.target.result
-              this.lastFileResult = reader.result
-              file.__img = img
+        }
+
+        this.$refs.file.value = ''
+        files = files.filter(file => !this.queue.some(f => file.name === f.name))
+          .map(file => {
+            initFile(file)
+            file.__size = humanStorageSize(file.size)
+
+            if (this.noThumbnails || !file.type.startsWith('image')) {
               this.queue.push(file)
-              this.__computeTotalSize()
-              //AUTOMATICALLY UPLOADING IF THE FILE FORMAT IS CORRECT
-              this.upload()
+            } else {
+              const reader = new FileReader()
+              reader.onload = (e) => {
+                let img = new Image()
+                img.src = e.target.result
+                this.lastFileResult = reader.result
+                file.__img = img
+                this.queue.push(file)
+                this.__computeTotalSize()
+                //AUTOMATICALLY UPLOADING IF THE FILE FORMAT IS CORRECT
+                this.upload()
+              }
+              reader.readAsDataURL(file)
             }
-            reader.readAsDataURL(file)
-          }
-          return file
-        })
-
-      this.files = this.files.concat(files)
-      this.$emit('add', files)
-      this.__computeTotalSize()
-    },
-    __computeTotalSize () {
-      this.totalSize = this.length
-        ? this.queue.map(f => f.size).reduce((total, size) => total + size)
-        : 0
-    },
-    __remove (file) {
-      const
-        name = file.name,
-        done = file.__doneUploading
-
-      if (this.uploading && !done) {
-        this.$emit('remove:abort', file, file.xhr)
-        file.xhr.abort()
-        this.uploadedSize -= file.__uploaded
-      }
-      else {
-        this.$emit(`remove:${done ? 'done' : 'cancel'}`, file, file.xhr)
-      }
-
-      if (!done) {
-        this.queue = this.queue.filter(obj => obj.name !== name)
-      }
-
-      file.__removed = true
-      this.files = this.files.filter(obj => obj.name !== name)
-      this.__computeTotalSize()
-    },
-    __removeUploaded () {
-      this.files = this.files.filter(f => !f.__doneUploading)
-      this.__computeTotalSize()
-    },
-    __pick () {
-      if (!this.addDisabled && this.$q.platform.is.mozilla) {
-        this.$refs.file.click()
-      }
-    },
-    __getFirebaseUploadPromise (file) {
-      initFile(file)
-      let uploadTask
-
-      // simplest usage : provide a Firebase Storage Ref
-      if (typeof this.firebaseStorage === 'object') {
-        // Firebase Storage allows custom String props to be written in metadata.customMdetadata
-        const metadata = {
-          customMetadata: {}
-        }
-        // We reuse the additionalFields prop to populate metadata
-        this.additionalFields.forEach(field => {
-          metadata.customMetadata[field.name] = field.value
-        })
-        uploadTask = this.firebaseStorage.child(file.name).put(file, metadata)
-      }
-      /* alternative : provide a function that returns a Firebase Storage Ref
-         i.e. if the files need to be renamed before upload */
-      else if (typeof this.firebaseStorage === 'function') {
-        uploadTask = this.firebaseStorage(file)
-      }
-      else {
-        return
-      }
-      return new Promise((resolve, reject) => {
-        uploadTask.on('state_changed', snapshot => {
-          // upload in progresss
-          if (file.__removed) { return }
-          const uploaded = snapshot.bytesTransferred
-          this.uploadedSize += uploaded - file.__uploaded
-          file.__uploaded = uploaded
-          file.__progress = Math.min(99, parseInt((snapshot.bytesTransferred / snapshot.totalBytes) * 100, 10))
-        }, error => {
-          // error while uploading
-          file.__failed = true
-          this.$emit('fail', file, uploadTask, error)
-          reject(uploadTask)
-        }, () => {
-          // upload successful
-          file.__doneUploading = true
-          file.__progress = 100
-          this.$emit('uploaded', file, uploadTask, this.lastFileResult)
-          resolve(file)
-        })
-        this.firebaseStorageUploadTasks.push(uploadTask)
-      })
-    },
-    upload () {
-      const length = this.length
-      if (length === 0) {
-        return
-      }
-
-      let filesDone = 0
-      this.uploadedSize = 0
-      this.uploading = true
-      this.xhrs = []
-      this.firebaseStorageUploadTasks = []
-      this.$emit('start')
-
-      let solved = () => {
-        filesDone++
-        if (filesDone === length) {
-          this.uploading = false
-          this.xhrs = []
-          this.firebaseStorageUploadTasks = []
-          this.queue = this.queue.filter(f => !f.__doneUploading)
-          this.__computeTotalSize()
-          this.$emit('finish')
-        }
-      }
-
-      if (this.firebaseStorage) {
-        this.queue.map(file => this.__getFirebaseUploadPromise(file))
-          .forEach(promise => {
-            promise.then(solved).catch(solved)
+            return file
           })
-      }
-    },
-    abort () {
-      this.xhrs.forEach(xhr => { xhr.abort() })
-      this.firebaseStorageUploadTasks.forEach(uploadTask => { uploadTask.cancel() })
-    },
-    reset () {
-      this.abort()
-      this.files = []
-      this.queue = []
-      this.__computeTotalSize()
-      this.$emit('reset')
+
+        this.files = this.files.concat(files)
+        this.$emit('add', files)
+        this.__computeTotalSize()
+      },
+      __computeTotalSize() {
+        this.totalSize = this.length
+          ? this.queue.map(f => f.size).reduce((total, size) => total + size)
+          : 0
+      },
+      __remove(file) {
+        const
+          name = file.name,
+          done = file.__doneUploading
+
+        if (this.uploading && !done) {
+          this.$emit('remove:abort', file, file.xhr)
+          file.xhr.abort()
+          this.uploadedSize -= file.__uploaded
+        } else {
+          this.$emit(`remove:${done ? 'done' : 'cancel'}`, file, file.xhr)
+        }
+
+        if (!done) {
+          this.queue = this.queue.filter(obj => obj.name !== name)
+        }
+
+        file.__removed = true
+        this.files = this.files.filter(obj => obj.name !== name)
+        this.__computeTotalSize()
+      },
+      __removeUploaded() {
+        this.files = this.files.filter(f => !f.__doneUploading)
+        this.__computeTotalSize()
+      },
+      __pick() {
+        if (!this.addDisabled && this.$q.platform.is.mozilla) {
+          this.$refs.file.click()
+        }
+      },
+      __getFirebaseUploadPromise(file) {
+        initFile(file)
+        const uploadTask = this.firebaseStorage.child(file.name).put(file)
+        return new Promise((resolve, reject) => {
+          uploadTask.on('state_changed', snapshot => {
+            // upload in progresss
+            if (file.__removed) {
+              return
+            }
+            const uploaded = snapshot.bytesTransferred
+            this.uploadedSize += uploaded - file.__uploaded
+            file.__uploaded = uploaded
+            file.__progress = Math.min(99, parseInt((snapshot.bytesTransferred / snapshot.totalBytes) * 100, 10))
+          }, error => {
+            // error while uploading
+            file.__failed = true
+            this.$emit('fail', file, uploadTask, error)
+            reject(uploadTask)
+          }, () => {
+            // upload successful
+            file.__doneUploading = true
+            file.__progress = 100
+            this.$emit('uploaded', file, uploadTask, this.lastFileResult)
+            this.cropModalOpened = true
+            this.$refs.cropModal.bind(this.lastFileResult)
+            resolve(file)
+          })
+          this.firebaseStorageUploadTasks.push(uploadTask)
+        })
+      },
+      upload() {
+        const length = this.length
+        if (length === 0) {
+          return
+        }
+
+        let filesDone = 0
+        this.uploadedSize = 0
+        this.uploading = true
+        this.xhrs = []
+        this.firebaseStorageUploadTasks = []
+        this.$emit('start')
+
+        let solved = () => {
+          filesDone++
+          if (filesDone === length) {
+            this.uploading = false
+            this.xhrs = []
+            this.firebaseStorageUploadTasks = []
+            this.queue = this.queue.filter(f => !f.__doneUploading)
+            this.__computeTotalSize()
+            this.$emit('finish')
+          }
+        }
+
+        if (this.firebaseStorage) {
+          this.queue.map(file => this.__getFirebaseUploadPromise(file))
+            .forEach(promise => {
+              promise.then(solved).catch(solved)
+            })
+        }
+      },
+      abort() {
+        this.xhrs.forEach(xhr => {
+          xhr.abort()
+        })
+        this.firebaseStorageUploadTasks.forEach(uploadTask => {
+          uploadTask.cancel()
+        })
+      },
+      reset() {
+        this.abort()
+        this.files = []
+        this.queue = []
+        this.__computeTotalSize()
+        this.$emit('reset')
+      },
+      async onCropFinished(output) {
+        await this.firebaseStorage.child('preview').putString(output, 'data_url')
+        this.croppedDataUrls.push(output)
+        this.cropModalOpened = false
+      },
     }
   }
-}
 </script>

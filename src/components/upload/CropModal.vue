@@ -21,7 +21,7 @@
       ref="croppieRef"
       :enableOrientation="false"
       @result="onCropFinished"
-      :viewport="{ width: 200, height: 200, type: 'circle' }"
+      :viewport="{ width: 200, height: 200, type: 'square' }"
       :enableResize="false">
     </vue-croppie>
   </q-modal>
