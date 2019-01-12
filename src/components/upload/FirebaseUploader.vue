@@ -73,6 +73,7 @@
                     :color="file.__failed ? 'negative' : 'grey'"
                     :percentage="file.__progress"
         ></q-progress>
+
         <div class="q-uploader-progress-text absolute" v-if="!hideUploadProgress">
           {{ file.__progress }}%
         </div>
@@ -83,9 +84,10 @@
         <q-item-side v-if="croppedDataUrls[index]" :image="croppedDataUrls[index]" text-color="blue"></q-item-side>
 
         <q-item-main :label="file.name" :sublabel="file.__size"></q-item-main>
+
         <q-item-side right>
           <q-item-tile
-            :icon="file.__doneUploading ? 'done' : 'clear'"
+            :icon="file.__doneUploading ? 'clear' : 'clear'"
             :color="color"
             class="cursor-pointer"
             @click.native="__remove(file)"
