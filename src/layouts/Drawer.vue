@@ -4,18 +4,30 @@
     :content-class="$q.theme === 'mat' ? 'bg-primary' : null"
     @on-layout="checkLogin"
   >
-    <div class="row justify-center">
-      <q-spinner-bars v-if="loading" color="white" class="spinner" />
+    <div class="row">
+      <q-spinner-bars v-if="loading" color="white" class="spinner left" />
     </div>
+
+
     <div v-if="logged">
-      <q-item>
-        <img src="~assets/avatar.png" style='height: 80px' class="inline-block">
-      </q-item>
+
+       <q-item>
+          <q-item-side>
+            <q-item-tile avatar>
+              <img src="~assets/avatar.png">
+            </q-item-tile>
+          </q-item-side>
+          <q-item-main :label="user.email" />
+          <q-item-side right>
+            <q-btn @click="logout" outline>Logout</q-btn>
+          </q-item-side>
+        </q-item>
+
       <div>
-        <span class="text-white">{{user.email}}</span>
-        <hr>
+
       </div>
     </div>
+
     <q-list
       no-border
       link
@@ -49,15 +61,16 @@
         <q-item-side icon="code"/>
         <q-item-main label="GitHub" sublabel="github.com/agualis/asalto"/>
       </q-item>
-      <q-list-header>
-        <img src="/statics/asalto.gif"/>
-      </q-list-header>
+      <!--<q-list-header>-->
+        <!--<img src="/statics/asalto.gif"/>-->
+      <!--</q-list-header>-->
     </q-list>
   </q-layout-drawer>
 </template>
 
 <script>
   import firebase from 'firebase'
+  import { logout } from '../plugins/firebase'
 
   export default {
     props: {
@@ -79,6 +92,9 @@
       setUser(user) {
         this.user = user
         this.loading = false
+      },
+      logout() {
+        logout()
       }
     },
     computed: {
@@ -95,7 +111,7 @@
 <style lang="stylus" scoped>
   @import '~variables'
   .spinner {
-    width: 100 px;
-    height: 100px;
+    width: 10 px;
+    height: 10px;
   }
 </style>
