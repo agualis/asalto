@@ -1,9 +1,9 @@
 <template>
   <q-page class="flex flex-center">
-    <TestModal :opened="modalOpened"
+    <DetailModal :opened="modalOpened"
                :onClose="onModalClose"
                :detailId="artWorkOpenedId"
-    ></TestModal>
+    ></DetailModal>
 
      <!--<q-modal v-model="modalOpened" :content-css="{minWidth: '50vw'}">-->
       <!--<div style="padding: 50px">-->
@@ -20,21 +20,23 @@
             @map-load="mapLoaded"
     >
     </mapbox>
+    <BackFabButton :click="onModalClose"/>
   </q-page>
 </template>
 
 <script>
   import Mapbox from 'mapbox-gl-vue'
+  import BackFabButton from '@components/BackFabButton'
   import { artworkFeatures } from './artwork-features'
   import { loadClusters } from './load-clusters'
   import { addPopUps } from './load-popups'
   import { bus } from './main'
   import { mapOptions } from './map-options'
-  import TestModal from '../layouts/TestModal'
+  import DetailModal from '../layouts/DetailModal'
 
   export default {
     name: 'PageIndex',
-    components: {Mapbox, TestModal},
+    components: {Mapbox, DetailModal, BackFabButton},
     data() {
       return {
         token: process.env.MAPBOX_TOKEN,
@@ -71,9 +73,11 @@
         })
       },
       onModalClose() {
+        console.log('closing modal')
         this.modalOpened = false
       },
       openModal(id) {
+        console.log('openening modal')
         this.modalOpened = true
         this.artWorkOpenedId = id
       }

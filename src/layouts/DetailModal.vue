@@ -1,12 +1,12 @@
 <template>
-  <q-modal v-model="opened" minimized @hide="hideModal" @escape-key="hideModal"
+  <q-modal :value="opened" minimized @hide="hideModal" @escape-key="hideModal"
            :no-esc-dismiss="false"
   >
     <q-btn @click.native="onClose()"
            color="primary">
       CLOSE
     </q-btn>
-    <DetailPopup :workId="detailId"></DetailPopup>
+    <DetailPopup :workId="detailId" :onClose="onClose"></DetailPopup>
   </q-modal>
 </template>
 
@@ -24,6 +24,7 @@
     },
     methods: {
       hideModal() {
+        this.onClose()
         this.$q.notify({
         color: 'secondary',
         message: 'Done closing'

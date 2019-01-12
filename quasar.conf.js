@@ -84,11 +84,15 @@ module.exports = function (ctx) {
         'QProgress',
         'QSpinner',
         'QSpinnerBars',
-        'QModal'
+        'QModal',
+        'QCarousel',
+        'QCarouselSlide',
+        'QCarouselControl'
       ],
       directives: [
         'Ripple',
-        'CloseOverlay'
+        'CloseOverlay',
+        'BackToTop'
       ],
       // Quasar plugins
       plugins: [
