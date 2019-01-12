@@ -1,7 +1,7 @@
 <template>
   <q-page padding class="docs-input row justify-center">
     <div style="width: 500px; max-width: 90vw;">
-      <p class="caption">Create new artwork</p>
+      <p class="caption urban">🤘Add New Shit🤘</p>
       <q-field
         icon="brush"
         label="Artwork Name"
@@ -33,6 +33,9 @@
                            :name="fileNamePrefix"
          ></FirebaseUploader>
       </q-field>
+
+      <q-btn color="primary" :disabled="true" @click="">Create</q-btn>
+
 
     </div>
   </q-page>
