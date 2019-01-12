@@ -11,14 +11,14 @@
             @map-load="mapLoaded"
     >
     </mapbox>
-    <BackFabButton :click="onModalClose"/>
+    <FullScreenButton :click="onModalClose"/>
   </q-page>
 </template>
 
 <script>
   import Mapbox from 'mapbox-gl-vue'
-  import BackFabButton from '@components/BackFabButton'
   import { ARTWORK_POPUP_OPENED, MAP_ZOOMED } from '../bus/events'
+  import FullScreenButton from '@components/FullScreenButton'
   import { artworkFeatures } from './artwork-features'
   import { loadClusters } from './load-clusters'
   import { addPopUps } from './load-popups'
@@ -28,7 +28,7 @@
 
   export default {
     name: 'PageIndex',
-    components: {Mapbox, DetailModal, BackFabButton},
+    components: {FullScreenButton, Mapbox, DetailModal},
     data() {
       return {
         token: process.env.MAPBOX_TOKEN,
@@ -38,7 +38,7 @@
           position: 'top-left'
         },
         fullscreen: {
-          show: true,
+          show: false,
           position: 'top-left'
         },
         modalOpened: false,

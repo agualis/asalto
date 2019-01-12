@@ -98,7 +98,8 @@ module.exports = function (ctx) {
       plugins: [
         'Notify',
         'SessionStorage',
-        'AddressbarColor'
+        'AddressbarColor',
+        'AppFullscreen'
       ]
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       // i18n: 'de' // Quasar language
