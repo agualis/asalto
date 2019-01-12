@@ -3,7 +3,7 @@
     <img v-if="!opened"
          :src="feature.imageUrl" width="50" height="50"
          :title="feature.title">
-    <q-card v-if="opened">
+    <q-card v-if="false">
       <q-card-media>
         <CloseButton :onClick="popupClose"></CloseButton>
         <img :src="feature.imageUrl">
@@ -41,7 +41,7 @@
     },
     created() {
       bus.$on(POPUP_OPENED, (zoomedId) => {
-        this.opened = this.feature.id === zoomedId ? true : false
+        // this.opened = this.feature.id === zoomedId ? true : false
       })
       bus.$on('mapZoomed', (event) => {
         this.unclusteredIds = event.unclusteredIds
@@ -62,7 +62,6 @@
         bus.$emit(POPUP_OPENED, this.feature.id)
       },
       popupClose() {
-        console.log('COCCO')
         this.opened = false
       },
       flyTo(feature) {

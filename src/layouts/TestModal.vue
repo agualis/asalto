@@ -1,38 +1,32 @@
 <template>
-  <q-modal v-model="opened" maximized>
-    <q-toolbar
-      color="primary"
-      :glossy="$q.theme === 'mat'"
-      :inverted="$q.theme === 'ios'"
-    >
-      <ToolbarTitle/>
-    </q-toolbar>
-
-    <h2>TEST</h2>
+  <q-modal v-model="opened" minimized @hide="hideModal" @escape-key="hideModal"
+           :no-esc-dismiss="false"
+  >
     <q-btn @click.native="onClose()"
            color="primary">
       CLOSE
     </q-btn>
-    <List></List>
+    <DetailPopup :workId="detailId"></DetailPopup>
   </q-modal>
 </template>
 
 <script>
   import ToolbarTitle from '../layouts/ToolbarTitle'
   import List from '../pages/List'
+  import DetailPopup from '../pages/DetailPopup'
 
   export default {
-    components: {ToolbarTitle, List},
+    components: {ToolbarTitle, List, DetailPopup},
     props: {
       onClose: {type: Function, required: true},
-      opened: {type: Boolean, required: true}
+      opened: {type: Boolean, required: true},
+      detailId: {type: String, required: false}
     },
-    created() {
-      document.addEventListener("backbutton", onBackKeyDown, false)
-      function onBackKeyDown(event) {
+    methods: {
+      hideModal() {
         this.$q.notify({
         color: 'secondary',
-        message: 'Done opening and closing'
+        message: 'Done closing'
       })
       }
     }

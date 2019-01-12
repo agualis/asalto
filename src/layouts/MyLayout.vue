@@ -3,7 +3,7 @@
     <q-layout-header>
       <q-toolbar
         color="primary"
-        :glossy="$q.theme === 'mat'"
+        :glossy="false"
         :inverted="$q.theme === 'ios'"
       >
         <q-btn

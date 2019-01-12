@@ -10,7 +10,8 @@ const routes = [
       { path: 'map/:coordinates', component: () => import('pages/Map.vue') },
       { path: 'list', component: () => import('pages/List.vue') },
       { path: 'detail/:workId', component: () => import('pages/Detail.vue') },
-      { path: 'create-artwork/', component: () => import('pages/CreateArtwork.vue') }
+      { path: 'create-artwork', component: () => import('pages/CreateArtwork.vue') },
+      { path: 'modals', component: () => import('pages/PlayModals.vue') }
     ]
   }
 ]

@@ -28,7 +28,10 @@
 </template>
 
 <script>
+  import ToolbarTitle from '../../layouts/ToolbarTitle'
+
   export default {
+    components: { ToolbarTitle },
     props: {
       onCropFinished: {type: Function, required: true},
       opened: {type: Boolean, required: true}
