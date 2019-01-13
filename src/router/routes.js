@@ -11,6 +11,7 @@ const routes = [
       { path: 'list', component: () => import('pages/List.vue') },
       { path: 'detail/:workId', component: () => import('pages/Detail.vue') },
       { path: 'create-artwork', component: () => import('pages/CreateArtwork.vue') },
+      { path: 'reset-firebase', component: () => import('pages/ResetDb.vue') },
       { path: 'modals', component: () => import('pages/PlayModals.vue') },
       { path: '', component: () => import('pages/Map.vue') },
       { path: '/:workId', component: () => import('pages/Map.vue') },
