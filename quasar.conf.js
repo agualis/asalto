@@ -10,7 +10,8 @@ module.exports = function (ctx) {
       'i18n',
       'axios',
       'firebase',
-      'vue-croppie'
+      'vue-croppie',
+      'vue-geolocation'
     ],
     css: [
       'app.styl'

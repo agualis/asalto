@@ -89,7 +89,6 @@
 
         <q-item-main :label="file.name" :sublabel="file.__size"></q-item-main>
 
-        file {{file}}
         <q-item-side right>
           <q-item-tile v-if="file.__doneUploading"
             :icon="file.__doneUploading ? 'clear' : 'clear'"
