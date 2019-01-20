@@ -1,6 +1,7 @@
 <template>
   <q-layout-drawer
-    :value="leftDrawerOpen"
+    :value="value"
+    @input="$.emit('input', !value)"
     :content-class="$q.theme === 'mat' ? 'bg-primary' : null"
     @on-layout="checkLogin"
   >
@@ -13,12 +14,16 @@
           <q-item-side>
             <q-item-tile avatar>
               <img v-if='userAvatar' :src="userAvatar">
-              <img v-else src="~assets/obey-face.jpg">
+              <img v-else
+                   data-test="superadmin-avatar"
+                   src="~assets/obey-face.jpg">
             </q-item-tile>
           </q-item-side>
           <q-item-main :label="user.email" />
           <q-item-side right>
-            <q-btn @click="logout" outline>Logout</q-btn>
+            <q-btn @click="logout"
+                   data-test="logout"
+                   outline>Logout</q-btn>
           </q-item-side>
         </q-item>
       <div>
@@ -83,7 +88,7 @@
 
   export default {
     props: {
-      leftDrawerOpen: { default: false }
+      value: { default: false }
     },
     data() {
       return {

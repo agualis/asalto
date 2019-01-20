@@ -21,7 +21,7 @@
       </q-toolbar>
     </q-layout-header>
 
-    <Drawer :leftDrawerOpen="leftDrawerOpen"></Drawer>
+    <Drawer v-model="leftDrawerOpen"></Drawer>
 
     <q-page-container>
       <router-view />
