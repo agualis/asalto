@@ -2,15 +2,23 @@
   <q-page class="flex flex-center">
     <DetailModal :opened="modalOpened"
                :onClose="onModalClose"
-               :detailId="artWorkOpenedId"
+               :workDetail="openedWork"
     ></DetailModal>
-    <mapbox :access-token="token"
-            :mapOptions="mapOptions"
-            :geolocate-control="geolocateControl"
-            :fullscreen-control="fullscreen"
-            @map-load="mapLoaded"
-    >
-    </mapbox>
+      <QSpinner v-if="!works"
+                data-test="works-loading-spinner"
+                color="primary"
+                :size="60"></QSpinner>
+      <QProgress v-if="works && loading"
+                 data-test="map-loading-progress"
+                 indeterminate color="primary"/>
+      <mapbox v-if="works"
+              :access-token="token"
+              :mapOptions="mapOptions"
+              :geolocate-control="geolocateControl"
+              :fullscreen-control="fullscreen"
+              @map-load="mapLoaded"
+      >
+      </mapbox>
     <FullScreenButton :click="onModalClose"/>
   </q-page>
 </template>
@@ -19,15 +27,14 @@
   import Mapbox from 'mapbox-gl-vue'
   import { ARTWORK_POPUP_OPENED, MAP_ZOOMED } from '../bus/events'
   import FullScreenButton from '@components/FullScreenButton'
-  import { artworkFeatures } from './artwork-features'
-  import { loadClusters } from './load-clusters'
+  import { ARTWORKS } from '../infrastructure/db'
+  import { CLUSTER_MAX_ZOOM, loadClusters } from './load-clusters'
   import { addPopUps } from './load-popups'
   import { bus } from './main'
   import { mapOptions } from './map-options'
   import DetailModal from '../layouts/DetailModal'
 
   export default {
-    name: 'PageIndex',
     components: {FullScreenButton, Mapbox, DetailModal},
     data() {
       return {
@@ -42,18 +49,27 @@
           position: 'top-left'
         },
         modalOpened: false,
-        artWorkOpenedId: null
+        openedWork: null,
+        works: null,
+        loading: true
       }
     },
-    created() {
+    async created() {
+      this.$q.addressbarColor.set()
+      const works = await this.$bind(ARTWORKS, this.$db.collection(ARTWORKS))
+      this.works = Object.freeze(works)
+      console.log('this.works', this.works)
       bus.$on(ARTWORK_POPUP_OPENED, this.openModal)
       if (!this.$route.params.coordinates) return
       this.mapOptions = mapOptions(this.$route.params.coordinates.split(','))
+      this.mapOptions.zoom = CLUSTER_MAX_ZOOM +1
     },
     methods: {
       mapLoaded(map) {
-        addPopUps(map, artworkFeatures, this.$router)
-        loadClusters(map, null)
+        console.log('MAP LOADED')
+        this.loading = false
+        addPopUps(map, this.works, this.$router)
+        loadClusters(map, this.works)
 
         map.on('moveend', ()=> {
           let unclusteredIds = map.queryRenderedFeatures({layers: ['unclustered-point']})
@@ -68,7 +84,8 @@
       openModal(id) {
         this.$router.push(`/${id}`)
         this.modalOpened = true
-        this.artWorkOpenedId = id
+        console.log('Work')
+        this.openedWork = this.works.find(work => work.id === id)
       }
     }
   }

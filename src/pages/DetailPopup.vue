@@ -1,20 +1,21 @@
 <template>
-  <div v-if="feature">
+  <div v-if="work">
     <q-card >
       <q-card-media overlay-position="top">
-        <img :src="feature.imageUrl" class="responsive"/>
+        <img :src="work.imageUrl" class="responsive"/>
       </q-card-media>
       <q-card-title class="relative-position">
-        <q-btn fab color="primary" icon="fullscreen"
+        <q-btn fab color="primary" icon="collections"
+               data-test="detail-carousel"
                class="absolute"
                @click="carouselModalOpened=true"
                style="top: 0; right: 8px; transform: translateY(-50%);" />
 
-        {{ feature.title }} <By/> {{ feature.author }}
+        {{ work.title }} <By/> {{ work.author }}
 
       </q-card-title>
       <q-card-main>
-        <span class="text-weight-light">{{feature.description}}</span>
+        <span class="text-weight-light">{{work.description}}</span>
       </q-card-main>
     </q-card>
     <q-modal v-model="carouselModalOpened" maximized>
@@ -23,7 +24,7 @@
         quick-nav
         class="text-white full-height"
       >
-        <q-carousel-slide  :img-src="feature.imageUrl"/>
+        <q-carousel-slide  :img-src="work.imageUrl"/>
         <q-carousel-control
             slot="control-full"
             slot-scope="carousel"
@@ -34,6 +35,7 @@
               rounded push
               color="primary"
               icon="close"
+              data-test="close-detail-carousel"
               label="Close me"
               @click="carouselModalOpened = false"
             />
@@ -44,27 +46,17 @@
 </template>
 
 <script>
-  import { artworkFeatures } from './artwork-features'
   import By from './By'
 
   export default {
     components: { By },
     props: {
       onClose: { type: Function, required: true },
-      workId: { type: String, required: false },
+      work: { type: Object, required: false },
     },
     data() {
       return {
         carouselModalOpened: false
-      }
-    },
-    computed: {
-      feature() {
-        return artworkFeatures[this.workId]
-      },
-      gallery(){
-        return
-          [this.feature.imageUrl]
       }
     }
   }

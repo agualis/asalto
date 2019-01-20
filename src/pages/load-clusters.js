@@ -1,13 +1,10 @@
-import { data } from './clusters'
-import { addPopUps } from './load-popups'
-
 const ARTWORKS_SOURCE = 'artworks'
 export const CLUSTER_MAX_ZOOM = 15
 
-export function loadClusters(map, features) {
+export function loadClusters(map, works) {
   map.addSource(ARTWORKS_SOURCE, {
     type: "geojson",
-    data,
+    data: buildClusterData(works),
     cluster: true,
     clusterMaxZoom: CLUSTER_MAX_ZOOM, // Max zoom to cluster points on
     clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
@@ -83,3 +80,11 @@ export function loadClusters(map, features) {
     })
   })
 }
+
+export const buildClusterData = works => (
+  {
+    "type": "FeatureCollection",
+    "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
+    "features": works
+  }
+)

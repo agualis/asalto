@@ -3,6 +3,7 @@
       <q-card inline class="menu-card"
               v-for="feature in features"
               :key="feature.id"
+              data-test="list-item"
               @click.once.native="openDetail(feature.id)">
       <q-card-media overlay-position="top">
         <img :src="feature.imageUrl"/>

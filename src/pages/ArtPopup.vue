@@ -1,7 +1,13 @@
 <template>
   <div v-if="show" @click="popupClicked" class="preview">
-    <img :src="feature.imageUrl" width="50" height="50"
+    <div v-if="!imageSrc">LOADING</div>
+    <img :src="imageSrc"
+         width="50" height="50"
          :title="feature.title">
+   <!--<progressive-img-->
+    <!--:src="feature.imageUrl"-->
+     <!--no-ratio-->
+    <!--/>-->
   </div>
 </template>
 
@@ -13,6 +19,11 @@
   import CloseButton from '../components/CloseButton'
   import By from './By'
 
+  function getImageSrc(storageRef, imageUrl) {
+    if (imageUrl.startsWith('http')) return imageUrl
+    return storageRef.child(imageUrl).getDownloadURL()
+  }
+
   export default {
     components: {
       By, CardButton, CloseButton
@@ -22,9 +33,11 @@
       map: { type: Object, required: true },
       popup: { type: Object, required: true }
     },
-    created() {
+    async created() {
+      this.imageSrc = await getImageSrc(this.$storageRef, this.feature.imageUrl)
       bus.$on(MAP_ZOOMED, (event) => {
-        this.unclusteredIds = event.unclusteredIds
+        this.unclusteredIds = Object.freeze(event.unclusteredIds)
+        console.log(event.unclusteredIds)
         this.zoomLevel = event.zoom
       })
     },
@@ -32,7 +45,8 @@
       return {
         opened: false,
         zoomLevel: this.map.getZoom(),
-        unclusteredIds: []
+        unclusteredIds: [],
+        imageSrc: null
       }
     },
     methods: {
@@ -53,7 +67,7 @@
     },
     computed: {
       show() {
-        const show = this.unclusteredIds.includes(this.feature.id) || this.zoomLevel >= CLUSTER_MAX_ZOOM +1
+        const show = this.unclusteredIds.includes(this.feature.properties.id) || this.zoomLevel >= CLUSTER_MAX_ZOOM +1
         if (!show) this.popup.remove()
         else this.popup.addTo(this.map)
         return show

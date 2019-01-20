@@ -2,7 +2,7 @@
   <q-modal :value="opened" minimized @hide="hideModal" @escape-key="hideModal"
            :no-esc-dismiss="false"
   >
-    <DetailPopup :workId="detailId" :onClose="onClose"></DetailPopup>
+    <DetailPopup :work="workDetail" :onClose="onClose"></DetailPopup>
   </q-modal>
 </template>
 
@@ -16,7 +16,7 @@
     props: {
       onClose: {type: Function, required: true},
       opened: {type: Boolean, required: true},
-      detailId: {type: String, required: false}
+      workDetail: {type: Object, required: false}
     },
     methods: {
       hideModal() {
