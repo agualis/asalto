@@ -6,6 +6,7 @@
       <q-field orientation="vertical">
         <q-btn color="primary"
                @click="resetDb"
+               data-test="reset-db"
                inverted>
           Reset the fucking DB
         </q-btn>
@@ -15,20 +16,14 @@
 </template>
 
 <script>
-  import { ARTWORKS } from '../infrastructure/db'
-  import { artworkFeatures } from './artwork-features'
+  import { resetDb, seedDb } from './db-seed'
 
   export default {
     methods: {
       async resetDb() {
         if (process.env.PROD) return this.$q.notify('This a production environment, are you insane?')
-        const db = this.$db
-        const collection = db.collection(ARTWORKS)
-        const artworks = await collection.get()
-        await artworks.forEach(work => collection.doc(work.id).delete())
-        await Object.values(artworkFeatures).forEach(work => {
-          this.$db.collection(ARTWORKS).add(work)
-        })
+        await resetDb(this.$db)
+        await seedDb(this.$db)
         this.$q.notify('RESET SUCCESS 🤘🤘🤘')
       }
     }
