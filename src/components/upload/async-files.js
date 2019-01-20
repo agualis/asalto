@@ -1,11 +1,22 @@
 export function readFileAsDataUrl(file) {
   return new Promise((resolve, reject) => {
-    console.log('WOWWO', typeof file)
-    let reader = new FileReader();
+    let reader = new FileReader()
     reader.onload = () => {
-      resolve(reader.result);
+      resolve(reader.result)
     }
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
+    reader.onerror = reject
+    reader.readAsDataURL(file)
+  })
+}
+
+export function readFileAsBlob(file) {
+  return new Promise((resolve, reject) => {
+    let reader = new FileReader()
+    reader.onload = (event) => {
+        const blob = new Blob([event.target.result])
+        resolve(blob)
+    }
+    reader.onerror = reject
+    reader.readAsArrayBuffer(file)
   })
 }
