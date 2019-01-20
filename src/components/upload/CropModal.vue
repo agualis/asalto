@@ -13,8 +13,10 @@
     </q-toolbar>
 
     <h2>Select a representative preview image</h2>
-    <q-btn @click.native="cropViaEvent()"
-           color="primary">
+    <q-btn
+      @click.native="cropViaEvent()"
+      data-test="crop-preview"
+      color="primary">
       Crop
     </q-btn>
     <vue-croppie

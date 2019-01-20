@@ -829,6 +829,10 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@positron/stack-trace/-/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
 
+"@posva/vuefire-core@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@posva/vuefire-core/-/vuefire-core-1.0.3.tgz#d439cc315749d08a3045ab97baa25148755d3948"
+
 "@types/node@^10.11.7":
   version "10.12.18"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
@@ -8000,6 +8004,10 @@ vue-progressive-image@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/vue-progressive-image/-/vue-progressive-image-3.2.0.tgz#a6443f78bda87846f94e900b119e7ed0b6f3365f"
 
+vue-progressive-img@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/vue-progressive-img/-/vue-progressive-img-0.1.5.tgz#8c93bc27df736cf3bfbdea12d15df7a9557f3075"
+
 vue-router@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"
@@ -8043,9 +8051,11 @@ vue@^2.0.1:
   version "2.5.22"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.22.tgz#3bf88041af08b8539c37b268b70ca79245e9cc30"
 
-vuefire@^1.4.5:
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/vuefire/-/vuefire-1.4.5.tgz#2f31028b18f25e0f581bb68fb94b88302d62ebf8"
+vuefire@^2.0.0-alpha.20:
+  version "2.0.0-alpha.20"
+  resolved "https://registry.yarnpkg.com/vuefire/-/vuefire-2.0.0-alpha.20.tgz#e873d1dee9327c9cf6ad03c7687871bd5745cb27"
+  dependencies:
+    "@posva/vuefire-core" "^1.0.3"
 
 vuex@3.0.1:
   version "3.0.1"

@@ -4,6 +4,7 @@
     <input
       type="text"
       v-model="email"
+      data-test="superlogin-email"
       placeholder="Email address"
       class="input"
       required>
@@ -12,10 +13,16 @@
       type="password"
       v-model="password"
       placeholder="Password"
+      data-test="superlogin-password"
       class="input"
       required>
     <br/>
-    <button @click="login" class="button">Enter</button>
+    <button @click="login"
+            class="button"
+            data-test="superlogin-submit"
+    >
+      Enter
+    </button>
     <p><router-link to="/signup">
       New Here? Create a new account
     </router-link></p>

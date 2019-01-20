@@ -11,7 +11,8 @@ module.exports = function (ctx) {
       'axios',
       'firebase',
       'vue-croppie',
-      'vue-geolocation'
+      'vue-geolocation',
+      'vue-progressive-image'
     ],
     css: [
       'app.styl'

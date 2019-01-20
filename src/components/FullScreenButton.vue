@@ -1,11 +1,12 @@
 <template>
   <q-btn v-if="show"
+    data-test="fullscreen"
     round
     color="primary"
     @click="toggleFullscreenMode"
     class="fixed"
     icon="fullscreen"
-    style="right: 18px; bottom: 18px"
+    style="right: 18px; bottom: 30px"
   />
 </template>
 

@@ -8,7 +8,9 @@
         :error="false"
         error-label="error"
       >
-        <q-input v-model="title"/>
+        <q-input
+          data-test="new-artwork-title"
+          v-model="title"/>
       </q-field>
 
       <q-field
@@ -17,7 +19,9 @@
         :error="false"
         error-label="error"
       >
-        <q-input v-model="author"/>
+        <q-input
+          data-test="new-artwork-author"
+          v-model="author"/>
       </q-field>
 
        <q-field
@@ -43,6 +47,7 @@
       >
         <q-input v-model="description"
                  class="q-ma-xs"
+                 data-test="new-artwork-description"
                  color="primary"
                  rows="5"
                  type="textarea" />
@@ -55,11 +60,17 @@
         :error="false"
         orientation="vertical"
       >
-        <q-input stack-label="Latitude" v-model="latitude"/>
-        <q-input stack-label="Longitude" v-model="longitude"/>
+        <q-input
+          stack-label="Latitude"
+          data-test="new-artwork-latitude"
+          v-model="latitude"/>
+        <q-input stack-label="Longitude"
+                 data-test="new-artwork-longitude"
+                 v-model="longitude"/>
         <q-btn flat
+               data-test="open-gmaps-geolocation"
                @click="openGoogleMapsUrl">
-          Check in google maps
+            Check in google maps
         </q-btn>
       </q-field>
 
@@ -103,7 +114,6 @@
       }
     },
     async created() {
-      // const url = await storageRef.child('banksy_800x669.jpg').getDownloadURL()
       const coordinates = await this.$getLocation({})
       this.latitude = coordinates.lat
       this.longitude = coordinates.lng
