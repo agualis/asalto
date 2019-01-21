@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import { resetDb, seedDb } from './db-seed'
+  import { resetDb, seedDb } from './db-hooks'
 
   export default {
     methods: {

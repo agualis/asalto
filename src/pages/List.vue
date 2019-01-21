@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import { artworks } from './superadmin/artworks'
+  import { artworks } from './artworks'
   import By from './By'
 
   export default {

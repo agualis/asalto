@@ -1,4 +1,4 @@
-export let works = {
+export let artworks = {
   'id1': {
     type: 'Feature',
     title: 'Maddona del Cierzo',

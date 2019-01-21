@@ -1,5 +1,5 @@
 import { ARTWORKS } from '../../infrastructure/db'
-import { artworks } from './artworks'
+import { artworks } from '../artworks'
 
 export const resetDb = async (db) => {
   const collection = db.collection(ARTWORKS)
@@ -9,7 +9,6 @@ export const resetDb = async (db) => {
 
 export const seedDb = async (db) => {
   await Object.values(artworks).forEach(work => {
-    console.log('Adding ', work)
     db.collection(ARTWORKS).add(work)
   })
 }
