@@ -3,9 +3,9 @@
     <div v-if="!imageSrc">LOADING</div>
     <img :src="imageSrc"
          width="50" height="50"
-         :title="feature.title">
+         :title="work.title">
    <!--<progressive-img-->
-    <!--:src="feature.imageUrl"-->
+    <!--:src="work.imageUrl"-->
      <!--no-ratio-->
     <!--/>-->
   </div>
@@ -29,12 +29,12 @@
       By, CardButton, CloseButton
     },
     props: {
-      feature: { type: Object, required: true },
+      work: { type: Object, required: true },
       map: { type: Object, required: true },
       popup: { type: Object, required: true }
     },
     async created() {
-      this.imageSrc = await getImageSrc(this.$storageRef, this.feature.imageUrl)
+      this.imageSrc = await getImageSrc(this.$storageRef, this.work.imageUrl)
       bus.$on(MAP_ZOOMED, (event) => {
         this.unclusteredIds = Object.freeze(event.unclusteredIds)
         console.log(event.unclusteredIds)
@@ -51,23 +51,23 @@
     },
     methods: {
       popupClicked() {
-        this.flyTo(this.feature)
-        bus.$emit(ARTWORK_POPUP_OPENED, this.feature.id)
+        this.flyTo(this.work)
+        bus.$emit(ARTWORK_POPUP_OPENED, this.work.uid)
       },
-      flyTo(feature) {
+      flyTo(artwork) {
          this.map.flyTo({
-          center: feature.geometry.coordinates,
+          center: artwork.geometry.coordinates,
           zoom: 16,
           offset: [0, 0]
         })
       },
       openDetail() {
-        this.$router.push(`/detail/${this.feature.id}`)
+        this.$router.push(`/detail/${this.work.uid}`)
       }
     },
     computed: {
       show() {
-        const show = this.unclusteredIds.includes(this.feature.properties.id) || this.zoomLevel >= CLUSTER_MAX_ZOOM +1
+        const show = this.unclusteredIds.includes(this.work.uid) || this.zoomLevel >= CLUSTER_MAX_ZOOM +1
         if (!show) this.popup.remove()
         else this.popup.addTo(this.map)
         return show

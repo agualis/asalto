@@ -1,35 +1,35 @@
 <template>
   <div class="row justify-left">
       <q-card inline class="menu-card"
-              v-for="feature in features"
-              :key="feature.id"
+              v-for="work in works"
+              :key="work.uid"
               data-test="list-item"
-              @click.once.native="openDetail(feature.id)">
+              @click.once.native="openDetail(work.uid)">
       <q-card-media overlay-position="top">
-        <img :src="feature.imageUrl"/>
+        <img :src="work.imageUrl"/>
       </q-card-media>
         <q-card-main>
-          <div class="text-weight-bolder ellipsis">{{ feature.title }}</div>
-          <div class="ellipsis author"><By/> {{ feature.author }}</div>
+          <div class="text-weight-bolder ellipsis">{{ work.title }}</div>
+          <div class="ellipsis author"><By/> {{ work.author }}</div>
         </q-card-main>
       </q-card>
   </div>
 </template>
 
 <script>
-  import { artworkFeatures } from './artwork-features'
+  import { artworks } from './superadmin/artworks'
   import By from './By'
 
   export default {
     components: { By },
     data() {
       return {
-        features: artworkFeatures
+        works: artworks
       }
     },
     methods: {
-      openDetail(id) {
-        this.$router.push(`/detail/${id}`)
+      openDetail(uid) {
+        this.$router.push(`/detail/${uid}`)
       }
     }
   }

@@ -2,11 +2,11 @@
   <div class="street">
     <q-list >
       <q-list-header>Nearest</q-list-header>
-      <q-item v-for="feature in features"
-              :key="feature.id"
-              @click.native="openDetail(feature.id)">
-        <q-item-side :image="feature.imageUrl"/>
-        <q-item-main :label="feature.title"/>
+      <q-item v-for="work in works"
+              :key="work.uid"
+              @click.native="openDetail(work.uid)">
+        <q-item-side :image="work.imageUrl"/>
+        <q-item-main :label="work.title"/>
         <q-item-side right icon="more_horiz"/>
       </q-item>
     </q-list>
@@ -14,17 +14,17 @@
 </template>
 
 <script>
-  import { artworkFeatures } from './artwork-features'
+  import { artworks } from './superadmin/artworks'
 
   export default {
     data() {
       return {
-        features: artworkFeatures
+        works: artworks
       }
     },
     methods: {
-      openDetail(id) {
-        this.$router.push(`/detail/${id}`)
+      openDetail(uid) {
+        this.$router.push(`/detail/${uid}`)
       }
     }
   }

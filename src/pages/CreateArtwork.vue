@@ -93,7 +93,7 @@
   const storageRef = storage.ref('asalto')
   import FirebaseUploader from '@components/upload/FirebaseUploader'
   import { openURL } from 'quasar'
-  import { createFeature } from '../components/features'
+  import { createArtwork } from '../components/works'
   import { ARTWORKS } from '../infrastructure/db'
 
   export default {
@@ -128,7 +128,7 @@
         openURL(`http://maps.google.com/maps?q=${this.latitude},${this.longitude}`)
       },
       createArtwork() {
-        this.artwork = createFeature({
+        this.artwork = createArtwork({
           title: this.title,
           author: this.author,
           imageUrl: this.imageUrl,

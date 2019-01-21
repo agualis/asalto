@@ -5,7 +5,7 @@
 
       <q-field orientation="vertical">
         <q-btn color="primary"
-               @click="resetDb"
+               @click="reset"
                data-test="reset-db"
                inverted>
           Reset the fucking DB
@@ -20,11 +20,15 @@
 
   export default {
     methods: {
-      async resetDb() {
+      async reset() {
         if (process.env.PROD) return this.$q.notify('This a production environment, are you insane?')
-        await resetDb(this.$db)
-        await seedDb(this.$db)
-        this.$q.notify('RESET SUCCESS 🤘🤘🤘')
+        try {
+          await resetDb(this.$db)
+          await seedDb(this.$db)
+          this.$q.notify('RESET SUCCESS 🤘🤘🤘')
+        } catch(error) {
+          this.$q.notify('Error, check your firebase setup: \n' + error)
+        }
       }
     }
   }

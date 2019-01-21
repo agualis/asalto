@@ -2,7 +2,7 @@
   <div>
     <q-card>
       <q-card-media overlay-position="top">
-        <img :src="feature.imageUrl"/>
+        <img :src="work.imageUrl"/>
       </q-card-media>
       <q-card-title class="relative-position">
         <q-btn fab color="primary" icon="place"
@@ -10,36 +10,36 @@
                @click.native="goToGeoLocation"
                style="top: 0; right: 8px; transform: translateY(-50%);" />
 
-        {{ feature.title }} <By/> {{ feature.author }}
+        {{ work.title }} <By/> {{ work.author }}
 
       </q-card-title>
       <q-card-main>
-        <span class="text-weight-light">{{feature.description}}</span>
+        <span class="text-weight-light">{{work.description}}</span>
       </q-card-main>
     </q-card>
   </div>
 </template>
 
 <script>
-  import { artworkFeatures } from './artwork-features'
+  import { artworks } from './superadmin/artworks'
   import By from './By'
 
   export default {
     components: { By },
     data() {
       return {
-        feature: null
+        work: null
       }
     },
     created() {
-      this.feature = artworkFeatures[this.$route.params.workId]
+      this.work = artworks[this.$route.params.workId]
     },
     methods: {
       goBack() {
         this.$router.replace('/list')
       },
       goToGeoLocation() {
-        this.$router.push('/map/' + this.feature.geometry.coordinates.join(','))
+        this.$router.push('/map/' + this.work.geometry.coordinates.join(','))
       }
     }
   }
