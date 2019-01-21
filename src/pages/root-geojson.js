@@ -1,11 +1,11 @@
-export const rootGeoJson = (artworkFeatures) => ({
+export const rootGeoJson = (works) => ({
   'id': 'points',
   'type': 'symbol',
   'source': {
     'type': 'geojson',
     'data': {
       type: 'FeatureCollection',
-      features: artworkFeatures
+      works
     }
   },
   'layout': {

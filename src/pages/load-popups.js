@@ -1,19 +1,20 @@
 import Vue from 'vue'
 import ArtPopup from './ArtPopup'
 
-export function addPopUps(map, features, router) {
-  Object.values(features).forEach(feature => {
+export function addPopUps(map, works, router) {
+  Object.values(works).forEach(work => {
+    console.log('adding ', work)
     const popup = new mapboxgl.Popup({closeOnClick: false})
-    .setLngLat(feature.geometry.coordinates)
-    .setHTML(`<div id="${feature.id}"></div>`)
+    .setLngLat(work.geometry.coordinates)
+    .setHTML(`<div id="${work.uid}"></div>`)
     .addTo(map)
 
     new Vue({
       router,
       render: h => h(
         ArtPopup, {
-          props: { feature, map, popup },
+          props: { work, map, popup },
         })
-    }).$mount(`#${feature.id}`)
+    }).$mount(`#${work.uid}`)
   })
 }

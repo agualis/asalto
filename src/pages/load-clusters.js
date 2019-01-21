@@ -68,13 +68,13 @@ export function loadClusters(map, works) {
 
   // inspect a cluster on click
   map.on('click', 'clusters', function (e) {
-    let features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] })
-    let clusterId = features[0].properties.cluster_id;
+    let works = map.queryRenderedFeatures(e.point, { layers: ['clusters'] })
+    let clusterId = works[0].properties.cluster_id;
     map.getSource(ARTWORKS_SOURCE).getClusterExpansionZoom(clusterId, function (err, zoom) {
       if (err)
         return
       map.easeTo({
-        center: features[0].geometry.coordinates,
+        center: works[0].geometry.coordinates,
         zoom: zoom
       })
     })
@@ -85,6 +85,6 @@ export const buildClusterData = works => (
   {
     "type": "FeatureCollection",
     "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
-    "features": works
+    "works": works
   }
 )
