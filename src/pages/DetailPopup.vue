@@ -1,17 +1,31 @@
 <template>
   <div v-if="work">
-    <q-card >
-      <q-card-media overlay-position="top">
+    <q-card>
+      <q-card-media overlay-position="full">
         <img :src="work.imageUrl" class="responsive"/>
+        <q-btn
+          slot="overlay"
+          icon="close"
+          round
+          dense
+          color="primary"
+          class="float-left q-ml-sm q-mt-sm"
+          size="btn_size_dense_round_xs"
+          @click="onClose"
+        />
+
       </q-card-media>
+
       <q-card-title class="relative-position">
         <q-btn fab color="primary" icon="collections"
                data-test="detail-carousel"
                class="absolute"
                @click="carouselModalOpened=true"
-               style="top: 0; right: 8px; transform: translateY(-50%);" />
+               style="top: 0; right: 8px; transform: translateY(-50%);"/>
 
-        {{ work.title }} <By/> {{ work.author }}
+        {{ work.title }}
+        <By/>
+        {{ work.author }}
 
       </q-card-title>
       <q-card-main>
@@ -24,24 +38,24 @@
         quick-nav
         class="text-white full-height"
       >
-        <q-carousel-slide  :img-src="work.imageUrl"/>
+        <q-carousel-slide :img-src="work.imageUrl"/>
         <q-carousel-control
-            slot="control-full"
-            slot-scope="carousel"
-            position="bottom-right"
-            :offset="[18, 22]"
-          >
-            <q-btn
-              rounded push
-              color="primary"
-              icon="close"
-              data-test="close-detail-carousel"
-              label="Close me"
-              @click="carouselModalOpened = false"
-            />
-          </q-carousel-control>
+          slot="control-full"
+          slot-scope="carousel"
+          position="bottom-right"
+          :offset="[18, 22]"
+        >
+          <q-btn
+            rounded push
+            color="primary"
+            icon="close"
+            data-test="close-detail-carousel"
+            label="Close me"
+            @click="carouselModalOpened = false"
+          />
+        </q-carousel-control>
       </q-carousel>
-   </q-modal>
+    </q-modal>
   </div>
 </template>
 
@@ -49,10 +63,10 @@
   import By from './By'
 
   export default {
-    components: { By },
+    components: {By},
     props: {
-      onClose: { type: Function, required: true },
-      work: { type: Object, required: false },
+      onClose: {type: Function, required: true},
+      work: {type: Object, required: false}
     },
     data() {
       return {
