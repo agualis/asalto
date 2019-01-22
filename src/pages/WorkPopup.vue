@@ -33,7 +33,6 @@
       this.imageSrc = await getPreviewImageSrc(this.$storageRef, this.work.previewUrl)
       bus.$on(MAP_ZOOMED, (event) => {
         this.unclusteredIds = Object.freeze(event.unclusteredIds)
-        console.log(event.unclusteredIds)
         this.zoomLevel = event.zoom
       })
     },

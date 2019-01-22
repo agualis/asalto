@@ -77,6 +77,7 @@
 
       <q-field orientation="vertical">
         <q-btn color="primary"
+               :loading="loading"
                :disabled="!canCreate"
                @click="createWork"
                inverted>
@@ -110,24 +111,23 @@
         latitude: null,
         longitude: null,
         description: null,
-        artwork: null
+        artwork: null,
+        loading: false
       }
     },
     async created() {
       const coordinates = await this.$getLocation({})
       this.latitude = coordinates.lat
       this.longitude = coordinates.lng
-      console.log('DB', this.$db)
     },
     methods: {
       imageUploaded(firebaseFileName) {
-        // this.$q.notify(firebaseFileName)
         this.imageUrl = firebaseFileName
       },
       openGoogleMapsUrl() {
         openURL(`http://maps.google.com/maps?q=${this.latitude},${this.longitude}`)
       },
-      createWork() {
+      async createWork() {
         this.artwork = createWork({
           title: this.title,
           author: this.author,
@@ -136,7 +136,10 @@
           latitude: this.latitude,
           longitude: this.longitude
         })
-        this.$db.collection(ARTWORKS).add(this.artwork)
+        this.loading = true
+        await this.$db.collection(ARTWORKS).add(this.artwork)
+        this.loading = false
+        this.$router.replace('/')
       }
     },
     computed: {

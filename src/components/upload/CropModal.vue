@@ -6,8 +6,6 @@
   >
     <q-toolbar
         color="primary"
-        :glossy="$q.theme === 'mat'"
-        :inverted="$q.theme === 'ios'"
       >
         <ToolbarTitle/>
     </q-toolbar>
@@ -23,7 +21,7 @@
       ref="croppieRef"
       :enableOrientation="false"
       @result="onCropFinished"
-      :viewport="{ width: 200, height: 200, type: 'square' }"
+      :viewport="{ width: 250, height: 200, type: 'square' }"
       :enableResize="false">
     </vue-croppie>
   </q-modal>

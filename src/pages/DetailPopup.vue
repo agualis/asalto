@@ -9,7 +9,7 @@
           round
           dense
           color="primary"
-          class="float-left q-ml-sm q-mt-sm no-background"
+          class="float-left q-ml-sm q-mt-sm"
           size="btn_size_dense_round_xs"
           @click="onClose"
         />
@@ -103,12 +103,6 @@
     max-width: 30rem;
   }
 
-  .q-card-media {
-    max-height: 12rem;
-  }
 
-  .no-background {
-    background: none;
-  }
 </style>
 
