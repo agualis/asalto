@@ -73,7 +73,8 @@
 
         map.on('moveend', ()=> {
           let unclusteredIds = map.queryRenderedFeatures({layers: ['unclustered-point']})
-            .map((work) => work.uid)
+            .map((work) => work.id)
+          console.log('unclusteredIds', unclusteredIds)
           const event = { unclusteredIds: unclusteredIds, zoom: map.getZoom() }
           bus.$emit(MAP_ZOOMED, event)
         })
@@ -81,10 +82,10 @@
       onModalClose() {
         this.modalOpened = false
       },
-      openModal(uid) {
-        this.$router.push(`/${uid}`)
+      openModal(id) {
+        this.$router.push(`/${id}`)
         this.modalOpened = true
-        this.openedWork = this.works.find(work => work.uid === uid)
+        this.openedWork = this.works.find(work => work.id === id)
       }
     }
   }

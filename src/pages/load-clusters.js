@@ -69,7 +69,7 @@ export function loadClusters(map, works) {
   // inspect a cluster on click
   map.on('click', 'clusters', function (e) {
     let works = map.queryRenderedFeatures(e.point, { layers: ['clusters'] })
-    let clusterId = works[0].properties.cluster_id;
+    let clusterId = works[0].properties.cluster_id
     map.getSource(ARTWORKS_SOURCE).getClusterExpansionZoom(clusterId, function (err, zoom) {
       if (err)
         return

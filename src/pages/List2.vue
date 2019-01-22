@@ -3,8 +3,8 @@
     <q-list >
       <q-list-header>Nearest</q-list-header>
       <q-item v-for="work in works"
-              :key="work.uid"
-              @click.native="openDetail(work.uid)">
+              :key="work.id"
+              @click.native="openDetail(work.id)">
         <q-item-side :image="work.imageUrl"/>
         <q-item-main :label="work.title"/>
         <q-item-side right icon="more_horiz"/>
@@ -23,8 +23,8 @@
       }
     },
     methods: {
-      openDetail(uid) {
-        this.$router.push(`/detail/${uid}`)
+      openDetail(id) {
+        this.$router.push(`/detail/${id}`)
       }
     }
   }

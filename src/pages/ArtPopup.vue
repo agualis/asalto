@@ -52,7 +52,7 @@
     methods: {
       popupClicked() {
         this.flyTo(this.work)
-        bus.$emit(ARTWORK_POPUP_OPENED, this.work.uid)
+        bus.$emit(ARTWORK_POPUP_OPENED, this.work.id)
       },
       flyTo(artwork) {
          this.map.flyTo({
@@ -62,12 +62,12 @@
         })
       },
       openDetail() {
-        this.$router.push(`/detail/${this.work.uid}`)
+        this.$router.push(`/detail/${this.work.id}`)
       }
     },
     computed: {
       show() {
-        const show = this.unclusteredIds.includes(this.work.uid) || this.zoomLevel >= CLUSTER_MAX_ZOOM +1
+        const show = this.unclusteredIds.includes(this.work.id) || this.zoomLevel >= CLUSTER_MAX_ZOOM + 0.5
         if (!show) this.popup.remove()
         else this.popup.addTo(this.map)
         return show
