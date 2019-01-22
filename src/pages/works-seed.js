@@ -1,4 +1,4 @@
-export let artworks = {
+export let worksSeed = {
   'id1': {
     type: 'Feature',
     title: 'Maddona del Cierzo',
@@ -6,6 +6,7 @@ export let artworks = {
     uid: 'uid1',
     id: 'id1',
     imageUrl: 'https://2.bp.blogspot.com/-C-70DmADVls/U09uaDN0zyI/AAAAAAAAgus/T75OrMgArJs/s1600/La+madonna+del+viento+ZGZ.jpg',
+    previewUrl: 'https://2.bp.blogspot.com/-C-70DmADVls/U09uaDN0zyI/AAAAAAAAgus/T75OrMgArJs/s1600/La+madonna+del+viento+ZGZ.jpg',
     geometry: {
       type: 'Point',
       coordinates: [-0.8856515, 41.6551381]
@@ -23,6 +24,7 @@ export let artworks = {
     title: 'Maths',
     author: 'Zepha',
     imageUrl: 'http://streetartnyc.org/wp-content/uploads/2018/07/zepha1-street-art-zaragoza-spain.jpg',
+    previewUrl: 'http://streetartnyc.org/wp-content/uploads/2018/07/zepha1-street-art-zaragoza-spain.jpg',
     geometry: {
       type: 'Point',
       coordinates: [-0.8849784, 41.6552364]
@@ -38,6 +40,7 @@ export let artworks = {
     title: 'Colegio Fernando el Católico',
     author: 'Animalito Land',
     imageUrl: 'http://www.festivalasalto.com/wp-content/uploads/2016/04/AnimalitoLand.jpg',
+    previewUrl: 'http://www.festivalasalto.com/wp-content/uploads/2016/04/AnimalitoLand.jpg',
     geometry: {
       type: 'Point',
       coordinates: [-0.9268993, 41.6510289]

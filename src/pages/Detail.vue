@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import { artworks } from './artworks'
+  import { worksSeed } from './works-seed'
   import By from './By'
 
   export default {
@@ -32,7 +32,7 @@
       }
     },
     created() {
-      this.work = artworks[this.$route.params.workId]
+      this.work = worksSeed[this.$route.params.workId]
     },
     methods: {
       goBack() {

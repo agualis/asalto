@@ -17,14 +17,14 @@
 </template>
 
 <script>
-  import { artworks } from './artworks'
+  import { worksSeed } from './works-seed'
   import By from './By'
 
   export default {
     components: { By },
     data() {
       return {
-        works: artworks
+        works: worksSeed
       }
     },
     methods: {

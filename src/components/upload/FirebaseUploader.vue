@@ -271,7 +271,6 @@
         initFile(file)
         const extension = file.type.split('/')[1]
         this.firebaseFileName = this.name + this.files.length.toString() + '.' + extension
-        this.firebaseFileName = 'patata' + '.' + extension
         const uploadTask = this.firebaseStorage.child(this.firebaseFileName).putString(this.lastFileResult)
         return new Promise((resolve, reject) => {
           uploadTask.on('state_changed', snapshot => {

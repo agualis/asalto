@@ -19,9 +19,9 @@
   import CloseButton from '../components/CloseButton'
   import By from './By'
 
-  function getImageSrc(storageRef, imageUrl) {
-    if (imageUrl.startsWith('http')) return imageUrl
-    return storageRef.child(imageUrl).getDownloadURL()
+  function getPreviewImageSrc(storageRef, previewSrc) {
+    if (previewSrc.startsWith('http')) return previewSrc
+    return storageRef.child(previewSrc).getDownloadURL()
   }
 
   export default {
@@ -34,7 +34,7 @@
       popup: { type: Object, required: true }
     },
     async created() {
-      this.imageSrc = await getImageSrc(this.$storageRef, this.work.imageUrl)
+      this.imageSrc = await getPreviewImageSrc(this.$storageRef, this.work.previewUrl)
       bus.$on(MAP_ZOOMED, (event) => {
         this.unclusteredIds = Object.freeze(event.unclusteredIds)
         console.log(event.unclusteredIds)

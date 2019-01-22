@@ -3,7 +3,7 @@ import ArtPopup from './ArtPopup'
 
 export function addPopUps(map, works, router) {
   Object.values(works).forEach(work => {
-    console.log('adding ', work)
+    console.log('work imageSrc ', work)
     const popup = new mapboxgl.Popup({closeOnClick: false})
     .setLngLat(work.geometry.coordinates)
     .setHTML(`<div id="${work.id}"></div>`)
