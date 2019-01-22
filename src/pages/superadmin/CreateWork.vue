@@ -81,7 +81,7 @@
                :disabled="!canCreate"
                @click="createWork"
                inverted>
-          🤘Create
+          Create
         </q-btn>
       </q-field>
     </div>
@@ -89,13 +89,13 @@
 </template>
 
 <script>
-  import firebase from 'firebase'
+  import firebase from '@src/plugins/firebase'
   const storage = firebase.storage()
   const storageRef = storage.ref('asalto')
   import FirebaseUploader from '@components/upload/FirebaseUploader'
   import { openURL } from 'quasar'
-  import { createWork } from '../components/works'
-  import { ARTWORKS } from '../infrastructure/db'
+  import { createWork } from '../../components/works'
+  import { ARTWORKS } from '../../infrastructure/db'
 
   export default {
     components: {

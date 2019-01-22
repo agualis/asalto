@@ -60,8 +60,8 @@
 </template>
 
 <script>
-  import By from './By'
-  import { getPreviewImageSrc } from './images'
+  import By from '../../components/By'
+  import { getPreviewImageSrc } from '../../components/images'
 
   export default {
     components: {By},

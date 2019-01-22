@@ -25,14 +25,14 @@
 
 <script>
   import Mapbox from 'mapbox-gl-vue'
-  import { ARTWORK_POPUP_OPENED, MAP_ZOOMED } from '../bus/events'
+  import { ARTWORK_POPUP_OPENED, MAP_ZOOMED } from '../../bus/events'
   import FullScreenButton from '@components/FullScreenButton'
-  import { ARTWORKS } from '../infrastructure/db'
+  import { ARTWORKS } from '../../infrastructure/db'
   import { CLUSTER_MAX_ZOOM, loadClusters } from './load-clusters'
   import { addPopUps } from './load-popups'
-  import { bus } from './main'
+  import { bus } from '../main'
   import { mapOptions } from './map-options'
-  import DetailModal from '../layouts/DetailModal'
+  import DetailModal from '../../layouts/DetailModal'
 
   export default {
     components: {FullScreenButton, Mapbox, DetailModal},

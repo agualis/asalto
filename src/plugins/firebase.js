@@ -2,7 +2,15 @@ import firebase from 'firebase'
 import firebaseApp from 'firebase/app'
 import 'firebase/firestore'
 import VueFire from 'vuefire'
-import { config } from '../../config/firebase'
+
+export const config = {
+  apiKey: "AIzaSyAL4qpMw7E-jfxqJf1Zb5QxBgJCjEuiwqg",
+  authDomain: "asalto.firebaseapp.com",
+  databaseURL: "https://asalto.firebaseio.com",
+  projectId: "asalto",
+  storageBucket: "asalto.appspot.com",
+  messagingSenderId: "876124045339"
+}
 
 firebaseApp.initializeApp(config)
 export const db = firebaseApp.firestore()

@@ -17,8 +17,8 @@
 </template>
 
 <script>
-  import { worksSeed } from './works-seed'
-  import By from './By'
+  import { worksSeed } from '../works-seed'
+  import By from '../../components/By'
 
   export default {
     components: { By },

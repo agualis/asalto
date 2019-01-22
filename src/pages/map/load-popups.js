@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import WorkPopup from './WorkPopup'
+import WorkPopup from '../WorkPopup'
 
 export function addPopUps(map, works, router) {
   Object.values(works).forEach(work => {

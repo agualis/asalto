@@ -13,12 +13,12 @@
 
 <script>
   import { ARTWORK_POPUP_OPENED, MAP_ZOOMED } from '../bus/events'
-  import { getPreviewImageSrc } from './images'
-  import { CLUSTER_MAX_ZOOM } from './load-clusters'
+  import { getPreviewImageSrc } from '../components/images'
+  import { CLUSTER_MAX_ZOOM } from './map/load-clusters'
   import { bus } from './main'
   import CardButton from '../components/CardButton'
   import CloseButton from '../components/CloseButton'
-  import By from './By'
+  import By from '../components/By'
 
   export default {
     components: {

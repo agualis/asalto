@@ -43,7 +43,8 @@ module.exports = function (ctx) {
         cfg.resolve.alias = {
           ...cfg.resolve.alias, // This adds the existing alias
           'env': path.resolve(__dirname, 'config/helpers/env.js'),
-          '@components': path.resolve(__dirname, './src/components')
+          '@components': path.resolve(__dirname, './src/components'),
+          '@src': path.resolve(__dirname, './src')
         }
       }
     },

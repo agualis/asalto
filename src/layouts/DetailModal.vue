@@ -8,8 +8,8 @@
 
 <script>
   import ToolbarTitle from '../layouts/ToolbarTitle'
-  import List from '../pages/List'
-  import DetailPopup from '../pages/DetailPopup'
+  import List from '../pages/lists/List'
+  import DetailPopup from '../pages/map/DetailPopup'
 
   export default {
     components: {ToolbarTitle, List, DetailPopup},

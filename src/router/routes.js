@@ -5,17 +5,16 @@ const routes = [
     component: () => import('layouts/MyLayout.vue'),
     children: [
       { path: 'login-ui', component: () => import('pages/LoginUI.vue') },
-      { path: 'superlogin', component: () => import('pages/Superlogin.vue') },
-      { path: 'signup', component: () => import('pages/Signup.vue') },
-      { path: 'map/:coordinates', component: () => import('pages/Map.vue') },
-      { path: 'list', component: () => import('pages/List.vue') },
-      { path: 'detail/:workId', component: () => import('pages/Detail.vue') },
-      { path: 'create-artwork', component: () => import('pages/CreateWork.vue') },
+      { path: 'superlogin', component: () => import('pages/superadmin/Superlogin.vue') },
+      { path: 'signup', component: () => import('pages/superadmin/Signup.vue') },
+      { path: 'map/:coordinates', component: () => import('pages/map/Map.vue') },
+      { path: 'create-artwork', component: () => import('pages/superadmin/CreateWork.vue') },
       { path: 'reset-db', component: () => import('pages/superadmin/ResetDb.vue') },
       { path: 'reset-db-hook', component: () => import('pages/superadmin/ResetDbHook.vue') },
-      { path: 'modals', component: () => import('pages/PlayModals.vue') },
-      { path: '', component: () => import('pages/Map.vue') },
-      { path: '/:workId', component: () => import('pages/Map.vue') },
+      { path: 'list', component: () => import('pages/lists/List.vue') },
+      { path: 'detail/:workId', component: () => import('pages/Detail.vue') },
+      { path: '', component: () => import('pages/map/Map.vue') },
+      { path: '/:workId', component: () => import('pages/map/Map.vue') },
     ]
   }
 ]

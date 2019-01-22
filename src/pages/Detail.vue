@@ -22,7 +22,7 @@
 
 <script>
   import { worksSeed } from './works-seed'
-  import By from './By'
+  import By from '../components/By'
 
   export default {
     components: { By },
