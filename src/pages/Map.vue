@@ -77,8 +77,6 @@
           const event = { unclusteredIds: unclusteredIds, zoom: map.getZoom() }
           bus.$emit(MAP_ZOOMED, event)
         })
-
-
       },
       onModalClose() {
         this.modalOpened = false

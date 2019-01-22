@@ -2,14 +2,14 @@
   <div v-if="work">
     <q-card>
       <q-card-media overlay-position="full">
-        <img :src="work.imageUrl" class="responsive"/>
+        <img :src="previewImageUrl"/>
         <q-btn
           slot="overlay"
           icon="close"
           round
           dense
           color="primary"
-          class="float-left q-ml-sm q-mt-sm"
+          class="float-left q-ml-sm q-mt-sm no-background"
           size="btn_size_dense_round_xs"
           @click="onClose"
         />
@@ -61,6 +61,7 @@
 
 <script>
   import By from './By'
+  import { getPreviewImageSrc } from './images'
 
   export default {
     components: {By},
@@ -71,6 +72,11 @@
     data() {
       return {
         carouselModalOpened: false
+      }
+    },
+    computed: {
+      previewImageUrl() {
+        return getPreviewImageSrc(null, this.work.previewUrl)
       }
     }
   }
@@ -99,6 +105,10 @@
 
   .q-card-media {
     max-height: 12rem;
+  }
+
+  .no-background {
+    background: none;
   }
 </style>
 

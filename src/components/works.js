@@ -1,4 +1,4 @@
-export function createArtwork({title, author, imageUrl, longitude, latitude, description}) {
+export function createWork({title, author, imageUrl, longitude, latitude, description}) {
   const uid = 'uid' + Date.now().toString()
   return {
     type: 'Feature',

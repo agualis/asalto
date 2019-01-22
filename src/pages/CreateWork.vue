@@ -78,7 +78,7 @@
       <q-field orientation="vertical">
         <q-btn color="primary"
                :disabled="!canCreate"
-               @click="createArtwork"
+               @click="createWork"
                inverted>
           🤘Create
         </q-btn>
@@ -93,7 +93,7 @@
   const storageRef = storage.ref('asalto')
   import FirebaseUploader from '@components/upload/FirebaseUploader'
   import { openURL } from 'quasar'
-  import { createArtwork } from '../components/works'
+  import { createWork } from '../components/works'
   import { ARTWORKS } from '../infrastructure/db'
 
   export default {
@@ -127,8 +127,8 @@
       openGoogleMapsUrl() {
         openURL(`http://maps.google.com/maps?q=${this.latitude},${this.longitude}`)
       },
-      createArtwork() {
-        this.artwork = createArtwork({
+      createWork() {
+        this.artwork = createWork({
           title: this.title,
           author: this.author,
           imageUrl: this.imageUrl,

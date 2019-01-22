@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import ArtPopup from './ArtPopup'
+import WorkPopup from './WorkPopup'
 
 export function addPopUps(map, works, router) {
   Object.values(works).forEach(work => {
@@ -12,7 +12,7 @@ export function addPopUps(map, works, router) {
     new Vue({
       router,
       render: h => h(
-        ArtPopup, {
+        WorkPopup, {
           props: { work, map, popup },
         })
     }).$mount(`#${work.uid}`)

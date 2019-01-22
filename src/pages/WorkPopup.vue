@@ -13,17 +13,12 @@
 
 <script>
   import { ARTWORK_POPUP_OPENED, MAP_ZOOMED } from '../bus/events'
+  import { getPreviewImageSrc } from './images'
   import { CLUSTER_MAX_ZOOM } from './load-clusters'
   import { bus } from './main'
   import CardButton from '../components/CardButton'
   import CloseButton from '../components/CloseButton'
   import By from './By'
-
-  function getPreviewImageSrc(storageRef, previewSrc) {
-    if (previewSrc.startsWith('http')) return previewSrc
-    return `https://firebasestorage.googleapis.com/v0/b/asalto.appspot.com/o/asalto%2F${previewSrc}?alt=media`
-    // return storageRef.child(previewSrc).getDownloadURL()
-  }
 
   export default {
     components: {
