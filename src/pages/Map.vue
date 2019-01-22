@@ -58,7 +58,7 @@
       this.$q.addressbarColor.set()
       const works = await this.$bind(ARTWORKS, this.$db.collection(ARTWORKS))
       this.works = Object.freeze(works)
-      console.log('this.works', this.works)
+      this.works.map(work => work.properties.id = work.id)
       bus.$on(ARTWORK_POPUP_OPENED, this.openModal)
       if (!this.$route.params.coordinates) return
       this.mapOptions = mapOptions(this.$route.params.coordinates.split(','))
@@ -73,11 +73,12 @@
 
         map.on('moveend', ()=> {
           let unclusteredIds = map.queryRenderedFeatures({layers: ['unclustered-point']})
-            .map((work) => work.id)
-          console.log('unclusteredIds', unclusteredIds)
+            .map((work) => work.properties.id)
           const event = { unclusteredIds: unclusteredIds, zoom: map.getZoom() }
           bus.$emit(MAP_ZOOMED, event)
         })
+
+
       },
       onModalClose() {
         this.modalOpened = false
