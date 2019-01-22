@@ -21,7 +21,8 @@
 
   function getPreviewImageSrc(storageRef, previewSrc) {
     if (previewSrc.startsWith('http')) return previewSrc
-    return storageRef.child(previewSrc).getDownloadURL()
+    return `https://firebasestorage.googleapis.com/v0/b/asalto.appspot.com/o/asalto%2F${previewSrc}?alt=media`
+    // return storageRef.child(previewSrc).getDownloadURL()
   }
 
   export default {

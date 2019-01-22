@@ -10,7 +10,7 @@ export function createArtwork({title, author, imageUrl, longitude, latitude, des
     },
     imageUrls: [imageUrl],
     imageUrl: imageUrl,
-    previewUrl: 'preview' + imageUrl,
+    previewUrl: 'preview-' + imageUrl,
     geometry: {
       type: 'Point',
       coordinates: [longitude, latitude]
