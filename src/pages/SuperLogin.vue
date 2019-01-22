@@ -1,6 +1,6 @@
 <template>
-  <div class="login">
-    <h3>Asalto Login</h3>
+  <q-page padding class="docs-input justify-center">
+    <h3>Superlogin!</h3>
     <input
       type="text"
       v-model="email"
@@ -17,16 +17,20 @@
       class="input"
       required>
     <br/>
-    <button @click="login"
-            class="button"
+    <q-btn @click="login"
+            color="primary"
             data-test="superlogin-submit"
     >
       Enter
-    </button>
-    <p><router-link to="/signup">
-      New Here? Create a new account
-    </router-link></p>
-  </div>
+    </q-btn>
+    <div>
+      <img src="/statics/asalto.gif"/>
+    </div>
+    <!--<p><router-link to="/signup">-->
+      <!--New Here? Create a new account-->
+    <!--</router-link></p>-->
+  </q-page>
+
 </template>
 
 <script>

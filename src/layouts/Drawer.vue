@@ -75,9 +75,6 @@
         <q-item-side icon="lock"/>
         <q-item-main label="Cutre Login admin" sublabel="Login to Private Area"/>
       </q-item>
-      <!--<q-list-header>-->
-        <!--<img src="/statics/asalto.gif"/>-->
-      <!--</q-list-header>-->
     </q-list>
   </q-layout-drawer>
 </template>
