@@ -6,7 +6,7 @@ export function addPopUps(map, works, router) {
     console.log('work imageSrc ', work)
     const popup = new mapboxgl.Popup({closeOnClick: false})
     .setLngLat(work.geometry.coordinates)
-    .setHTML(`<div id="${work.id}"></div>`)
+    .setHTML(`<div id="${work.uid}"></div>`)
     .addTo(map)
 
     new Vue({
@@ -15,6 +15,6 @@ export function addPopUps(map, works, router) {
         ArtPopup, {
           props: { work, map, popup },
         })
-    }).$mount(`#${work.id}`)
+    }).$mount(`#${work.uid}`)
   })
 }

@@ -2,9 +2,9 @@
   <div class="row justify-left">
       <q-card inline class="menu-card"
               v-for="work in works"
-              :key="work.id"
+              :key="work.uid"
               data-test="list-item"
-              @click.once.native="openDetail(work.id)">
+              @click.once.native="openDetail(work.uid)">
       <q-card-media overlay-position="top">
         <img :src="work.imageUrl"/>
       </q-card-media>
@@ -28,8 +28,8 @@
       }
     },
     methods: {
-      openDetail(id) {
-        this.$router.push(`/detail/${id}`)
+      openDetail(uid) {
+        this.$router.push(`/detail/${uid}`)
       }
     }
   }

@@ -1,12 +1,12 @@
 export function createArtwork({title, author, imageUrl, longitude, latitude, description}) {
-  const id = 'id' + Date.now().toString()
+  const uid = 'uid' + Date.now().toString()
   return {
     type: 'Feature',
     title,
     author,
-    id,
+    uid,
     properties: {
-      id
+      uid
     },
     imageUrls: [imageUrl],
     imageUrl: imageUrl,
