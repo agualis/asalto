@@ -6,7 +6,7 @@
               data-test="list-item"
               @click.once.native="openDetail(work.uid)">
       <q-card-media overlay-position="top">
-        <img :src="work.imageUrl"/>
+        <img :src="imageUrl(work)"/>
       </q-card-media>
         <q-card-main>
           <div class="text-weight-bolder ellipsis">{{ work.title }}</div>
@@ -17,20 +17,33 @@
 </template>
 
 <script>
-  import { worksSeed } from '../works-seed'
+  import { getPreviewImage, getPreviewImageSrc } from '../../components/images'
+  import { ARTWORKS } from '../../infrastructure/db'
   import By from '../../components/By'
 
   export default {
     components: { By },
     data() {
       return {
-        works: worksSeed
+        works: null
       }
     },
+    created() {
+      this.loadWorks()
+    },
     methods: {
+      async loadWorks() {
+        const works = await this.$bind(ARTWORKS, this.$db.collection(ARTWORKS))
+        this.works = Object.freeze(works)
+      },
       openDetail(uid) {
         this.$router.push(`/detail/${uid}`)
+      },
+      imageUrl(work) {
+        return getPreviewImage(work)
       }
+    },
+    computed: {
     }
   }
 </script>
