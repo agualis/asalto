@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import { getPreviewImage, getPreviewImageSrc } from '../../components/images'
+  import { getPreviewImage, getPreviewImageSrc } from '../../components/upload/images'
   import { ARTWORKS } from '../../infrastructure/db'
   import By from '../../components/By'
 
