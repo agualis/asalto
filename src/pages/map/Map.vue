@@ -31,6 +31,7 @@
   import { CLUSTER_MAX_ZOOM, loadClusters } from './load-clusters'
   import { addPopUps } from './load-popups'
   import { bus } from '../main'
+  import { flyTo } from './map'
   import { mapOptions } from './map-options'
   import DetailModal from '../../layouts/DetailModal'
 
@@ -56,20 +57,20 @@
     },
     async created() {
       this.$q.addressbarColor.set()
-      const works = await this.$bind(ARTWORKS, this.$db.collection(ARTWORKS))
-      this.works = Object.freeze(works)
-      // this.works.map(work => work.properties.uid = work.uid)
+      await this.loadWorks()
       bus.$on(ARTWORK_POPUP_OPENED, this.openModal)
-      if (!this.$route.params.coordinates) return
-      this.mapOptions = mapOptions(this.$route.params.coordinates.split(','))
-      this.mapOptions.zoom = CLUSTER_MAX_ZOOM +1
+      this.goToCoordinatesIfNeeded()
     },
     methods: {
+      async loadWorks() {
+        const works = await this.$bind(ARTWORKS, this.$db.collection(ARTWORKS))
+        this.works = Object.freeze(works)
+      },
       mapLoaded(map) {
-        console.log('MAP LOADED')
         this.loading = false
         addPopUps(map, this.works, this.$router)
         loadClusters(map, this.works)
+        this.openDetailIfNeeded(map)
 
         map.on('moveend', ()=> {
           let unclusteredIds = map.queryRenderedFeatures({layers: ['unclustered-point']})
@@ -78,11 +79,21 @@
           bus.$emit(MAP_ZOOMED, event)
         })
       },
+      goToCoordinatesIfNeeded() {
+        if (!this.$route.params.coordinates) return
+        this.mapOptions = mapOptions(this.$route.params.coordinates.split(','))
+        this.mapOptions.zoom = CLUSTER_MAX_ZOOM +1
+      },
+      openDetailIfNeeded(map) {
+        if (!this.$route.params.workId) return
+        this.openModal(this.$route.params.workId)
+        flyTo(map, this.openedWork)
+      },
       onModalClose() {
         this.modalOpened = false
       },
       openModal(uid) {
-        this.$router.push(`/${uid}`)
+        this.$router.push(`/map/${uid}`)
         this.modalOpened = true
         this.openedWork = this.works.find(work => work.uid === uid)
       }

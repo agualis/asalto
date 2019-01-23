@@ -1,7 +1,7 @@
 <template>
   <q-layout-drawer
     :value="value"
-    @input="$.emit('input', !value)"
+    @input="$emit('input', !value)"
     :content-class="$q.theme === 'mat' ? 'bg-primary' : null"
     @on-layout="checkLogin"
   >

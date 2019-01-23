@@ -89,7 +89,7 @@
 </template>
 
 <script>
-  import firebase from '@src/plugins/firebase'
+  import firebase from 'firebase'
   const storage = firebase.storage()
   const storageRef = storage.ref('asalto')
   import FirebaseUploader from '@components/upload/FirebaseUploader'

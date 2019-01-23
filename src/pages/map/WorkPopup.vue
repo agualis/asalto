@@ -12,13 +12,14 @@
 </template>
 
 <script>
-  import { ARTWORK_POPUP_OPENED, MAP_ZOOMED } from '../bus/events'
-  import { getPreviewImageSrc } from '../components/images'
-  import { CLUSTER_MAX_ZOOM } from './map/load-clusters'
-  import { bus } from './main'
-  import CardButton from '../components/CardButton'
-  import CloseButton from '../components/CloseButton'
-  import By from '../components/By'
+  import { ARTWORK_POPUP_OPENED, MAP_ZOOMED } from '../../bus/events'
+  import { getPreviewImageSrc } from '../../components/images'
+  import { CLUSTER_MAX_ZOOM } from './load-clusters'
+  import { bus } from '../main'
+  import CardButton from '../../components/CardButton'
+  import CloseButton from '../../components/CloseButton'
+  import By from '../../components/By'
+  import { flyTo } from './map'
 
   export default {
     components: {
@@ -46,15 +47,8 @@
     },
     methods: {
       popupClicked() {
-        this.flyTo(this.work)
+        flyTo(this.map, this.work)
         bus.$emit(ARTWORK_POPUP_OPENED, this.work.uid)
-      },
-      flyTo(artwork) {
-         this.map.flyTo({
-          center: artwork.geometry.coordinates,
-          zoom: 16,
-          offset: [0, 0]
-        })
       },
       openDetail() {
         this.$router.push(`/detail/${this.work.uid}`)

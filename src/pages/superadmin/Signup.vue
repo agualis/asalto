@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import firebase from '@src/plugins/firebase'
+  import firebase from 'firebase'
 
   export default {
     name: 'signup',

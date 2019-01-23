@@ -1,9 +1,8 @@
 import Vue from 'vue'
-import WorkPopup from '../WorkPopup'
+import WorkPopup from './WorkPopup'
 
 export function addPopUps(map, works, router) {
   Object.values(works).forEach(work => {
-    console.log('work imageSrc ', work)
     const popup = new mapboxgl.Popup({closeOnClick: false})
     .setLngLat(work.geometry.coordinates)
     .setHTML(`<div id="${work.uid}"></div>`)
