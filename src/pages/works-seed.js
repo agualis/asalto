@@ -4,8 +4,9 @@ export let worksSeed = {
     title: 'Maddona del Cierzo',
     author: 'Mahow',
     uid: 'uid1',
-    imageUrl: 'https://2.bp.blogspot.com/-C-70DmADVls/U09uaDN0zyI/AAAAAAAAgus/T75OrMgArJs/s1600/La+madonna+del+viento+ZGZ.jpg',
-    previewUrl: 'https://2.bp.blogspot.com/-C-70DmADVls/U09uaDN0zyI/AAAAAAAAgus/T75OrMgArJs/s1600/La+madonna+del+viento+ZGZ.jpg',
+    imageUrl: 'preview-La-madonna-del-viento-ZGZ1548229673871.jpeg',
+    imageUrls: ['preview-La-madonna-del-viento-ZGZ1548229673871.jpeg', 'preview-madonna21548228510214.jpeg', 'preview-la-madonna-del-viento1548228714850.png'],
+    previewUrl: 'preview-La-madonna-del-viento-ZGZ1548229673871.jpeg',
     geometry: {
       type: 'Point',
       coordinates: [-0.8856515, 41.6551381]
@@ -36,7 +37,8 @@ export let worksSeed = {
     title: 'Colegio Fernando el Católico',
     author: 'Animalito Land',
     imageUrl: 'http://www.festivalasalto.com/wp-content/uploads/2016/04/AnimalitoLand.jpg',
-    previewUrl: 'http://www.festivalasalto.com/wp-content/uploads/2016/04/AnimalitoLand.jpg',
+    previewUrl: 'preview-blablaba-glasflas-15482271647421.jpeg',
+    imageUrls: [],
     geometry: {
       type: 'Point',
       coordinates: [-0.9268993, 41.6510289]

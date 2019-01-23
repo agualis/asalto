@@ -13,7 +13,7 @@
 
 <script>
   import { ARTWORK_POPUP_OPENED, MAP_ZOOMED } from '../../bus/events'
-  import { getPreviewImageSrc } from '../../components/images'
+  import { getPreviewImageSrc } from '../../components/upload/images'
   import { CLUSTER_MAX_ZOOM } from './load-clusters'
   import { bus } from '../main'
   import CardButton from '../../components/CardButton'

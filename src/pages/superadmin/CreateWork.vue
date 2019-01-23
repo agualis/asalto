@@ -2,6 +2,7 @@
   <q-page padding class="docs-input row justify-center">
     <div style="width: 500px; max-width: 90vw;">
       <p class="caption urban">Add New Shit</p>
+      'preview-{{imageUrl}}'
       <q-field
         icon="brush"
         label="Artwork Title"
@@ -139,6 +140,7 @@
         this.loading = true
         await this.$db.collection(ARTWORKS).add(this.artwork)
         this.loading = false
+        this.$q.notify('Congrats, you created a new artwork!')
         this.$router.replace('/')
       }
     },

@@ -2,7 +2,7 @@
   <div v-if="work">
     <q-card>
       <q-card-media overlay-position="full">
-        <img :src="previewImageUrl"/>
+        <img :src="previewImageUrl(work.previewUrl)"/>
         <q-btn
           slot="overlay"
           icon="close"
@@ -37,23 +37,31 @@
         color="white"
         quick-nav
         class="text-white full-height"
+        height="300px"
       >
-        <q-carousel-slide :img-src="work.imageUrl"/>
-        <q-carousel-control
-          slot="control-full"
-          slot-scope="carousel"
-          position="bottom-right"
-          :offset="[18, 22]"
-        >
-          <q-btn
-            rounded push
-            color="primary"
-            icon="close"
-            data-test="close-detail-carousel"
-            label="Close me"
-            @click="carouselModalOpened = false"
-          />
-        </q-carousel-control>
+        <q-carousel-slide
+          :img-src="previewImageUrl(imageUrl)" v-for="imageUrl in work.imageUrls"
+          :key="imageUrl"
+          arrows="true"
+          :height="cropHeight"
+          :width="cropWidth"
+          color="primary"
+        />
+        <!--<q-carousel-control-->
+          <!--slot="control-full"-->
+          <!--slot-scope="carousel"-->
+          <!--position="bottom-right"-->
+          <!--:offset="[18, 22]"-->
+        <!--&gt;-->
+          <!--<q-btn-->
+            <!--rounded push-->
+            <!--color="primary"-->
+            <!--icon="close"-->
+            <!--data-test="close-detail-carousel"-->
+            <!--label="Close me"-->
+            <!--@click="carouselModalOpened = false"-->
+          <!--/>-->
+        <!--</q-carousel-control>-->
       </q-carousel>
     </q-modal>
   </div>
@@ -61,7 +69,7 @@
 
 <script>
   import By from '../../components/By'
-  import { getPreviewImageSrc } from '../../components/images'
+  import { CROP_HEIGHT, CROP_WIDTH, getPreviewImageSrc } from '../../components/upload/images'
 
   export default {
     components: {By},
@@ -74,10 +82,14 @@
         carouselModalOpened: false
       }
     },
-    computed: {
-      previewImageUrl() {
-        return getPreviewImageSrc(null, this.work.previewUrl)
+    methods: {
+      previewImageUrl(previewUrl) {
+        return getPreviewImageSrc(null, previewUrl)
       }
+    },
+    computed: {
+      cropWidth: () => CROP_WIDTH,
+      cropHeight: () => CROP_HEIGHT
     }
   }
 </script>
