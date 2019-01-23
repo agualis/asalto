@@ -21,7 +21,7 @@
       ref="croppieRef"
       :enableOrientation="false"
       @result="onCropFinished"
-      :viewport="{ width: 250, height: 200, type: 'square' }"
+      :viewport="{ width: cropWidth, height: cropHeight, type: 'square' }"
       :enableResize="false">
     </vue-croppie>
   </q-modal>
@@ -29,6 +29,7 @@
 
 <script>
   import ToolbarTitle from '../../layouts/ToolbarTitle'
+  import { CROP_HEIGHT, CROP_WIDTH } from './images'
 
   export default {
     components: { ToolbarTitle },
@@ -46,6 +47,10 @@
         }
         this.$refs.croppieRef.result(options)
       }
+    },
+    computed: {
+      cropWidth: ()=> CROP_WIDTH,
+      cropHeight: ()=> CROP_HEIGHT
     }
   }
 </script>

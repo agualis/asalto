@@ -107,7 +107,9 @@
   import FrameMixin from 'quasar/src/mixins/input-frame'
   import { humanStorageSize } from 'quasar/src/utils/format'
   import CropModal from '@components/upload/CropModal'
+  import { createPreviewUrl } from '../works'
   import { readFileAsBlob, readFileAsDataUrl } from './async-files'
+  import { generateImageFileName } from './images'
 
 
   function initFile(file) {
@@ -269,8 +271,7 @@
       },
       async __getFirebaseUploadPromise(file) {
         initFile(file)
-        const extension = file.type.split('/')[1]
-        this.firebaseFileName = this.name + this.files.length.toString() + '.' + extension
+        this.firebaseFileName = generateImageFileName(file)
         const uploadTask = this.firebaseStorage.child(this.firebaseFileName).putString(this.lastFileResult)
         return new Promise((resolve, reject) => {
           uploadTask.on('state_changed', snapshot => {
@@ -324,7 +325,6 @@
           }
         }
 
-        this.$q.notify('CALLING __getFirebaseUploadPromise')
         this.queue.map(file => this.__getFirebaseUploadPromise(file))
           .forEach(promise => {
             promise
@@ -348,7 +348,7 @@
         this.$emit('reset')
       },
       async onCropFinished(output) {
-        await this.firebaseStorage.child('preview-' + this.firebaseFileName).putString(output, 'data_url')
+        await this.firebaseStorage.child(createPreviewUrl(this.firebaseFileName)).putString(output, 'data_url')
         this.croppedDataUrls.push(output)
         this.cropModalOpened = false
       },
