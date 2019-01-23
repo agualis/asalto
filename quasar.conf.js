@@ -10,6 +10,7 @@ module.exports = function (ctx) {
       'i18n',
       'axios',
       'firebase',
+      'vuefire',
       'vue-croppie',
       'vue-geolocation',
       'vue-progressive-image'
