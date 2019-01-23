@@ -17,7 +17,5 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-.env
-.env.build
 /dist
 /.firebase
