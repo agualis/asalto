@@ -71,7 +71,7 @@
       <q-list-header>Admin</q-list-header>
 
 
-       <q-item v-if="notLogged" @click.native="$router.push('/login')">
+       <q-item v-if="notLogged" @click.native="$router.push('/superlogin')">
         <q-item-side icon="lock"/>
         <q-item-main label="Cutre Login admin" sublabel="Login to Private Area"/>
       </q-item>
