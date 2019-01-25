@@ -68,7 +68,7 @@
         <q-item-main label="GitHub" sublabel="github.com/agualis/asalto"/>
       </q-item>
 
-      <q-list-header>Admin</q-list-header>
+      <q-list-header v-if="notLogged">Admin</q-list-header>
 
 
        <q-item v-if="notLogged" @click.native="$router.push('/superlogin')">
