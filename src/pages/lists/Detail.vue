@@ -21,8 +21,8 @@
 </template>
 
 <script>
-  import { worksSeed } from './works-seed'
-  import By from '../components/By'
+  import { worksSeed } from '../works-seed'
+  import By from '../../components/By'
 
   export default {
     components: { By },
@@ -39,7 +39,7 @@
         this.$router.replace('/list')
       },
       goToGeoLocation() {
-        this.$router.push('/map/' + this.work.geometry.coordinates.join(','))
+        this.$router.push('/coordinates/' + this.work.geometry.coordinates.join(','))
       }
     }
   }
