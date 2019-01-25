@@ -1,11 +1,20 @@
-# Asalto al testing e2e
+# Asalto PWA
 
-> npm install
+### Setup
+##### Node.js >= 8.9.0 is required.
 
-# Node.js >= 8.9.0 is required.
-$ yarn global add quasar-cli
-# or:
-$ npm install -g quasar-cli
+##Install dependencies
 
+`npm install`
 
-> quasar dev -m pwa
+##Install quasar framework
+
+`yarn global add quasar-cli`
+
+#### or
+
+`npm install -g quasar-cli`
+
+### RUN PWA in local
+
+`quasar dev -m pwa`
