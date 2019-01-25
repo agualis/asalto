@@ -19,7 +19,10 @@
               @map-load="mapLoaded"
       >
       </mapbox>
-    <FullScreenButton :click="onModalClose"/>
+    <FullScreenButton
+      data-test="fullscreen-button"
+      v-if="!loading"
+      :click="onModalClose"/>
   </q-page>
 </template>
 
@@ -31,7 +34,7 @@
   import { CLUSTER_MAX_ZOOM, loadClusters } from './load-clusters'
   import { addPopUps } from './load-popups'
   import { bus } from '../main'
-  import { flyTo } from './map'
+  import { flyTo, flyToCoordinates } from './map'
   import { mapOptions } from './map-options'
   import DetailModal from '../../layouts/DetailModal'
 
@@ -59,7 +62,6 @@
       this.$q.addressbarColor.set()
       await this.loadWorks()
       bus.$on(ARTWORK_POPUP_OPENED, this.openModal)
-      this.goToCoordinatesIfNeeded()
     },
     methods: {
       async loadWorks() {
@@ -71,6 +73,7 @@
         addPopUps(map, this.works, this.$router)
         loadClusters(map, this.works)
         this.openDetailIfNeeded(map)
+        this.goToCoordinatesIfNeeded(map)
 
         map.on('moveend', ()=> {
           let unclusteredIds = map.queryRenderedFeatures({layers: ['unclustered-point']})
@@ -79,10 +82,9 @@
           bus.$emit(MAP_ZOOMED, event)
         })
       },
-      goToCoordinatesIfNeeded() {
+      goToCoordinatesIfNeeded(map) {
         if (!this.$route.params.coordinates) return
-        this.mapOptions = mapOptions(this.$route.params.coordinates.split(','))
-        this.mapOptions.zoom = CLUSTER_MAX_ZOOM +1
+        flyToCoordinates(map, this.$route.params.coordinates)
       },
       openDetailIfNeeded(map) {
         if (!this.$route.params.workId) return

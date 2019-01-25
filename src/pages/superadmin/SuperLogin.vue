@@ -23,9 +23,6 @@
     >
       Enter
     </q-btn>
-    <div>
-      <img src="/statics/asalto.gif"/>
-    </div>
     <!--<p><router-link to="/signup">-->
       <!--New Here? Create a new account-->
     <!--</router-link></p>-->

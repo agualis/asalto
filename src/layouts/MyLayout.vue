@@ -10,6 +10,7 @@
           flat
           dense
           round
+          data-test="menu-button"
           @click="leftDrawerOpen = !leftDrawerOpen"
           aria-label="Menu"
         >

@@ -1,6 +1,5 @@
 <template>
   <q-btn v-if="show"
-    data-test="fullscreen"
     round
     color="primary"
     @click="toggleFullscreenMode"
