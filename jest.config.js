@@ -28,6 +28,7 @@ module.exports =
     ],
     'moduleNameMapper': {
       '^vue$': 'vue/dist/vue.common.js',
+      '^@components/(.*)$': '<rootDir>/src/components/$1',
       '^@/(.*)$': '<rootDir>/src/$1',
       'quasar': 'quasar-framework/dist/umd/quasar.mat.umd.min.js'
     },
