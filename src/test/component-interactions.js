@@ -26,5 +26,10 @@ export const findMaskValueById = async (wrapper, elementId) => {
   return wrapper.find(elementId).vm.value
 }
 
+// We can choose our preferred one
 export const isDisabled = (wrapper, id) => wrapper.find(dataTestId(id)).html()
   .includes(`disabled="disabled"`)
+
+export const isButtonDisabled = (wrapper, id) => {
+  return find(wrapper, id).props('disabled') === true
+}

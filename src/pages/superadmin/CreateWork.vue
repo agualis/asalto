@@ -79,6 +79,7 @@
       <q-field orientation="vertical">
         <q-btn color="primary"
                :loading="loading"
+               data-test="create-work-button"
                :disabled="!canCreate"
                @click="createWork"
                inverted>
