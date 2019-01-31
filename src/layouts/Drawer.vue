@@ -81,7 +81,7 @@
 
 <script>
   import firebase from 'firebase'
-  import { logout } from '../plugins/firebase'
+  import { logout } from '../plugins/firebase-plugin'
 
   export default {
     props: {

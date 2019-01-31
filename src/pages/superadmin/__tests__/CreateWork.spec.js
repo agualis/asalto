@@ -2,8 +2,9 @@ import { mount } from '@vue/test-utils'
 import CreateWork from '../CreateWork'
 
 describe('CreateWork.vue', () => {
-  it('renders something', () => {
-    const wrapper = mount(CreateWork)
-    expect(wrapper.text()).toContain('hello')
+  it('renders title', () => {
+    // https://github.com/vuejs/vue-test-utils/issues/532
+    const wrapper = mount(CreateWork, { sync: false })
+    expect(wrapper.text()).toContain('Add New Shit')
   })
 })

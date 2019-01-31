@@ -9,7 +9,7 @@ module.exports = function (ctx) {
     plugins: [
       'i18n',
       'axios',
-      'firebase',
+      'firebase-plugin',
       'vuefire',
       'vue-croppie',
       'vue-geolocation',

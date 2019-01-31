@@ -2,7 +2,7 @@
   <q-page padding class="docs-input row justify-center">
     <div style="width: 500px; max-width: 90vw;">
       <p class="caption urban">Add New Shit</p>
-      'preview-{{imageUrl}}'
+      <!--'preview-{{imageUrl}}'-->
       <q-field
         icon="brush"
         label="Artwork Title"
@@ -33,7 +33,7 @@
         orientation="vertical"
        >
          <FirebaseUploader :disabled="!title"
-                           :firebase-storage="storageRef"
+                           :firebase-storage="$storageRef"
                            :multiple="false"
                            @uploaded="imageUploaded"
                            :name="fileNamePrefix"
@@ -91,8 +91,8 @@
 
 <script>
   import firebase from 'firebase'
-  const storage = firebase.storage()
-  const storageRef = storage.ref('asalto')
+  // const storage = firebase.storage()
+  // const storageRef = storage.ref('asalto')
   import FirebaseUploader from '@components/upload/FirebaseUploader'
   import { openURL } from 'quasar'
   import { createWork } from '../../components/works'
@@ -108,7 +108,6 @@
         author: null,
         imageUrl: null,
         url: '',
-        storageRef: storageRef,
         latitude: null,
         longitude: null,
         description: null,

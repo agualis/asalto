@@ -105,11 +105,14 @@
 
 <script>
   import FrameMixin from 'quasar/src/mixins/input-frame'
-  import { humanStorageSize } from 'quasar/src/utils/format'
+  import { utils } from 'quasar'
+  // I need to use syntax to find humanStorageSize in jest tests
+  const humanStorageSize = utils.format.humanStorageSize
   import CropModal from '@components/upload/CropModal'
   import { createPreviewUrl } from '../works'
   import { readFileAsBlob, readFileAsDataUrl } from './async-files'
   import { generateImageFileName } from './images'
+
 
 
   function initFile(file) {
