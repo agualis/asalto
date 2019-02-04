@@ -1,4 +1,5 @@
 import { resolvePromises } from '@/test/test-utils'
+import { harcodedMarioBlob } from './test-utils'
 
 const dataTestId = (id) => `[data-test="${id}"]`
 
@@ -12,10 +13,11 @@ export const findAll = (wrapper, id) => wrapper.findAll(dataTestId(id))
 
 export const find = (wrapper, id) => wrapper.find(dataTestId(id))
 
-export const getInputValue = (wrapper, id) => wrapper.find(dataTestId(id)).element.value
-export const getQInputValue = (wrapper, id) => wrapper.find(dataTestId(id)).find('input').element.value
-
-export const getInputTagValue = (wrapper, id) => wrapper.find(dataTestId(id))
+export const typeQTextValue = (wrapper, id, value) => {
+  find(wrapper, id).findAll('textarea').setValue(value)
+}
+export const typeQInputValue = (wrapper, id, value) => find(wrapper, id).find('input').setValue(value)
+export const getQInputValue = (wrapper, id) => find(wrapper, id).find('input').element.value
 
 export const writeInputValue = (wrapper, id, value) => {
   wrapper.find(dataTestId(id)).setValue(value)
@@ -27,9 +29,27 @@ export const findMaskValueById = async (wrapper, elementId) => {
 }
 
 // We can choose our preferred one
-export const isDisabled = (wrapper, id) => wrapper.find(dataTestId(id)).html()
-  .includes(`disabled="disabled"`)
+export const isDisabled = (wrapper, id) => {
+  return wrapper.find(dataTestId(id)).find('button').html()
+    .includes(`disabled="disabled"`)
+}
 
 export const isButtonDisabled = (wrapper, id) => {
-  return find(wrapper, id).props('disabled') === true
+  return find(wrapper, id).props('disable')
+}
+
+export const uploadFile = (wrapper, dataTestId) => {
+
+  const testFile = new File([harcodedMarioBlob()],
+    'mario.png',
+    {type: "image/png", lastModifiedDate: new Date()}
+  )
+
+  // This will not work if you use jest as jsdom does not support DataTransfer
+  // const dataTransfer = new DataTransfer()
+  // dataTransfer.items.add(testFile)
+  // find(wrapper, dataTestId).element.files = dataTransfer.files
+
+  find(wrapper, dataTestId).element.files = new FileList()
+
 }
