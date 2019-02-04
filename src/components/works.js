@@ -1,4 +1,4 @@
-export function createWork({title, author, imageName, longitude, latitude, description}) {
+export function createWorkPayload({title, author, imageUrl, longitude, latitude, description}) {
   const uid = 'uid' + Date.now().toString()
   return {
     type: 'Feature',
@@ -8,9 +8,9 @@ export function createWork({title, author, imageName, longitude, latitude, descr
     properties: {
       uid
     },
-    imageUrls: [imageName],
-    imageUrl: imageName,
-    previewUrl: createPreviewUrl(imageName),
+    imageUrls: [imageUrl],
+    imageUrl: imageUrl,
+    previewUrl: createPreviewUrl(imageUrl),
     geometry: {
       type: 'Point',
       coordinates: [longitude, latitude]

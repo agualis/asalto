@@ -1,6 +1,7 @@
 import firebase from 'firebase'
 import firebaseApp from 'firebase/app'
 import 'firebase/firestore'
+import { WorksRepository } from './works-repository'
 // import VueFire from 'vuefire'
 
 export const config = {
@@ -20,6 +21,7 @@ db.settings(settings)
 export default ({ app, router, Vue }) => {
   // Vue.use(VueFire)
   Vue.prototype.$db = db
+  Vue.prototype.$worksRepository = new WorksRepository(db)
   const storage = firebase.storage()
   Vue.prototype.$storageRef = storage.ref('asalto')
 }

@@ -47,10 +47,8 @@
         icon="description"
       >
         <q-input v-model="description"
-                 class="q-ma-xs"
+                 class="q-ma-xs description"
                  data-test="new-artwork-description"
-                 color="primary"
-                 rows="5"
                  type="textarea" />
 
       </q-field>
@@ -70,6 +68,7 @@
                  v-model="longitude"/>
         <q-btn flat
                data-test="open-gmaps-geolocation"
+               icon="map"
                @click="openGoogleMapsUrl">
             Check in google maps
         </q-btn>
@@ -81,7 +80,7 @@
                :loading="loading"
                data-test="create-work-button"
                :disabled="!canCreate"
-               @click="createWork"
+               @click="createArtWork"
                inverted>
           Create
         </q-btn>
@@ -91,13 +90,9 @@
 </template>
 
 <script>
-  import firebase from 'firebase'
-  // const storage = firebase.storage()
-  // const storageRef = storage.ref('asalto')
   import FirebaseUploader from '@components/upload/FirebaseUploader'
   import { openURL } from 'quasar'
-  import { createWork } from '../../components/works'
-  import { ARTWORKS } from '../../infrastructure/db'
+  import { createWorkPayload } from '../../components/works'
 
   export default {
     components: {
@@ -128,19 +123,11 @@
       openGoogleMapsUrl() {
         openURL(`http://maps.google.com/maps?q=${this.latitude},${this.longitude}`)
       },
-      async createWork() {
-        this.artwork = createWork({
-          title: this.title,
-          author: this.author,
-          imageUrl: this.imageUrl,
-          description: this.description,
-          latitude: this.latitude,
-          longitude: this.longitude
-        })
+      async createArtWork() {
         this.loading = true
-        await this.$db.collection(ARTWORKS).add(this.artwork)
+        await this.$worksRepository.add(createWorkPayload(this))
         this.loading = false
-        this.$q.notify('Congrats, you created a new artwork!')
+        this.$notify('Congrats, you created a new artwork!')
         this.$router.replace('/')
       }
     },
@@ -157,3 +144,12 @@
     }
   }
 </script>
+
+<!--<style lang="stylus" scoped>-->
+  <!--@import '~variables'-->
+
+  <!--.description {-->
+    <!--background-color: alpha($primary, 30%);-->
+    <!--border: 1px solid #888;-->
+  <!--}-->
+<!--</style>-->
