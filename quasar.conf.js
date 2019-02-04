@@ -13,7 +13,8 @@ module.exports = function (ctx) {
       'vuefire',
       'vue-croppie',
       'vue-geolocation',
-      'vue-progressive-image'
+      'vue-progressive-image',
+      'quasar-utils'
     ],
     css: [
       'app.styl'

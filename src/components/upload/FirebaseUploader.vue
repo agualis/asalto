@@ -105,9 +105,6 @@
 
 <script>
   import FrameMixin from 'quasar/src/mixins/input-frame'
-  import { utils } from 'quasar'
-  // I need to use syntax to find humanStorageSize in jest tests
-  const humanStorageSize = utils.format.humanStorageSize
   import CropModal from '@components/upload/CropModal'
   import { createPreviewUrl } from '../works'
   import { readFileAsBlob, readFileAsDataUrl } from './async-files'
@@ -153,9 +150,7 @@
       color: {
         type: String,
         default: 'primary'
-      },
-
-
+      }
     },
     data() {
       return {
@@ -178,10 +173,10 @@
         return this.queue.length
       },
       label() {
-        const total = humanStorageSize(this.totalSize)
+        const total = this.$humanStorageSize(this.totalSize)
         if (!this.uploading && this.files[0] && this.files[0].__doneUploading) return ''
         return this.uploading
-          ? `${(this.progress).toFixed(2)}% (${humanStorageSize(this.uploadedSize)} / ${total})`
+          ? `${(this.progress).toFixed(2)}% (${this.$humanStorageSize(this.uploadedSize)} / ${total})`
           : `${this.length} (${total})`
       },
       progress() {
@@ -212,7 +207,7 @@
         files = files.filter(file => !this.queue.some(f => file.name === f.name))
           .map(file => {
             initFile(file)
-            file.__size = humanStorageSize(file.size)
+            file.__size = this.$humanStorageSize(file.size)
 
             if (this.noThumbnails || !file.type.startsWith('image')) {
               this.queue.push(file)
