@@ -34,6 +34,10 @@ export const isDisabled = (wrapper, id) => {
     .includes(`disabled="disabled"`)
 }
 
+export const isEnabled = (wrapper, id) => {
+  return !isDisabled(wrapper, id)
+}
+
 export const isButtonDisabled = (wrapper, id) => {
   return find(wrapper, id).props('disable')
 }
