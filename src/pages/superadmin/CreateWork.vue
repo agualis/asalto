@@ -1,7 +1,7 @@
 <template>
   <q-page padding class="docs-input row justify-center">
     <div style="width: 500px; max-width: 90vw;">
-      <p class="caption urban">Add New Shit</p>
+      <p class="caption urban">Add New Artwork</p>
       <!--'preview-{{imageUrl}}'-->
       <q-field
         icon="brush"
