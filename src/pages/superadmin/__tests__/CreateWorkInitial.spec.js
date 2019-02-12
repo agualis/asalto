@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { resolvePromises } from '../../../test/test-utils'
 import CreateWork from '../CreateWork'
+import CreateWorkEmpty from '../CreateWorkEmpty'
 import { Wrapper } from './Wrapper'
 Vue.config.silent = true
+
+const fakeCoordinates = { lat: -0.8862059, lng: 41.6525171 }
 
 const newArtWork = {
   title: 'VueJS Graffiti',
@@ -13,13 +15,11 @@ const newArtWork = {
   imageUrl: 'http://firebase.com/fake-vue-image.png'
 }
 
-const fakeCoordinates = { lat: -0.8862059, lng: 41.6525171 }
-
 describe('CreateWork page', () => {
+  const worksRepositoryMock = { add: jest.fn() }
   let notifySpy = jest.fn(() => Promise.resolve({}))
   const routerSpy = new VueRouter()
   routerSpy.replace = jest.fn()
-  const worksRepositoryMock = { add: jest.fn() }
   let page
   beforeEach(() => {
     page = Wrapper(CreateWork)
@@ -29,37 +29,38 @@ describe('CreateWork page', () => {
       .withRouter(routerSpy)
       .build()
   })
+    // page = Wrapper(CreateWork)
+    //   .withFakeGeolocation(Vue, fakeCoordinates)
+    //   .withWorksRepository(worksRepositoryMock)
+    //   .withNotifier(notifySpy)
+    //   .withRouter(routerSpy)
+    //   .build()
 
-  it('matches snapshot', () => {
-    page.matchesSnapshot()
-  })
-
-  it('renders title', () => {
+  it('renders title (lets start with en Empty component (CreateWorkEmpty))', () => {
+    page = Wrapper(CreateWorkEmpty).build()
     expect(page.text()).toContain('Add New Artwork')
   })
 
-  it('shows coordinates latitude', async () => {
+  it('shows geo-coordinates',() => {
+    //new-artwork-latitude
     expect(page.getInputValue('new-artwork-latitude')).toContain(fakeCoordinates.lat)
     expect(page.getInputValue('new-artwork-longitude')).toContain(fakeCoordinates.lng)
   })
 
-  it('shows disabled create button by default', async () => {
-    expect(page.isDisabled('create-work-button')).toBeTruthy()
+  it('shows disabled create button by default (lets start with an empty component)', () => {
   })
 
-  it('the creation button is enabled when all mandatory fields are filled', async () => {
-    fillAllFields(page)
+  it('the creation button is enabled when all mandatory fields are filled', () => {
+    page.typeQInputValue('new-artwork-title', newArtWork.title)
+    page.typeQInputValue('new-artwork-author', newArtWork.author)
+    page.typeQTextValue('new-artwork-description', newArtWork.description)
+    page.uploadFakeImage(newArtWork.imageUrl)
+
     expect(page.isEnabled('create-work-button')).toBeTruthy()
+
   })
 
-  it('the new artwork is created in the backend OLD', async () => {
-    fillAllFields(page)
-    page.clickButton('create-work-button')
-    expect(page.worksRepository.add)
-      .toHaveBeenCalledWith(expect.objectContaining(newArtWork))
-  })
-
-  it('the new artwork is created in the backend NEW', async () => {
+  it('the new artwork is created in the backend', () => {
     fillAllFields(page)
     page.clickButton('create-work-button')
 
@@ -67,20 +68,18 @@ describe('CreateWork page', () => {
       .toHaveBeenCalledWith(expect.objectContaining(newArtWork))
   })
 
-  it('a notification is shown after creating the new artwork', async () => {
+  it('a notification is shown after creating the new artwork', () => {
     fillAllFields(page)
     page.clickButton('create-work-button')
-    await resolvePromises()
 
     expect(notifySpy).toHaveBeenCalledWith('Congrats, you created a new artwork!')
   })
 
-  it('I am redirected to the root page after creating the new artwork', async () => {
+  xit('I am redirected to the map page after creating the new artwork',  () => {
     fillAllFields(page)
     page.clickButton('create-work-button')
-    await resolvePromises()
 
-    expect(routerSpy.replace).toHaveBeenCalledWith('/')
+    expect(routerSpy).toHaveBeenCalledWith('/')
   })
 })
 

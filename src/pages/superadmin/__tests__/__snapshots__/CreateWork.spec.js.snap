@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateWork page matches snapshot 1`] = `
+<div>
+  <div style="width: 500px; max-width: 90vw;">
+    <p class="caption urban">Add New Artwork</p>
+    <div class="q-field row no-wrap items-start q-field-responsive"><i aria-hidden="true" class="q-icon q-field-icon q-field-margin material-icons">brush</i>
+      <div class="row col">
+        <div class="q-field-label q-field-margin col-xs-12 col-sm-5">
+          <div class="q-field-label-inner row items-center">Artwork Title</div>
+        </div>
+        <div class="q-field-content col-xs-12 col-sm">
+          <div tabindex="-1" class="q-if row no-wrap relative-position q-input q-if-standard text-primary" data-test="new-artwork-title">
+            <div class="q-if-baseline">|</div>
+            <div class="q-if-inner col column">
+              <div class="row no-wrap relative-position"><input data-test="new-artwork-title" type="text" step="any" class="col q-input-target q-no-input-spinner ellipsis"></div>
+            </div>
+          </div>
+          <div class="q-field-bottom row no-wrap">
+            <div class="col text-transparent">|</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="q-field row no-wrap items-start q-field-responsive"><i aria-hidden="true" class="q-icon q-field-icon q-field-margin material-icons">face</i>
+      <div class="row col">
+        <div class="q-field-label q-field-margin col-xs-12 col-sm-5">
+          <div class="q-field-label-inner row items-center">Author</div>
+        </div>
+        <div class="q-field-content col-xs-12 col-sm">
+          <div tabindex="-1" class="q-if row no-wrap relative-position q-input q-if-standard text-primary" data-test="new-artwork-author">
+            <div class="q-if-baseline">|</div>
+            <div class="q-if-inner col column">
+              <div class="row no-wrap relative-position"><input data-test="new-artwork-author" type="text" step="any" class="col q-input-target q-no-input-spinner ellipsis"></div>
+            </div>
+          </div>
+          <div class="q-field-bottom row no-wrap">
+            <div class="col text-transparent">|</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="q-field row no-wrap items-start q-field-vertical"><i aria-hidden="true" class="q-icon q-field-icon q-field-margin material-icons">add_a_photo</i>
+      <div class="row col">
+        <div class="q-field-label q-field-margin col-12">
+          <div class="q-field-label-inner row items-center">Add one or more images</div>
+        </div>
+        <div class="q-field-content col-xs-12">
+          <div disabled="disabled">
+            <div class="modal fullscreen row maximized flex-center" style="display: none;">
+              <div class="modal-backdrop absolute-full"></div>
+              <div tabindex="-1" class="modal-content">
+                <div class="q-toolbar row no-wrap items-center relative-position q-toolbar-normal bg-primary text-white">
+                  <div class="q-toolbar-title">
+                    Asalto
+                    <div class="q-toolbar-subtitle">
+                      <div>Festival Internacional de Arte Urbano</div>
+                    </div>
+                  </div>
+                </div>
+                <h2>Select a representative preview image</h2> <button tabindex="0" type="button" class="q-btn inline relative-position q-btn-item non-selectable q-btn-rectangle q-focusable q-hoverable bg-primary text-white" data-test="crop-preview">
+                  <div class="q-focus-helper"></div>
+                  <div class="q-btn-inner row col items-center justify-center">
+                    Crop
+                  </div>
+                </button>
+                <div class="croppie-container">
+                  <div class="cr-boundary" aria-dropeffect="none"><img class="cr-image" alt="preview" aria-grabbed="false">
+                    <div class="cr-viewport cr-vp-square" style="width: 250px; height: 200px;" tabindex="0"></div>
+                    <div class="cr-overlay"></div>
+                  </div>
+                  <div class="cr-slider-wrap"><input class="cr-slider" type="range" step="0.0001" aria-label="zoom"></div>
+                </div>
+              </div>
+            </div>
+            <div tabindex="-1" class="q-if row no-wrap relative-position no-margin q-if-inverted q-if-has-content bg-primary text-white">
+              <div class="q-if-baseline">|</div>
+              <div class="q-if-inner col column">
+                <div class="row no-wrap relative-position">
+                  <div class="col row items-center q-input-target">0 (0.0 B)</div>
+                  <!---->
+                  <!---->
+                </div>
+              </div><i aria-hidden="true" class="q-icon q-uploader-pick-button q-if-control relative-position overflow-hidden material-icons">add<input type="file" data-test="upload-file" class="q-uploader-input absolute-full cursor-pointer"></i>
+            </div>
+            <div class="q-uploader-files scroll"></div>
+          </div>
+          <div class="q-field-bottom row no-wrap">
+            <div class="col text-transparent">|</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="q-field row no-wrap items-start q-field-vertical"><i aria-hidden="true" class="q-icon q-field-icon q-field-margin material-icons">description</i>
+      <div class="row col">
+        <div class="q-field-label q-field-margin col-12">
+          <div class="q-field-label-inner row items-center">Description</div>
+        </div>
+        <div class="q-field-content col-xs-12">
+          <div tabindex="-1" class="q-if row no-wrap relative-position q-input q-ma-xs description q-if-standard text-primary" data-test="new-artwork-description">
+            <div class="q-if-baseline">|</div>
+            <div class="q-if-inner col column">
+              <div class="row no-wrap relative-position">
+                <div class="col row relative-position"><object tabindex="-1" type="text/html" data="about:blank" aria-hidden="true" style="display: block; position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; height: 100%; width: 100%; overflow: hidden; pointer-events: none; z-index: -1;"></object><textarea rows="1" data-test="new-artwork-description" class="col q-input-target q-input-shadow absolute-top"></textarea><textarea rows="1" data-test="new-artwork-description" class="col q-input-target q-input-area" style="height: 0px; overflow-y: hidden;"></textarea></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="q-field row no-wrap items-start q-field-vertical q-field-floating"><i aria-hidden="true" class="q-icon q-field-icon q-field-margin material-icons">place</i>
+      <div class="row col">
+        <div class="q-field-label q-field-margin col-12">
+          <div class="q-field-label-inner row items-center">Coordinates</div>
+        </div>
+        <div class="q-field-content col-xs-12">
+          <div tabindex="-1" class="q-if row no-wrap relative-position q-input q-if-has-label q-if-standard q-if-has-content text-primary" data-test="new-artwork-latitude">
+            <div class="q-if-baseline">|</div>
+            <div class="q-if-inner col column">
+              <div class="row no-wrap relative-position">
+                <div class="q-if-label q-if-label-above">
+                  <div class="q-if-label-inner ellipsis">Latitude</div>
+                </div><input data-test="new-artwork-latitude" type="text" step="any" class="col q-input-target q-no-input-spinner ellipsis">
+              </div>
+              <div class="q-if-label-spacer">Latitude</div>
+            </div>
+          </div>
+          <div tabindex="-1" class="q-if row no-wrap relative-position q-input q-if-has-label q-if-standard q-if-has-content text-primary" data-test="new-artwork-longitude">
+            <div class="q-if-baseline">|</div>
+            <div class="q-if-inner col column">
+              <div class="row no-wrap relative-position">
+                <div class="q-if-label q-if-label-above">
+                  <div class="q-if-label-inner ellipsis">Longitude</div>
+                </div><input data-test="new-artwork-longitude" type="text" step="any" class="col q-input-target q-no-input-spinner ellipsis">
+              </div>
+              <div class="q-if-label-spacer">Longitude</div>
+            </div>
+          </div> <button tabindex="0" type="button" class="q-btn inline relative-position q-btn-item non-selectable q-btn-rectangle q-btn-flat q-focusable q-hoverable" data-test="open-gmaps-geolocation">
+            <div class="q-focus-helper"></div>
+            <div class="q-btn-inner row col items-center justify-center"><i aria-hidden="true" class="q-icon material-icons">map</i>
+              Check in google maps
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="q-field row no-wrap items-start q-field-vertical q-field-no-label q-field-no-input">
+      <div class="row col">
+        <div class="q-field-content col-xs-12"><button tabindex="0" type="button" class="q-btn inline relative-position q-btn-item non-selectable q-btn-rectangle q-focusable q-hoverable bg-primary text-white" data-test="create-work-button" disabled="disabled" inverted="">
+            <div class="q-focus-helper"></div>
+            <div class="q-btn-inner row col items-center justify-center">
+              Create
+            </div>
+          </button></div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

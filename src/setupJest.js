@@ -15,15 +15,7 @@ Vue.prototype.$humanStorageSize = utils.format.humanStorageSize
 
 import { components } from 'quasar'
 
-// console.log('YEYEYEEY', Quasar.components.QInput.name )
-
 useVueCroppie({ Vue })
-useFakeGeolocation({ Vue })
-
-//This would be part of the page object wrapper
-Vue.prototype.$worksRepository = {
-  add: jest.fn()
-}
 
 Vue.component('CropModal', FakeComponent)
 Vue.component('FirebaseUploader', FakeComponent)

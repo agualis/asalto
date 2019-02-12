@@ -19,6 +19,10 @@ export const typeQTextValue = (wrapper, id, value) => {
 export const typeQInputValue = (wrapper, id, value) => find(wrapper, id).find('input').setValue(value)
 export const getQInputValue = (wrapper, id) => find(wrapper, id).find('input').element.value
 
+export function uploadFakeImage(wrapper, imageUrl) {
+  wrapper.setData({imageUrl})
+}
+
 export const writeInputValue = (wrapper, id, value) => {
   wrapper.find(dataTestId(id)).setValue(value)
 }

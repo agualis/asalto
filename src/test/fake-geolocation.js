@@ -1,5 +1,3 @@
-export const fakeCoordinates = { lat: -0.8862059, lng: 41.6525171 }
-
-export function useFakeGeolocation({ Vue }) {
-  Vue.prototype.$getLocation = () => Promise.resolve(fakeCoordinates)
+export function useFakeGeolocation(wrapper, fakeCoordinates) {
+  wrapper.vm.$getLocation = () => Promise.resolve(fakeCoordinates)
 }

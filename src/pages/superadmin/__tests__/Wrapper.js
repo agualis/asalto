@@ -1,12 +1,13 @@
 import { createLocalVue, mount as _mount, shallow as _shallow } from '@vue/test-utils'
 import VueRouter from 'vue-router'
+import { Page } from './Page'
 
 export function Wrapper(component) {
   let mocks = {}
   const localVue = createLocalVue()
   localVue.use(VueRouter)
-  return { mount, shallow, withProps, withListeners, withSlots, withRoute,
-    withStubs, withStore, withCleanStore, withNotifier, withRouter, config }
+  return { build, mount, shallow, withProps, withListeners, withSlots, withRoute,
+    withStubs, withStore, withFakeGeolocation, withWorksRepository, withNotifier, withRouter, config }
 
   function withProps(props) {
     this.props = props
@@ -18,15 +19,15 @@ export function Wrapper(component) {
     return this
   }
 
-  function withCleanStore() {
-    // resetStateAndDisableDispatch(store)
-    // this.withStore(store)
-    return this
-  }
 
   function mount() {
     const wrapper = _mount(component, this.config())
+    wrapper.vm.$worksRepository = this.worksRepository
     return wrapper
+  }
+
+  function build() {
+    return new Page(this.mount())
   }
 
   function shallow() {
@@ -58,6 +59,15 @@ export function Wrapper(component) {
     return this
   }
 
+  function withFakeGeolocation(Vue, fakeCoordinates) {
+    mocks['$getLocation'] = () => Promise.resolve(fakeCoordinates)
+    return this
+  }
+
+  function withWorksRepository(worksRepository) {
+    this.worksRepository = worksRepository
+    return this
+  }
   function withNotifier(notifySpy) {
     mocks['$notify'] = notifySpy
     // wrapper.vm.$notify = notifySpy
